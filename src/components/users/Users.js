@@ -4,7 +4,7 @@ import Heading from '../layout/Heading'
 function Users() {
     return (
         <div>
-            <Heading title="User list" />
+            <Heading headingLevel="h1">User List</Heading>
             <p>The list of users.</p>
         </div>
     )

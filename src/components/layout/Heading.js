@@ -1,11 +1,9 @@
 import React from 'react'
 
-function Heading({ title }) {
-    return (
-        <div>
-            <h1>{title}</h1>
-        </div>
-    )
+function Heading({ headingLevel, children }) {
+    const HTag = headingLevel
+
+    return <HTag>{children}</HTag>
 }
 
 export default Heading

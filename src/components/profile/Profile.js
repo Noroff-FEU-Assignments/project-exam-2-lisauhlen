@@ -4,7 +4,7 @@ import Heading from '../layout/Heading'
 function Profile() {
     return (
         <div>
-            <Heading title="Your Profile" />
+            <Heading headingLevel="h1">Profile page</Heading>
             <p>This is your profile page.</p>
         </div>
     )

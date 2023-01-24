@@ -4,7 +4,7 @@ import Heading from '../layout/Heading'
 function CreatePost() {
     return (
         <div>
-            <Heading title="Create New Post" />
+            <Heading headingLevel="h1">Create Post</Heading>
             <p>The page for creating new posts.</p>
         </div>
     )
