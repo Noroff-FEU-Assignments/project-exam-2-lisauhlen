@@ -13,6 +13,7 @@ import Users from './components/users/Users'
 import CreatePost from './components/createPost/CreatePost'
 import Profile from './components/profile/Profile'
 import SinglePost from './components/home/SinglePost'
+import SingleUser from './components/users/SingleUser'
 
 import './App.css'
 
@@ -46,6 +47,7 @@ function App() {
                     <Route path="/post" element={<CreatePost />} />{' '}
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/detail/:id" element={<SinglePost />} />
+                    <Route path="/users/:name" element={<SingleUser />} />
                 </Routes>
             </Container>
         </Router>

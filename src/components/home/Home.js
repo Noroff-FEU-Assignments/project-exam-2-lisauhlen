@@ -8,9 +8,10 @@ import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { feedError } from '../common/ErrorMessages'
 
-const postFilter = '?limit=40&_author=true&_reactions=true&_comments=true'
+export const feedFilter =
+    '?limit=40&_author=true&_reactions=true&_comments=true'
 
-const url = BASE_URL + socialPosts + postFilter
+const url = BASE_URL + socialPosts + feedFilter
 
 let token = null
 
@@ -60,13 +61,18 @@ function Home() {
                             <img
                                 src={post.author.avatar}
                                 className="avatar-image"
+                                alt=""
                             />
                             <p>{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>
-                        <img src={post.media} />
+                        <img src={post.media} alt="" />
                         <Heading headingLevel="h2">{post.title}</Heading>
                         <p>{post.body}</p>
+                        <div>
+                            <p>Comments: {post._count.comments}</p>
+                            <p>❤️ {post._count.reactions}</p>
+                        </div>
                     </Link>
                 )
             })}
