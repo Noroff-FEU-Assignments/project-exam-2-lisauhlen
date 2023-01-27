@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, socialUsers } from '../../constants/api/api'
@@ -7,23 +7,21 @@ import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { userListError } from '../common/ErrorMessages'
+import AuthContext from '../../context/AuthContext'
 
 const postFilter = '?limit=40&_followers=true&_following=true'
 
 const url = BASE_URL + socialUsers + postFilter
 
-let token = null
-
 function Users() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-
-    token = localStorage.getItem('token')
+    const [auth, setAuth] = useContext(AuthContext)
 
     const options = {
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${auth.accessToken}`,
         },
     }
 

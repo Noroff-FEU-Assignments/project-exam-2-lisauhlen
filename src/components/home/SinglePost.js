@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
@@ -7,21 +7,19 @@ import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError } from '../common/ErrorMessages'
 import Heading from '../layout/Heading'
+import AuthContext from '../../context/AuthContext'
 
 const postFilter = '?_author=true&_comments=true&_reactions=true'
-
-let token = null
 
 function SinglePost() {
     const [post, setPost] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-
-    token = localStorage.getItem('token')
+    const [auth, setAuth] = useContext(AuthContext)
 
     const options = {
         headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${auth.accessToken}`,
         },
     }
 
