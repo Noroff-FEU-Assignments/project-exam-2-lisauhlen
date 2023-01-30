@@ -34,7 +34,7 @@ function SingleUserPosts() {
 
     useEffect(
         function () {
-            async function getUser() {
+            async function getUserPosts() {
                 try {
                     const response = await axios(url, options)
                     console.log(response.data)
@@ -46,7 +46,7 @@ function SingleUserPosts() {
                     setLoading(false)
                 }
             }
-            getUser()
+            getUserPosts()
         },
         [url]
     )

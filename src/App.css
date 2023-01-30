@@ -6,6 +6,9 @@ img {
     border-radius: 50%;
 }
 
+input {
+    display: block;
+}
 /* Loader styling */
 
 .loader {

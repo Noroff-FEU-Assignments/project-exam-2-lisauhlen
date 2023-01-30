@@ -13,6 +13,7 @@ import Profile from './components/profile/Profile'
 import SinglePost from './components/home/SinglePost'
 import SingleUser from './components/users/SingleUser'
 
+
 import './App.css'
 
 function App() {
@@ -22,15 +23,12 @@ function App() {
                 <Navigation />
                 <Container>
                     <Routes>
-                        <Route path="/" element={<Home />} />{' '}
+                        <Route path="/" element={<Home />} />
                         <Route path="/users" element={<Users />} />{' '}
                         <Route path="/post" element={<CreatePost />} />{' '}
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/register" element={<Register />} />
-                        <Route
-                            path="/register/login"
-                            element={<NewUserLogin />}
-                        />
+                        <Route path="/register/login" element={<NewUserLogin />} />
                         <Route path="/login" element={<Login />} />
                         <Route path="/detail/:id" element={<SinglePost />} />
                         <Route path="/users/:name" element={<SingleUser />} />

@@ -17,3 +17,6 @@ export const singleUserError =
 // Error message for failed API call to display a single user's posts
 export const singleUserPostsError =
     "We were unable to display this user's posts. Please try again later."
+
+// Error message for failed API call to display the user's profile
+export const profileError = "We were unable to load your profile. Please try again later."

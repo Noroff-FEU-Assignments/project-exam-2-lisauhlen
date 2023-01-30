@@ -24,7 +24,7 @@ function Navigation() {
                             <NavLink to="/post" className="nav-link">
                                 Post
                             </NavLink>
-                            <NavLink to="/profile" className="nav-link">
+                            <NavLink to="/profile/" className="nav-link">
                                 {' '}
                                 Profile{' '}
                             </NavLink>
