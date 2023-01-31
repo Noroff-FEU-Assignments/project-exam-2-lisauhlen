@@ -71,20 +71,22 @@ function SingleUserPosts() {
         <div>
             {posts.map(function (post) {
                 return (
-                    <Link to={`../../detail/${post.id}`} key={post.id}>
+                    <div key={post.id}>
                         <div>
-                            <img src={post.author.avatar} alt="" />
+                            <img src={post.author.avatar} className="avatar-image" alt="" />
                             <p>{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>
-                        <img src={post.media} alt="" />
-                        <Heading headingLevel="h2">{post.title}</Heading>
-                        <p>{post.body}</p>
-                        <div>
-                            <p>Comments: {post._count.comments}</p>
-                            <p>❤️ {post._count.reactions}</p>
-                        </div>
-                    </Link>
+                        <Link to={`../../detail/${post.id}`}>
+                            <img src={post.media} alt="" />
+                            <Heading headingLevel="h2">{post.title}</Heading>
+                            <p>{post.body}</p>
+                            <div>
+                                <p>Comments: {post._count.comments}</p>
+                                <p>❤️ {post._count.reactions}</p>
+                            </div>
+                        </Link>
+                    </div>
                 )
             })}
         </div>

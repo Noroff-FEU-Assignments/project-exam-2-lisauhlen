@@ -1,13 +1,13 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
-import { singleUserError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
+import PostMenu from '../postElements/PostMenu'
 
 const postFilter = '?limit=40&_followers=true&_following=true'
 
@@ -66,17 +66,22 @@ function ProfilePosts() {
             return (
                 <div key={post.id}>
                     <div>
-                        <img src={auth.avatar} alt="" />
+                        <img src={auth.avatar} className="avatar-image" alt="" />
                         <p>{auth.name}</p>
                         <p>{post.updated}</p>
                     </div>
-                    <img src={post.media} alt="" />
-                    <Heading headingLevel="h2">{post.title}</Heading>
-                    <p>{post.body}</p>
-                    <div>
-                        <p>Comments: {post._count.comments}</p>
-                        <p>❤️ {post._count.reactions}</p>
+                    <div className="post-menu">
+                        <PostMenu postId={post.id} />
                     </div>
+                    <Link to={`../../detail/${post.id}`}>
+                        <img src={post.media} alt="" />
+                        <Heading headingLevel="h2">{post.title}</Heading>
+                        <p>{post.body}</p>
+                        <div>
+                            <p>Comments: {post._count.comments}</p>
+                            <p>❤️ {post._count.reactions}</p>
+                        </div>
+                    </Link>
                 </div>
             )
         })}

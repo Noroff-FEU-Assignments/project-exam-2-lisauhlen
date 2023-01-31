@@ -8,6 +8,7 @@ import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { feedError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
+import PostMenu from '../postElements/PostMenu'
 
 export const feedFilter =
     '?limit=40&_author=true&_reactions=true&_comments=true'
@@ -49,12 +50,14 @@ function Home() {
         return <ErrorComponent>{feedError}</ErrorComponent>
     }
 
+    
+
     return (
         <div>
             <Heading headingLevel="h1">Charlie</Heading>
             {posts.map(function (post) {
                 return (
-                    <Link to={`detail/${post.id}`} key={post.id}>
+                    <div key={post.id}>
                         <div>
                             <img
                                 src={post.author.avatar}
@@ -64,14 +67,19 @@ function Home() {
                             <p>{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>
-                        <img src={post.media} alt="" />
-                        <Heading headingLevel="h2">{post.title}</Heading>
-                        <p>{post.body}</p>
-                        <div>
-                            <p>Comments: {post._count.comments}</p>
-                            <p>❤️ {post._count.reactions}</p>
+                        <div className={post.author.name === auth.name ? "post-menu" : "hide-menu"}>
+                            <PostMenu postId={post.id}/>
                         </div>
-                    </Link>
+                        <Link to={`detail/${post.id}`}>
+                            <img src={post.media} alt="" />
+                            <Heading headingLevel="h2">{post.title}</Heading>
+                            <p>{post.body}</p>
+                            <div>
+                                <p>Comments: {post._count.comments}</p>
+                                <p>❤️ {post._count.reactions}</p>
+                            </div>
+                        </Link>
+                    </div>
                 )
             })}
         </div>

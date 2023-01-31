@@ -9,12 +9,14 @@ import Login from './components/authentication/Login'
 import Home from './components/home/Home'
 import Users from './components/users/Users'
 import CreatePost from './components/createPost/CreatePost'
+import EditPost from './components/createPost/EditPost'
 import Profile from './components/profile/Profile'
 import SinglePost from './components/home/SinglePost'
 import SingleUser from './components/users/SingleUser'
 
 
 import './App.css'
+
 
 function App() {
     return (
@@ -26,6 +28,7 @@ function App() {
                         <Route path="/" element={<Home />} />
                         <Route path="/users" element={<Users />} />{' '}
                         <Route path="/post" element={<CreatePost />} />{' '}
+                        <Route path="/post/:id" element={<EditPost />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/register" element={<Register />} />
                         <Route path="/register/login" element={<NewUserLogin />} />
