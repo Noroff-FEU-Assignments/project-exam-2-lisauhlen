@@ -6,7 +6,7 @@ import axios from 'axios'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
-import { feedError } from '../common/ErrorMessages'
+import { createPostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import { urlMessage } from '../common/FormMessages'
 import { useNavigate } from 'react-router-dom'
@@ -70,10 +70,7 @@ function CreatePost() {
                 {postError && (
                     <FormError>
                         <div>
-                            <p>
-                                An error occurred. If it continues, please try
-                                again later.
-                            </p>
+                            <p>{createPostError}</p>
                             <p>Error message: {postError}</p>
                         </div>
                     </FormError>

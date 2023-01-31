@@ -20,3 +20,12 @@ export const singleUserPostsError =
 
 // Error message for failed API call to display the user's profile
 export const profileError = "We were unable to load your profile. Please try again later."
+
+// Error message for failed API call to create a post
+export const createPostError = "We were unable to upload this post. Please try again later."
+
+// Error message for failed API call to edit a post
+export const editPostError = "We were unable to update your post. Please try again later."
+
+// Error message for failed API call to delete a post
+export const deletePostError = "We were unable to delete this post. Please try again later."

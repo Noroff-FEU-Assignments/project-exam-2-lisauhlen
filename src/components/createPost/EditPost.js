@@ -1,12 +1,11 @@
 import React from 'react'
 import Heading from '../layout/Heading'
 import { useState, useEffect, useContext } from 'react'
-import { useParams, Link } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
-import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
-import { feedError } from '../common/ErrorMessages'
+import { singlePostError, editPostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import { urlMessage } from '../common/FormMessages'
 import { useNavigate } from 'react-router-dom'
@@ -23,6 +22,7 @@ const schema = yup.object().shape({
 
 function EditPost() {
     const [submitting, setSubmitting] = useState(false)
+    const [displayError, setDisplayError] = useState(null)
     const [editError, setEditError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
     const [value, setValue] = useState([])
@@ -55,6 +55,8 @@ function EditPost() {
                 setValue(response.data)
             } catch (error) {
                 console.log(error)
+                const errorMessage = error.response.data.errors[0].message
+                setDisplayError(errorMessage.toString())
             }
         }
         defaultValues()
@@ -99,15 +101,38 @@ function EditPost() {
         }
     }
 
+    if (displayError) {
+        return <ErrorComponent>
+                    <p>{singlePostError}</p>
+                    <p>Error message: {displayError}</p>
+                </ErrorComponent>
+    }
+
   return (
     <div>
         <Heading headingLevel="h1">Edit Post</Heading>
-
         <form onSubmit={handleSubmit(onSubmit)}>
-            <input {...register("title")} defaultValue={title} placeholder="Post Title" />
-            <textarea {...register("body")} defaultValue={body} placeholder="Post Text..."/>
-            <input {...register("media")} defaultValue={media} placeholder="Image URL"/>
-            <button>{submitting ? 'Publishing...' : 'Publish'}</button>
+            {editError && (
+                <FormError>
+                    <div>
+                        <p>{editPostError}</p>
+                        <p>Error message: {editError}</p>
+                    </div>
+                </FormError>
+            )}
+            <fieldset disabled={submitting}>
+                <input {...register("title")} defaultValue={title} placeholder="Post Title" />
+                {errors.title && (
+                        <FormError>{errors.title.message}</FormError>
+                    )}
+                <textarea {...register("body")} defaultValue={body} placeholder="Post Text..."/>
+                <input {...register("media")} defaultValue={media} placeholder="Image URL"/>
+                {errors.media && (
+                        <FormError>{errors.media.message}</FormError>
+                    )}
+                <p>{urlMessage}</p>
+                <button>{submitting ? 'Publishing...' : 'Publish'}</button>
+            </fieldset>
         </form>
     </div>
   )
