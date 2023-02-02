@@ -8,6 +8,8 @@ import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { feedError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
+import PostMenu from '../postElements/PostMenu'
+import CountReactions from '../postElements/CountReactions'
 
 export const feedFilter =
     '?limit=40&_author=true&_reactions=true&_comments=true'
@@ -54,24 +56,35 @@ function Home() {
             <Heading headingLevel="h1">Charlie</Heading>
             {posts.map(function (post) {
                 return (
-                    <Link to={`detail/${post.id}`} key={post.id}>
+                    <div key={post.id}>
                         <div>
                             <img
                                 src={post.author.avatar}
                                 className="avatar-image"
                                 alt=""
                             />
-                            <p>{post.author.name}</p>
+                            <p className="username">{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>
-                        <img src={post.media} alt="" />
-                        <Heading headingLevel="h2">{post.title}</Heading>
-                        <p>{post.body}</p>
-                        <div>
-                            <p>Comments: {post._count.comments}</p>
-                            <p>❤️ {post._count.reactions}</p>
+                        <div
+                            className={
+                                post.author.name === auth.name
+                                    ? 'post-menu'
+                                    : 'hide-menu'
+                            }
+                        >
+                            <PostMenu postId={post.id} />
                         </div>
-                    </Link>
+                        <Link to={`detail/${post.id}`}>
+                            <img src={post.media} alt="" />
+                            <Heading headingLevel="h2">{post.title}</Heading>
+                            <p>{post.body}</p>
+                            <div>
+                                <p>Comments: {post._count.comments}</p>
+                                <CountReactions data={post.reactions} />
+                            </div>
+                        </Link>
+                    </div>
                 )
             })}
         </div>

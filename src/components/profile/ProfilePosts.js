@@ -1,16 +1,18 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
-import { singleUserPostsError } from '../common/ErrorMessages'
-import { feedFilter } from '../home/Home'
+import { profilePostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
+import PostMenu from '../postElements/PostMenu'
 
-function SingleUserPosts() {
+const postFilter = '?limit=40&_followers=true&_following=true'
+
+function ProfilePosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
@@ -22,47 +24,38 @@ function SingleUserPosts() {
         },
     }
 
-    let navigate = useNavigate()
+    const url =
+        BASE_URL + socialUsers + '/' + auth.name + '/posts/' + postFilter
 
-    const { name } = useParams()
-
-    if (!name) {
-        navigate('/')
-    }
-
-    const url = BASE_URL + socialUsers + '/' + name + '/posts/' + feedFilter
-
-    useEffect(
-        function () {
-            async function getUserPosts() {
-                try {
-                    const response = await axios(url, options)
-                    console.log(response.data)
-                    setPosts(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getPosts() {
+            try {
+                const response = await axios(url, options)
+                console.log(response.data)
+                setPosts(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getUserPosts()
-        },
-        [url]
-    )
+        }
+        getPosts()
+    }, [])
 
     if (loading) {
         return <Loader />
     }
 
     if (error) {
-        return <ErrorComponent>{singleUserPostsError}</ErrorComponent>
+        return <ErrorComponent>{profilePostError}</ErrorComponent>
     }
 
     if (posts.length === 0) {
         return (
             <div>
-                <p>This user hasn't posted anything yet.</p>
+                <p>You haven't posted anything yet.</p>
+                <Link to={`../post`}>Create your first post.</Link>
             </div>
         )
     }
@@ -74,12 +67,15 @@ function SingleUserPosts() {
                     <div key={post.id}>
                         <div>
                             <img
-                                src={post.author.avatar}
+                                src={auth.avatar}
                                 className="avatar-image"
                                 alt=""
                             />
-                            <p>{post.author.name}</p>
+                            <p>{auth.name}</p>
                             <p>{post.updated}</p>
+                        </div>
+                        <div className="post-menu">
+                            <PostMenu postId={post.id} />
                         </div>
                         <Link to={`../../detail/${post.id}`}>
                             <img src={post.media} alt="" />
@@ -97,4 +93,4 @@ function SingleUserPosts() {
     )
 }
 
-export default SingleUserPosts
+export default ProfilePosts
