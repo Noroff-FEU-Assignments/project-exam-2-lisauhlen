@@ -9,6 +9,7 @@ import ErrorComponent from '../common/ErrorComponent'
 import { feedError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
+import CountReactions from '../postElements/CountReactions'
 
 export const feedFilter =
     '?limit=40&_author=true&_reactions=true&_comments=true'
@@ -50,8 +51,6 @@ function Home() {
         return <ErrorComponent>{feedError}</ErrorComponent>
     }
 
-    
-
     return (
         <div>
             <Heading headingLevel="h1">Charlie</Heading>
@@ -64,11 +63,17 @@ function Home() {
                                 className="avatar-image"
                                 alt=""
                             />
-                            <p>{post.author.name}</p>
+                            <p className="username">{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>
-                        <div className={post.author.name === auth.name ? "post-menu" : "hide-menu"}>
-                            <PostMenu postId={post.id}/>
+                        <div
+                            className={
+                                post.author.name === auth.name
+                                    ? 'post-menu'
+                                    : 'hide-menu'
+                            }
+                        >
+                            <PostMenu postId={post.id} />
                         </div>
                         <Link to={`detail/${post.id}`}>
                             <img src={post.media} alt="" />
@@ -76,7 +81,7 @@ function Home() {
                             <p>{post.body}</p>
                             <div>
                                 <p>Comments: {post._count.comments}</p>
-                                <p>❤️ {post._count.reactions}</p>
+                                <CountReactions data={post.reactions} />
                             </div>
                         </Link>
                     </div>

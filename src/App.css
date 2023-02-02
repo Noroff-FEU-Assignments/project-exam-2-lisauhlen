@@ -6,10 +6,16 @@ img {
     border-radius: 50%;
     width: 40px;
 }
+.username {
+    font-weight: 700;
+}
 
 input,
 textarea {
     display: block;
+}
+.reply {
+    padding-left: 20px;
 }
 .post-menu {
     color: red;

@@ -73,7 +73,11 @@ function SingleUserPosts() {
                 return (
                     <div key={post.id}>
                         <div>
-                            <img src={post.author.avatar} className="avatar-image" alt="" />
+                            <img
+                                src={post.author.avatar}
+                                className="avatar-image"
+                                alt=""
+                            />
                             <p>{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>

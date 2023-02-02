@@ -6,6 +6,7 @@ import { BASE_URL, socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
+import { profilePostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 
@@ -23,7 +24,8 @@ function ProfilePosts() {
         },
     }
 
-    const url = BASE_URL + socialUsers + '/' + auth.name + "/posts/" + postFilter
+    const url =
+        BASE_URL + socialUsers + '/' + auth.name + '/posts/' + postFilter
 
     useEffect(function () {
         async function getPosts() {
@@ -46,47 +48,49 @@ function ProfilePosts() {
     }
 
     if (error) {
-        return <ErrorComponent>
-            {/* {singleUserPostsError} */}
-            An error occurred!
-            </ErrorComponent>
+        return <ErrorComponent>{profilePostError}</ErrorComponent>
     }
 
     if (posts.length === 0) {
         return (
             <div>
-                <p>This user hasn't posted anything yet.</p>
+                <p>You haven't posted anything yet.</p>
+                <Link to={`../post`}>Create your first post.</Link>
             </div>
         )
     }
 
-  return (
-    <div>
-        {posts.map(function (post) {
-            return (
-                <div key={post.id}>
-                    <div>
-                        <img src={auth.avatar} className="avatar-image" alt="" />
-                        <p>{auth.name}</p>
-                        <p>{post.updated}</p>
-                    </div>
-                    <div className="post-menu">
-                        <PostMenu postId={post.id} />
-                    </div>
-                    <Link to={`../../detail/${post.id}`}>
-                        <img src={post.media} alt="" />
-                        <Heading headingLevel="h2">{post.title}</Heading>
-                        <p>{post.body}</p>
+    return (
+        <div>
+            {posts.map(function (post) {
+                return (
+                    <div key={post.id}>
                         <div>
-                            <p>Comments: {post._count.comments}</p>
-                            <p>❤️ {post._count.reactions}</p>
+                            <img
+                                src={auth.avatar}
+                                className="avatar-image"
+                                alt=""
+                            />
+                            <p>{auth.name}</p>
+                            <p>{post.updated}</p>
                         </div>
-                    </Link>
-                </div>
-            )
-        })}
-    </div>
-  )
+                        <div className="post-menu">
+                            <PostMenu postId={post.id} />
+                        </div>
+                        <Link to={`../../detail/${post.id}`}>
+                            <img src={post.media} alt="" />
+                            <Heading headingLevel="h2">{post.title}</Heading>
+                            <p>{post.body}</p>
+                            <div>
+                                <p>Comments: {post._count.comments}</p>
+                                <p>❤️ {post._count.reactions}</p>
+                            </div>
+                        </Link>
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
 
 export default ProfilePosts

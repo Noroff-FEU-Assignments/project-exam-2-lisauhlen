@@ -14,9 +14,7 @@ import Profile from './components/profile/Profile'
 import SinglePost from './components/home/SinglePost'
 import SingleUser from './components/users/SingleUser'
 
-
 import './App.css'
-
 
 function App() {
     return (
@@ -31,7 +29,10 @@ function App() {
                         <Route path="/post/:id" element={<EditPost />} />
                         <Route path="/profile" element={<Profile />} />
                         <Route path="/register" element={<Register />} />
-                        <Route path="/register/login" element={<NewUserLogin />} />
+                        <Route
+                            path="/register/login"
+                            element={<NewUserLogin />}
+                        />
                         <Route path="/login" element={<Login />} />
                         <Route path="/detail/:id" element={<SinglePost />} />
                         <Route path="/users/:name" element={<SingleUser />} />

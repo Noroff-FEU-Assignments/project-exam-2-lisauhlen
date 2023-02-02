@@ -80,8 +80,11 @@ function CreatePost() {
                     {errors.title && (
                         <FormError>{errors.title.message}</FormError>
                     )}
-                    <textarea {...register('body')} placeholder="Post Text..." />
-                    <input {...register('media')}  placeholder="Image URL"/>
+                    <textarea
+                        {...register('body')}
+                        placeholder="Post Text..."
+                    />
+                    <input {...register('media')} placeholder="Image URL" />
                     {errors.media && (
                         <FormError>{errors.media.message}</FormError>
                     )}

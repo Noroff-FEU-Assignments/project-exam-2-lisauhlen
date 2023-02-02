@@ -31,7 +31,7 @@ function EditPost() {
 
     const { id } = useParams()
 
-    const url = BASE_URL + socialPosts + "/" + id
+    const url = BASE_URL + socialPosts + '/' + id
 
     const {
         register,
@@ -45,22 +45,25 @@ function EditPost() {
         headers: {
             Authorization: `Bearer ${auth.accessToken}`,
         },
-    }    
-    
-    useEffect(function() {
-        async function defaultValues() {
-            try {
-                const response = await axios(url, options)
-                console.log(response.data)
-                setValue(response.data)
-            } catch (error) {
-                console.log(error)
-                const errorMessage = error.response.data.errors[0].message
-                setDisplayError(errorMessage.toString())
+    }
+
+    useEffect(
+        function () {
+            async function defaultValues() {
+                try {
+                    const response = await axios(url, options)
+                    console.log(response.data)
+                    setValue(response.data)
+                } catch (error) {
+                    console.log(error)
+                    const errorMessage = error.response.data.errors[0].message
+                    setDisplayError(errorMessage.toString())
+                }
             }
-        }
-        defaultValues()
-    }, [url])
+            defaultValues()
+        },
+        [url]
+    )
 
     let title = value.title
     let body = value.body
@@ -69,7 +72,7 @@ function EditPost() {
     async function onSubmit(data) {
         setSubmitting(true)
         setEditError(null)
-        
+
         if (data.title) {
             title = data.title
         }
@@ -83,9 +86,9 @@ function EditPost() {
         }
 
         const newData = {
-            "title": title,
-            "body": body,
-            "media": media
+            title: title,
+            body: body,
+            media: media,
         }
 
         try {
@@ -102,40 +105,54 @@ function EditPost() {
     }
 
     if (displayError) {
-        return <ErrorComponent>
-                    <p>{singlePostError}</p>
-                    <p>Error message: {displayError}</p>
-                </ErrorComponent>
+        return (
+            <ErrorComponent>
+                <p>{singlePostError}</p>
+                <p>Error message: {displayError}</p>
+            </ErrorComponent>
+        )
     }
 
-  return (
-    <div>
-        <Heading headingLevel="h1">Edit Post</Heading>
-        <form onSubmit={handleSubmit(onSubmit)}>
-            {editError && (
-                <FormError>
-                    <div>
-                        <p>{editPostError}</p>
-                        <p>Error message: {editError}</p>
-                    </div>
-                </FormError>
-            )}
-            <fieldset disabled={submitting}>
-                <input {...register("title")} defaultValue={title} placeholder="Post Title" />
-                {errors.title && (
+    return (
+        <div>
+            <Heading headingLevel="h1">Edit Post</Heading>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                {editError && (
+                    <FormError>
+                        <div>
+                            <p>{editPostError}</p>
+                            <p>Error message: {editError}</p>
+                        </div>
+                    </FormError>
+                )}
+                <fieldset disabled={submitting}>
+                    <input
+                        {...register('title')}
+                        defaultValue={title}
+                        placeholder="Post Title"
+                    />
+                    {errors.title && (
                         <FormError>{errors.title.message}</FormError>
                     )}
-                <textarea {...register("body")} defaultValue={body} placeholder="Post Text..."/>
-                <input {...register("media")} defaultValue={media} placeholder="Image URL"/>
-                {errors.media && (
+                    <textarea
+                        {...register('body')}
+                        defaultValue={body}
+                        placeholder="Post Text..."
+                    />
+                    <input
+                        {...register('media')}
+                        defaultValue={media}
+                        placeholder="Image URL"
+                    />
+                    {errors.media && (
                         <FormError>{errors.media.message}</FormError>
                     )}
-                <p>{urlMessage}</p>
-                <button>{submitting ? 'Publishing...' : 'Publish'}</button>
-            </fieldset>
-        </form>
-    </div>
-  )
+                    <p>{urlMessage}</p>
+                    <button>{submitting ? 'Publishing...' : 'Publish'}</button>
+                </fieldset>
+            </form>
+        </div>
+    )
 }
 
 export default EditPost

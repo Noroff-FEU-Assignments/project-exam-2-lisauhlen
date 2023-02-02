@@ -7,15 +7,15 @@ import Loader from '../common/Loader'
 import Heading from '../layout/Heading'
 import ProfilePosts from './ProfilePosts'
 import ErrorComponent from '../common/ErrorComponent'
-import {profileError} from "../common/ErrorMessages"
+import { profileError } from '../common/ErrorMessages'
 
 function Profile() {
     const [profile, setProfile] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
-    
-    const url = BASE_URL + socialUsers + "/" + auth.name
+
+    const url = BASE_URL + socialUsers + '/' + auth.name
 
     const options = {
         headers: {
