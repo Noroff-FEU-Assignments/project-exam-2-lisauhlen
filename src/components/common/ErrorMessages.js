@@ -45,3 +45,11 @@ export const commentError =
 // Error message for failed API call to add a reaction to a post
 export const addReactionError =
     'We were unable to add your reaction to this post. Please try again later.'
+
+// Error message for failed API call to follow a user
+export const followUserError =
+    'Following this user is not possible at the moment. Please try again later.'
+
+// Error message for failed API call to unfollow a user
+export const unfollowUserError =
+    'Unfollowing this user is not possible at the moment. Please try again later.'

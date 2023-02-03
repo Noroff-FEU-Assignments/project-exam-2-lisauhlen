@@ -6,6 +6,7 @@ import axios from 'axios'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
 import { addReactionError } from '../common/ErrorMessages'
+import ErrorComponent from '../common/ErrorComponent'
 
 function ReactToPost() {
     const [auth, setAuth] = useContext(AuthContext)
@@ -62,10 +63,10 @@ function ReactToPost() {
             <Button onClick={HandleClick}>React with a ❤️</Button>
             <span>{reactionCount}</span>
             {reactionError ? (
-                <div>
+                <ErrorComponent>
                     <p>{addReactionError}</p>
                     <p>Error message: {reactionError}</p>
-                </div>
+                </ErrorComponent>
             ) : (
                 <></>
             )}

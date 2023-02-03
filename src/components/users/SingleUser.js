@@ -9,6 +9,7 @@ import ErrorComponent from '../common/ErrorComponent'
 import { singleUserError } from '../common/ErrorMessages'
 import SingleUserPosts from './SingleUserPosts'
 import AuthContext from '../../context/AuthContext'
+import FollowUnfollowUser from './FollowUnfollowUser'
 
 const postFilter = '?limit=40&_followers=true&_following=true'
 
@@ -69,9 +70,9 @@ function SingleUser() {
                 <img src={user.avatar} alt="" />
                 <p>{user.name}</p>
                 <div>
-                    <button>Follow</button>
+                    <FollowUnfollowUser data={user.followers} />
                     <p>{user.following.length} Following</p>
-                    <p>{user.followers.length} Followers</p>
+                    {/* <p>{user.followers.length} Followers</p> */}
                 </div>
             </div>
             <div>
