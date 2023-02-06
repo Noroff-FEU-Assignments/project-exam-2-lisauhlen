@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, Link } from 'react-router-dom'
 import axios from 'axios'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
 import Loader from '../common/Loader'
@@ -9,7 +9,7 @@ import { singlePostError } from '../common/ErrorMessages'
 import Heading from '../layout/Heading'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
-import WriteComment from '../postElements/WriteComment'
+import CommentSection from '../postElements/CommentSection'
 import ReactToPost from '../postElements/ReactToPost'
 
 const postFilter = '?_author=true&_comments=true&_reactions=true'
@@ -62,11 +62,11 @@ function SinglePost() {
 
     return (
         <div>
-            <div>
+            <Link to={`/users/${post.author.name}`}>
                 <img src={post.author.avatar} className="avatar-image" alt="" />
                 <p>{post.author.name}</p>
                 <p>{post.updated}</p>
-            </div>
+            </Link>
             <div
                 className={
                     post.author.name === auth.name ? 'post-menu' : 'hide-menu'
@@ -105,7 +105,7 @@ function SinglePost() {
             <div>
                 {/* <InteractionSection url={url}/> */}
                 <ReactToPost data={[post.reactions]} />
-                <WriteComment />
+                <CommentSection />
             </div>
         </div>
     )

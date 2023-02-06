@@ -59,7 +59,7 @@ function Home() {
             {posts.map(function (post) {
                 return (
                     <div key={post.id}>
-                        <div>
+                        <Link to={`/users/${post.author.name}`}>
                             <img
                                 src={post.author.avatar}
                                 className="avatar-image"
@@ -67,7 +67,7 @@ function Home() {
                             />
                             <p className="username">{post.author.name}</p>
                             <p>{post.updated}</p>
-                        </div>
+                        </Link>
                         <div
                             className={
                                 post.author.name === auth.name

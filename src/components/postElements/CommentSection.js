@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
 import AuthContext from '../../context/AuthContext'
@@ -98,7 +98,7 @@ function CommentSection() {
                             comment.replyToId ? 'reply' : ''
                         }`}
                     >
-                        <div>
+                        <Link to={`/users/${comment.author.name}`}>
                             <img
                                 src={comment.author.avatar}
                                 className="avatar-image"
@@ -106,7 +106,7 @@ function CommentSection() {
                             />
                             <p className="username">{comment.author.name}</p>
                             <p>{comment.updated}</p>
-                        </div>
+                        </Link>
                         <p>{comment.body}</p>
                     </div>
                 )
