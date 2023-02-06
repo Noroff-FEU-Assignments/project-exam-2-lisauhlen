@@ -77,7 +77,7 @@ function ProfilePosts() {
                         <div className="post-menu">
                             <PostMenu postId={post.id} />
                         </div>
-                        <Link to={`../../detail/${post.id}`}>
+                        <Link to={`/home/detail/${post.id}`}>
                             <img src={post.media} alt="" />
                             <Heading headingLevel="h2">{post.title}</Heading>
                             <p>{post.body}</p>

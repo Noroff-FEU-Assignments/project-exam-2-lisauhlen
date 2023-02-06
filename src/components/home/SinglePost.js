@@ -30,32 +30,27 @@ function SinglePost() {
 
     const { id } = useParams()
 
-    // let ownPost = "hide-menu"
-
     if (!id) {
-        navigate('/')
+        navigate('/home')
     }
 
     const url = BASE_URL + socialPosts + '/' + id + postFilter
 
-    useEffect(
-        function () {
-            async function getPost() {
-                try {
-                    const response = await axios(url, options)
-                    console.log(response.data)
-                    setPost(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getPost() {
+            try {
+                const response = await axios(url, options)
+                console.log(response.data)
+                setPost(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getPost()
-        },
-        [url]
-    )
+        }
+        getPost()
+    }, [])
 
     if (loading) {
         return <Loader />
@@ -64,10 +59,6 @@ function SinglePost() {
     if (error) {
         return <ErrorComponent>{singlePostError}</ErrorComponent>
     }
-
-    // if (post.author.name === auth.name) {
-    //     ownPost = "post-menu"
-    // }
 
     return (
         <div>
@@ -86,7 +77,7 @@ function SinglePost() {
             <img src={post.media} alt="" />
             <Heading headingLevel="h2">{post.title}</Heading>
             <p>{post.body}</p>
-            <div>
+            {/* <div>
                 {post.comments.map(function (comment) {
                     return (
                         <div
@@ -110,8 +101,9 @@ function SinglePost() {
                         </div>
                     )
                 })}
-            </div>
+            </div> */}
             <div>
+                {/* <InteractionSection url={url}/> */}
                 <ReactToPost data={[post.reactions]} />
                 <WriteComment />
             </div>

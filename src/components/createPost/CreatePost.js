@@ -53,7 +53,7 @@ function CreatePost() {
         try {
             const response = await axios.post(url, data, options)
             console.log(response.data)
-            navigate('/')
+            navigate('/home')
         } catch (error) {
             console.log(error.response.data)
             const errorMessage = error.response.data.errors[0].message

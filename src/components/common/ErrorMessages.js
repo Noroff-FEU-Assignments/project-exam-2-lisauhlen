@@ -18,6 +18,10 @@ export const singleUserError =
 export const singleUserPostsError =
     "We were unable to display this user's posts. Please try again later."
 
+// Error message for failed API call to display a post's comments
+export const displayCommentsError =
+    "We were unable to display this post's comments. Please try again later."
+
 // Error message for failed API call to display your own profile
 export const profileError =
     'We were unable to load your profile. Please try again later.'
@@ -53,3 +57,11 @@ export const followUserError =
 // Error message for failed API call to unfollow a user
 export const unfollowUserError =
     'Unfollowing this user is not possible at the moment. Please try again later.'
+
+// Error message for failed API call to update banner photo
+export const bannerError =
+    'We were unable to update your banner image. Please try again later.'
+
+// Error message for failed API call to update avatar image
+export const avatarError =
+    'We were unable to update your profile picture. Please try again later.'

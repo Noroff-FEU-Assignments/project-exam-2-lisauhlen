@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import axios from 'axios'
@@ -8,6 +8,7 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
 import FormError from '../common/FormError'
+import { displayCommentsError } from '../common/ErrorMessages'
 import { commentError } from '../common/ErrorMessages'
 
 const schema = yup.object().shape({
@@ -16,12 +17,15 @@ const schema = yup.object().shape({
 
 function CommentSection() {
     const [submitting, setSubmitting] = useState(false)
+    const [displayError, setDisplayError] = useState(null)
     const [postError, setPostError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
+    const [comments, setComments] = useState([])
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
@@ -34,20 +38,39 @@ function CommentSection() {
     }
 
     const { id } = useParams()
+    const postFilter = '?_author=true&_comments=true&_reactions=true'
 
-    const url = BASE_URL + socialPosts + '/' + id + '/comment'
+    const getUrl = BASE_URL + socialPosts + '/' + id + postFilter
+
+    const postUrl = BASE_URL + socialPosts + '/' + id + '/comment'
+
+    useEffect(function () {
+        async function displayComments() {
+            setDisplayError(null)
+
+            try {
+                const response = await axios(getUrl, options)
+                console.log(response.data)
+                setComments(response.data.comments)
+            } catch (error) {
+                console.log(error)
+                const errorMessage = error.response.data.errors[0].message
+                setDisplayError(errorMessage)
+            }
+        }
+        displayComments()
+    }, [])
 
     async function onSubmit(data) {
         setSubmitting(true)
         setPostError(null)
 
-        console.log(data)
-        console.log(url)
-
         try {
-            const response = await axios.post(url, data, options)
-            console.log(response)
-            window.location.reload(false)
+            const response = await axios.post(postUrl, data, options)
+            console.log(response.data)
+            const newComment = response.data
+            setComments([...comments, newComment])
+            reset()
         } catch (error) {
             console.log(error)
             const errorMessage = error.response.data.errors[0].message
@@ -59,6 +82,35 @@ function CommentSection() {
 
     return (
         <div>
+            {displayError && (
+                <FormError>
+                    <div>
+                        <p>{displayCommentsError}</p>
+                        <p>Error message: {displayError}</p>
+                    </div>
+                </FormError>
+            )}
+            {comments.map(function (comment) {
+                return (
+                    <div
+                        key={comment.id}
+                        className={`comment ${
+                            comment.replyToId ? 'reply' : ''
+                        }`}
+                    >
+                        <div>
+                            <img
+                                src={comment.author.avatar}
+                                className="avatar-image"
+                                alt=""
+                            />
+                            <p className="username">{comment.author.name}</p>
+                            <p>{comment.updated}</p>
+                        </div>
+                        <p>{comment.body}</p>
+                    </div>
+                )
+            })}
             <b>Comment section:</b>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset disabled={submitting}>

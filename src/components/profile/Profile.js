@@ -1,10 +1,12 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
+import Button from 'react-bootstrap/Button'
 import axios from 'axios'
 import { BASE_URL, socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
 import Loader from '../common/Loader'
 import Heading from '../layout/Heading'
+import Logout from './Logout'
 import ProfilePosts from './ProfilePosts'
 import ErrorComponent from '../common/ErrorComponent'
 import { profileError } from '../common/ErrorMessages'
@@ -39,6 +41,19 @@ function Profile() {
         getProfile()
     }, [])
 
+    let banner = profile.banner
+    let avatar = profile.avatar
+
+    if (!profile.banner) {
+        banner =
+            'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/banner-default_abhzmm.svg'
+    }
+
+    if (!profile.avatar) {
+        avatar =
+            'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/avatar-default_kbh9mo.svg'
+    }
+
     if (loading) {
         return <Loader />
     }
@@ -50,9 +65,12 @@ function Profile() {
     return (
         <div>
             <Heading headingLevel="h1">{profile.name}</Heading>
+            <Logout />
             <div>
-                <img src={profile.banner} alt="" />
-                <img src={profile.avatar} alt="" />
+                <img src={banner} alt="" />
+                <Button href={'/profile/update-images'}>+</Button>
+                <img src={avatar} alt="" />
+                <Button href={'/profile/update-images'}>+</Button>
                 <p>{profile.name}</p>
                 <div>
                     <p>{profile._count.following} Following</p>

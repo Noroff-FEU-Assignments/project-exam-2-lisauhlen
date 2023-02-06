@@ -15,6 +15,7 @@ import SinglePost from './components/home/SinglePost'
 import SingleUser from './components/users/SingleUser'
 
 import './App.css'
+import AvatarBannerUpdate from './components/profile/AvatarBannerUpdate'
 
 function App() {
     return (
@@ -23,18 +24,25 @@ function App() {
                 <Navigation />
                 <Container>
                     <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/home" element={<Home />} />
                         <Route path="/users" element={<Users />} />{' '}
                         <Route path="/post" element={<CreatePost />} />{' '}
                         <Route path="/post/:id" element={<EditPost />} />
                         <Route path="/profile" element={<Profile />} />
+                        <Route
+                            path="/profile/update-images"
+                            element={<AvatarBannerUpdate />}
+                        />
                         <Route path="/register" element={<Register />} />
                         <Route
                             path="/register/login"
                             element={<NewUserLogin />}
                         />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/detail/:id" element={<SinglePost />} />
+                        <Route path="/" element={<Login />} />
+                        <Route
+                            path="/home/detail/:id"
+                            element={<SinglePost />}
+                        />
                         <Route path="/users/:name" element={<SingleUser />} />
                     </Routes>
                 </Container>

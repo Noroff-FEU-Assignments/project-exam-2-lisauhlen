@@ -94,7 +94,7 @@ function EditPost() {
         try {
             const response = await axios.put(url, newData, options)
             console.log(response.data)
-            navigate('/')
+            navigate('/home')
         } catch (error) {
             console.log(error)
             const errorMessage = error.response.data.errors[0].message

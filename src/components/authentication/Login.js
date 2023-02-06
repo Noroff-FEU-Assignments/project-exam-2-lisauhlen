@@ -1,6 +1,6 @@
 import React from 'react'
-import { useState, useContext } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -20,6 +20,12 @@ function Login() {
     const [auth, setAuth] = useContext(AuthContext)
 
     const navigate = useNavigate()
+
+    useEffect(function () {
+        if (auth) {
+            navigate('/home')
+        }
+    }, [])
 
     const {
         register,
@@ -42,7 +48,7 @@ function Login() {
             const response = await axios.post(url, data)
             console.log(response.data)
             setAuth(response.data)
-            navigate('/')
+            navigate('/home')
         } catch (error) {
             console.log(error)
             const errorMessage = error.response.data.errors[0].message
@@ -87,6 +93,8 @@ function Login() {
                     <button>{submitting ? 'Logging in...' : 'Login'}</button>
                 </fieldset>
             </form>
+            <p>Don’t miss out on the fun!</p>
+            <Link to="/register">Register</Link>
         </div>
     )
 }
