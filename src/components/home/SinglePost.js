@@ -11,6 +11,8 @@ import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 import CommentSection from '../postElements/CommentSection'
 import ReactToPost from '../postElements/ReactToPost'
+import NewCommentSection from '../postElements/NewCommentSection'
+import AddReaction from '../postElements/AddReaction'
 
 const postFilter = '?_author=true&_comments=true&_reactions=true'
 
@@ -104,8 +106,10 @@ function SinglePost() {
             </div> */}
             <div>
                 {/* <InteractionSection url={url}/> */}
-                <ReactToPost data={[post.reactions]} />
-                <CommentSection />
+                {/* <ReactToPost data={[post.reactions]} /> */}
+                {/* <CommentSection /> */}
+                <AddReaction data={post} />
+                <NewCommentSection data={post} />
             </div>
         </div>
     )

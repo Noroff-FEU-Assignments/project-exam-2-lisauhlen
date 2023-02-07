@@ -48,7 +48,8 @@ function SingleUserPosts() {
             }
             getUserPosts()
         },
-        [url]
+        // [url]
+        []
     )
 
     if (loading) {

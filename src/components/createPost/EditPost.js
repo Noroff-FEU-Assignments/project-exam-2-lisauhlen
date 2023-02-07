@@ -62,7 +62,8 @@ function EditPost() {
             }
             defaultValues()
         },
-        [url]
+        // [url]
+        []
     )
 
     let title = value.title
