@@ -20,6 +20,7 @@ const url = BASE_URL + socialPosts
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
     body: yup.string(),
+    tags: yup.string(),
     // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.'),
 })
 
@@ -48,7 +49,16 @@ function CreatePost() {
         setSubmitting(true)
         setPostError(null)
 
-        console.log(data)
+        if (data.tags) {
+            data.tags = data.tags
+                .split(' ')
+                .join(',')
+                .split(',,')
+                .join(',')
+                .split(',')
+        } else {
+            data.tags = ['']
+        }
 
         try {
             const response = await axios.post(url, data, options)
@@ -84,6 +94,7 @@ function CreatePost() {
                         {...register('body')}
                         placeholder="Post Text..."
                     />
+                    <input {...register('tags')} placeholder="Post tags" />
                     <input {...register('media')} placeholder="Image URL" />
                     {errors.media && (
                         <FormError>{errors.media.message}</FormError>

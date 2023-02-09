@@ -11,7 +11,7 @@ import { followUserError, unfollowUserError } from '../common/ErrorMessages'
 function FollowUnfollowUser(followers) {
     const [auth, setAuth] = useContext(AuthContext)
     const [isFollowing, setIsFollowing] = useState(false)
-    const [followerNr, setFollowerNr] = useState(followers.data.length)
+    const [followerNr, setFollowerNr] = useState(followers.data)
     const [followError, setFollowError] = useState(null)
     const [unfollowError, setUnfollowError] = useState(null)
 
@@ -20,6 +20,8 @@ function FollowUnfollowUser(followers) {
             Authorization: `Bearer ${auth.accessToken}`,
         },
     }
+
+    console.log(followers.data)
 
     const { name } = useParams()
 
@@ -37,9 +39,11 @@ function FollowUnfollowUser(followers) {
         async function followThisUser() {
             try {
                 const response = await axios.put(url + '/follow', {}, options)
-                console.log(response)
+                console.log(response.data)
                 setIsFollowing(true)
-                setFollowerNr(followers.data.length + 1)
+                const newFollower = response.data
+                setFollowerNr([...followerNr, newFollower])
+                // setFollowerNr(followers.data.length + 1)
             } catch (error) {
                 console.log(error)
                 const errorMessage = error.response.data.errors[0].message
@@ -53,9 +57,15 @@ function FollowUnfollowUser(followers) {
         async function unfollowThisUser() {
             try {
                 const response = await axios.put(url + '/unfollow', {}, options)
-                console.log(response)
+                console.log(response.data)
                 setIsFollowing(false)
-                setFollowerNr(followers.data.length - 1)
+                const lostFollower = response.data
+                setFollowerNr(
+                    followerNr.filter(
+                        (follower) => follower.name !== lostFollower.name
+                    )
+                )
+                // setFollowerNr(followers.data.length - 1)
             } catch (error) {
                 console.log(error)
                 const errorMessage = error.response.data.errors[0].message
@@ -90,7 +100,8 @@ function FollowUnfollowUser(followers) {
                     </ErrorComponent>
                 )}
             </div>
-            <p>{followerNr} Followers</p>
+            {/* <p>{followerNr} Followers</p> */}
+            <p>{followerNr.length} Followers</p>
         </div>
     )
 }

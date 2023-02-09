@@ -10,6 +10,8 @@ import { singleUserError } from '../common/ErrorMessages'
 import SingleUserPosts from './SingleUserPosts'
 import AuthContext from '../../context/AuthContext'
 import FollowUnfollowUser from './FollowUnfollowUser'
+import avatarProfile from '../../images/avatarProfile.svg'
+import bannerProfile from '../../images/bannerProfile.svg'
 
 const postFilter = '?limit=40&_followers=true&_following=true'
 
@@ -54,6 +56,17 @@ function SingleUser() {
         [url]
     )
 
+    let bannerImage = user.banner
+    let avatarImage = user.avatar
+
+    if (!bannerImage) {
+        bannerImage = bannerProfile
+    }
+
+    if (!avatarImage) {
+        avatarImage = avatarProfile
+    }
+
     if (loading) {
         return <Loader />
     }
@@ -66,13 +79,12 @@ function SingleUser() {
         <div>
             <Heading headingLevel="h1">{user.name}</Heading>
             <div>
-                <img src={user.banner} alt="" />
-                <img src={user.avatar} alt="" />
+                <img src={bannerImage} alt="" />
+                <img src={avatarImage} alt="" />
                 <p>{user.name}</p>
                 <div>
                     <FollowUnfollowUser data={user.followers} />
                     <p>{user.following.length} Following</p>
-                    {/* <p>{user.followers.length} Followers</p> */}
                 </div>
             </div>
             <div>

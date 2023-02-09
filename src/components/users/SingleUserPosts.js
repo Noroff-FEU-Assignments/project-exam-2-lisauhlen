@@ -9,6 +9,8 @@ import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
 import { feedFilter } from '../home/Home'
 import AuthContext from '../../context/AuthContext'
+import AvatarImage from '../postElements/AvatarImage'
+import PostBody from '../postElements/PostBody'
 
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])
@@ -74,18 +76,15 @@ function SingleUserPosts() {
                 return (
                     <div key={post.id}>
                         <div>
-                            <img
-                                src={post.author.avatar}
-                                className="avatar-image"
-                                alt=""
-                            />
+                            <AvatarImage data={post} />
                             <p>{post.author.name}</p>
                             <p>{post.updated}</p>
                         </div>
                         <Link to={`../../home/detail/${post.id}`}>
-                            <img src={post.media} alt="" />
+                            <PostBody data={post} />
+                            {/* <img src={post.media} alt="" />
                             <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p>
+                            <p>{post.body}</p> */}
                             <div>
                                 <p>Comments: {post._count.comments}</p>
                                 <p>❤️ {post._count.reactions}</p>

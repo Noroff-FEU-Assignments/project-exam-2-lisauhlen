@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import axios from 'axios'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
@@ -9,6 +10,8 @@ import { deletePostError } from '../common/ErrorMessages'
 function PostMenu(postId) {
     const [auth, setAuth] = useContext(AuthContext)
     const [deleteError, setDeleteError] = useState(null)
+
+    const navigate = useNavigate()
 
     function handleClick() {
         const confirmDeletion = window.confirm(
@@ -28,7 +31,8 @@ function PostMenu(postId) {
                 try {
                     const response = await axios.delete(url, options)
                     console.log(response)
-                    window.location.reload(false)
+                    navigate('/home')
+                    // window.location.reload(false)
                 } catch (error) {
                     console.log(error)
                     const errorMessage = error.response.data.errors[0].message

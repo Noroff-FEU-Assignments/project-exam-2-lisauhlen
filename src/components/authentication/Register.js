@@ -7,6 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { BASE_URL, registerUser } from '../../constants/api/api'
 import FormError from '../common/FormError'
+import { userRegisterError } from '../common/ErrorMessages'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import { SaveToStorage } from '../common/LocalStorage'
@@ -34,7 +35,7 @@ const schema = yup.object().shape({
 
 function Register() {
     const [submitting, setSubmitting] = useState(false)
-    const [loginError, setLoginError] = useState(null)
+    const [registerError, setRegisterError] = useState(null)
 
     const navigate = useNavigate()
 
@@ -50,7 +51,7 @@ function Register() {
 
     async function onSubmit(data) {
         setSubmitting(true)
-        setLoginError(null)
+        setRegisterError(null)
 
         console.log(data)
         console.log(url)
@@ -63,7 +64,7 @@ function Register() {
         } catch (error) {
             console.log(error)
             const errorMessage = error.response.data.errors[0].message
-            setLoginError(errorMessage.toString())
+            setRegisterError(errorMessage.toString())
         } finally {
             setSubmitting(false)
         }
@@ -77,41 +78,28 @@ function Register() {
         <div>
             <Heading headingLevel="h1">Charlie</Heading>
             <p>Welcome!</p>
-            <div>
-                <p>lisa</p>
-                <p>lisrys24380@stud.noroff.no</p>
-                <p>Hi5dFg4NgasDf</p>
-            </div>
+            <p>Enter your information to register:</p>
             <form onSubmit={handleSubmit(onSubmit)}>
-                {loginError && (
+                {registerError && (
                     <FormError>
                         <div>
-                            <p>
-                                An error occurred. If it continues, please try
-                                again later.
-                            </p>
-                            <p>Error message: {loginError}</p>
+                            <p>{userRegisterError}</p>
+                            <p>Error message: {registerError}</p>
                         </div>
                     </FormError>
                 )}
                 <fieldset>
-                    <input
-                        {...register('name')}
-                        placeholder="Choose a username"
-                    />
+                    <input {...register('name')} placeholder="Username" />
                     {errors.name && (
                         <FormError>{errors.name.message}</FormError>
                     )}
-                    <input
-                        {...register('email')}
-                        placeholder="Enter your email address"
-                    />
+                    <input {...register('email')} placeholder="Email" />
                     {errors.email && (
                         <FormError>{errors.email.message}</FormError>
                     )}
                     <input
                         {...register('password')}
-                        placeholder="Choose a strong password"
+                        placeholder="Password"
                         type="password"
                     />
                     {errors.password && (

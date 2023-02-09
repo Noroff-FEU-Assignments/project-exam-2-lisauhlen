@@ -1,4 +1,11 @@
 // Error message for failed API call to display main feed
+export const userLoginError = 'Login failed. Please try again later.'
+
+// Error message for failed API call to register
+export const userRegisterError =
+    'Unfortunately, the registration failed. Please try again later.'
+
+// Error message for failed API call to display main feed
 export const feedError =
     'We were unable to load the content of your feed. Please try again later.'
 

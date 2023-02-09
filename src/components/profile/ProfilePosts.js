@@ -9,6 +9,8 @@ import ErrorComponent from '../common/ErrorComponent'
 import { profilePostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
+import avatarFeed from '../../images/avatarFeed.svg'
+import PostBody from '../postElements/PostBody'
 
 const postFilter = '?limit=40&_followers=true&_following=true'
 
@@ -43,6 +45,12 @@ function ProfilePosts() {
         getPosts()
     }, [])
 
+    let avatarImage = auth.avatar
+
+    if (!avatarImage) {
+        avatarImage = avatarFeed
+    }
+
     if (loading) {
         return <Loader />
     }
@@ -67,7 +75,7 @@ function ProfilePosts() {
                     <div key={post.id}>
                         <div>
                             <img
-                                src={auth.avatar}
+                                src={avatarImage}
                                 className="avatar-image"
                                 alt=""
                             />
@@ -78,9 +86,10 @@ function ProfilePosts() {
                             <PostMenu postId={post.id} />
                         </div>
                         <Link to={`/home/detail/${post.id}`}>
-                            <img src={post.media} alt="" />
+                            <PostBody data={post} />
+                            {/* <img src={post.media} alt="" />
                             <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p>
+                            <p>{post.body}</p> */}
                             <div>
                                 <p>Comments: {post._count.comments}</p>
                                 <p>❤️ {post._count.reactions}</p>

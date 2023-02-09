@@ -17,6 +17,7 @@ import FormError from '../common/FormError'
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
     body: yup.string(),
+    tags: yup.string(),
     // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.'),
 })
 
@@ -36,6 +37,7 @@ function EditPost() {
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
@@ -54,6 +56,7 @@ function EditPost() {
                     const response = await axios(url, options)
                     console.log(response.data)
                     setValue(response.data)
+                    reset()
                 } catch (error) {
                     console.log(error)
                     const errorMessage = error.response.data.errors[0].message
@@ -68,32 +71,55 @@ function EditPost() {
 
     let title = value.title
     let body = value.body
+    let tags = value.tags
     let media = value.media
 
     async function onSubmit(data) {
         setSubmitting(true)
         setEditError(null)
 
-        if (data.title) {
-            title = data.title
+        if (data.tags) {
+            data.tags = data.tags
+                .split(' ')
+                .join(',')
+                .split(',,')
+                .join(',')
+                .split(',')
+        } else {
+            data.tags = ['']
         }
 
-        if (data.body) {
-            body = data.body
-        }
+        // if (data.title !== title) {
+        //     console.log("Changed the title!")
+        //     title = data.title
+        // }
 
-        if (data.media) {
-            media = data.media
-        }
+        // if (data.body !== body) {
+        //     console.log("Changed the body!")
+        //     body = data.body
+        // }
+
+        // if (data.tags) {
+        //     tags = data.tags.split(' ').join(',').split(',,').join(',').split(',')
+        // }
+
+        // if (data.media) {
+        //     media = data.media
+        // }
 
         const newData = {
             title: title,
-            body: body,
+            body: data.body,
+            tags: tags,
             media: media,
         }
 
+        console.log(newData)
+
+        console.log(data)
+
         try {
-            const response = await axios.put(url, newData, options)
+            const response = await axios.put(url, data, options)
             console.log(response.data)
             navigate('/home')
         } catch (error) {
@@ -139,6 +165,11 @@ function EditPost() {
                         {...register('body')}
                         defaultValue={body}
                         placeholder="Post Text..."
+                    />
+                    <input
+                        {...register('tags')}
+                        defaultValue={tags}
+                        placeholder="Post tags"
                     />
                     <input
                         {...register('media')}

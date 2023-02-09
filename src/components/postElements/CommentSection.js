@@ -8,19 +8,18 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { BASE_URL, socialPosts } from '../../constants/api/api'
 import FormError from '../common/FormError'
-import { displayCommentsError } from '../common/ErrorMessages'
 import { commentError } from '../common/ErrorMessages'
+import AvatarImage from './AvatarImage'
 
 const schema = yup.object().shape({
     body: yup.string().required('Please write your comment.'),
 })
 
-function CommentSection() {
+function NewCommentSection(post) {
+    const [comments, setComments] = useState(post.data.comments)
     const [submitting, setSubmitting] = useState(false)
-    const [displayError, setDisplayError] = useState(null)
     const [postError, setPostError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
-    const [comments, setComments] = useState([])
 
     const {
         register,
@@ -40,33 +39,14 @@ function CommentSection() {
     const { id } = useParams()
     const postFilter = '?_author=true&_comments=true&_reactions=true'
 
-    const getUrl = BASE_URL + socialPosts + '/' + id + postFilter
-
-    const postUrl = BASE_URL + socialPosts + '/' + id + '/comment'
-
-    useEffect(function () {
-        async function displayComments() {
-            setDisplayError(null)
-
-            try {
-                const response = await axios(getUrl, options)
-                console.log(response.data)
-                setComments(response.data.comments)
-            } catch (error) {
-                console.log(error)
-                const errorMessage = error.response.data.errors[0].message
-                setDisplayError(errorMessage)
-            }
-        }
-        displayComments()
-    }, [])
+    const url = BASE_URL + socialPosts + '/' + id + '/comment'
 
     async function onSubmit(data) {
         setSubmitting(true)
         setPostError(null)
 
         try {
-            const response = await axios.post(postUrl, data, options)
+            const response = await axios.post(url, data, options)
             console.log(response.data)
             const newComment = response.data
             setComments([...comments, newComment])
@@ -82,14 +62,7 @@ function CommentSection() {
 
     return (
         <div>
-            {displayError && (
-                <FormError>
-                    <div>
-                        <p>{displayCommentsError}</p>
-                        <p>Error message: {displayError}</p>
-                    </div>
-                </FormError>
-            )}
+            <b>NewCommentSection:</b>
             {comments.map(function (comment) {
                 return (
                     <div
@@ -99,11 +72,8 @@ function CommentSection() {
                         }`}
                     >
                         <Link to={`/users/${comment.author.name}`}>
-                            <img
-                                src={comment.author.avatar}
-                                className="avatar-image"
-                                alt=""
-                            />
+                            <AvatarImage data={comment} />
+                            {/* <img src={comment.author.avatar} className="avatar-image" alt="" /> */}
                             <p className="username">{comment.author.name}</p>
                             <p>{comment.updated}</p>
                         </Link>
@@ -111,7 +81,6 @@ function CommentSection() {
                     </div>
                 )
             })}
-            <b>Comment section:</b>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset disabled={submitting}>
                     <input
@@ -136,4 +105,4 @@ function CommentSection() {
     )
 }
 
-export default CommentSection
+export default NewCommentSection

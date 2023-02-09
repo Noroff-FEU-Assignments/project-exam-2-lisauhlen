@@ -10,9 +10,9 @@ import Heading from '../layout/Heading'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 import CommentSection from '../postElements/CommentSection'
-import ReactToPost from '../postElements/ReactToPost'
-import NewCommentSection from '../postElements/NewCommentSection'
 import AddReaction from '../postElements/AddReaction'
+import AvatarImage from '../postElements/AvatarImage'
+import PostBody from '../postElements/PostBody'
 
 const postFilter = '?_author=true&_comments=true&_reactions=true'
 
@@ -65,7 +65,7 @@ function SinglePost() {
     return (
         <div>
             <Link to={`/users/${post.author.name}`}>
-                <img src={post.author.avatar} className="avatar-image" alt="" />
+                <AvatarImage data={post} />
                 <p>{post.author.name}</p>
                 <p>{post.updated}</p>
             </Link>
@@ -76,9 +76,11 @@ function SinglePost() {
             >
                 <PostMenu postId={post.id} />
             </div>
-            <img src={post.media} alt="" />
+            <PostBody data={post} />
+            <p>{post.tags.join(', ')}</p>
+            {/* <img src={post.media} alt="" />
             <Heading headingLevel="h2">{post.title}</Heading>
-            <p>{post.body}</p>
+            <p>{post.body}</p> */}
             {/* <div>
                 {post.comments.map(function (comment) {
                     return (
@@ -109,7 +111,7 @@ function SinglePost() {
                 {/* <ReactToPost data={[post.reactions]} /> */}
                 {/* <CommentSection /> */}
                 <AddReaction data={post} />
-                <NewCommentSection data={post} />
+                <CommentSection data={post} />
             </div>
         </div>
     )

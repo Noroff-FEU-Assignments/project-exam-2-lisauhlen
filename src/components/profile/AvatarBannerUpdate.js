@@ -4,6 +4,8 @@ import AuthContext from '../../context/AuthContext'
 import Heading from '../layout/Heading'
 import AvatarUpdate from './AvatarUpdate'
 import BannerUpdate from './BannerUpdate'
+import avatarProfile from '../../images/avatarProfile.svg'
+import bannerProfile from '../../images/bannerProfile.svg'
 
 function AvatarBannerUpdate() {
     const [auth, setAuth] = useContext(AuthContext)
@@ -12,13 +14,11 @@ function AvatarBannerUpdate() {
     let avatar = auth.avatar
 
     if (!auth.banner) {
-        banner =
-            'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/banner-default_abhzmm.svg'
+        banner = bannerProfile
     }
 
     if (!auth.avatar) {
-        avatar =
-            'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/avatar-default_kbh9mo.svg'
+        avatar = avatarProfile
     }
 
     return (
