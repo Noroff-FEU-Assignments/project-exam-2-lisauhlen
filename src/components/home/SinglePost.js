@@ -1,12 +1,11 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError } from '../common/ErrorMessages'
-import Heading from '../layout/Heading'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 import CommentSection from '../postElements/CommentSection'
@@ -22,26 +21,20 @@ function SinglePost() {
     const [error, setError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
+    const http = useAxios()
     let navigate = useNavigate()
-
     const { id } = useParams()
 
     if (!id) {
         navigate('/home')
     }
 
-    const url = BASE_URL + socialPosts + '/' + id + postFilter
+    const endpoint = socialPosts + '/' + id + postFilter
 
     useEffect(function () {
         async function getPost() {
             try {
-                const response = await axios(url, options)
+                const response = await http.get(endpoint)
                 console.log(response.data)
                 setPost(response.data)
             } catch (error) {
@@ -78,38 +71,7 @@ function SinglePost() {
             </div>
             <PostBody data={post} />
             <p>{post.tags.join(', ')}</p>
-            {/* <img src={post.media} alt="" />
-            <Heading headingLevel="h2">{post.title}</Heading>
-            <p>{post.body}</p> */}
-            {/* <div>
-                {post.comments.map(function (comment) {
-                    return (
-                        <div
-                            key={comment.id}
-                            className={`comment ${
-                                comment.replyToId ? 'reply' : ''
-                            }`}
-                        >
-                            <div>
-                                <img
-                                    src={comment.author.avatar}
-                                    className="avatar-image"
-                                    alt=""
-                                />
-                                <p className="username">
-                                    {comment.author.name}
-                                </p>
-                                <p>{comment.updated}</p>
-                            </div>
-                            <p>{comment.body}</p>
-                        </div>
-                    )
-                })}
-            </div> */}
             <div>
-                {/* <InteractionSection url={url}/> */}
-                {/* <ReactToPost data={[post.reactions]} /> */}
-                {/* <CommentSection /> */}
                 <AddReaction data={post} />
                 <CommentSection data={post} />
             </div>

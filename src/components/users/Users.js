@@ -1,34 +1,27 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { userListError } from '../common/ErrorMessages'
-import AuthContext from '../../context/AuthContext'
 
 const postFilter = '?limit=40&_followers=true&_following=true'
-
-const url = BASE_URL + socialUsers + postFilter
 
 function Users() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
+    const http = useAxios()
+    const endpoint = socialUsers + postFilter
 
     useEffect(function () {
         async function getUsers() {
             try {
-                const response = await axios(url, options)
+                const response = await http.get(endpoint)
                 console.log(response.data)
                 setUsers(response.data)
             } catch (error) {

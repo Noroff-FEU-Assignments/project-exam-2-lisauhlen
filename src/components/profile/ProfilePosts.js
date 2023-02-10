@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
@@ -20,19 +20,13 @@ function ProfilePosts() {
     const [error, setError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
-    const url =
-        BASE_URL + socialUsers + '/' + auth.name + '/posts/' + postFilter
+    const http = useAxios()
+    const endpoint = socialUsers + '/' + auth.name + '/posts/' + postFilter
 
     useEffect(function () {
         async function getPosts() {
             try {
-                const response = await axios(url, options)
+                const response = await http.get(endpoint)
                 console.log(response.data)
                 setPosts(response.data)
             } catch (error) {
@@ -87,9 +81,6 @@ function ProfilePosts() {
                         </div>
                         <Link to={`/home/detail/${post.id}`}>
                             <PostBody data={post} />
-                            {/* <img src={post.media} alt="" />
-                            <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p> */}
                             <div>
                                 <p>Comments: {post._count.comments}</p>
                                 <p>❤️ {post._count.reactions}</p>

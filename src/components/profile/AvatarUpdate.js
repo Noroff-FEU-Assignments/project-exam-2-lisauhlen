@@ -3,8 +3,8 @@ import { useState, useContext } from 'react'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
 import FormError from '../common/FormError'
 import { avatarError } from '../common/ErrorMessages'
@@ -24,6 +24,8 @@ function AvatarUpdate() {
     const [updateError, setUpdateError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
+    const http = useAxios()
+
     const {
         register,
         handleSubmit,
@@ -33,23 +35,14 @@ function AvatarUpdate() {
         resolver: yupResolver(schema),
     })
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
-    const url = BASE_URL + socialUsers + '/' + auth.name + '/media'
+    const endpoint = socialUsers + '/' + auth.name + '/media'
 
     async function onSubmit(data) {
         setSubmitting(true)
         setUpdateError(null)
 
-        console.log(url)
-        console.log(data)
-
         try {
-            const response = await axios.put(url, data, options)
+            const response = await http.put(endpoint, data)
             console.log(response.data)
             setAuth({ ...auth, avatar: response.data.avatar })
             reset()

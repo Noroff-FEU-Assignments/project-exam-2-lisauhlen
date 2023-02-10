@@ -1,12 +1,11 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
-import AuthContext from '../../context/AuthContext'
+import useAxios from '../../hooks/useAxios'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
+import { socialPosts } from '../../constants/api/api'
 import FormError from '../common/FormError'
 import { commentError } from '../common/ErrorMessages'
 import AvatarImage from './AvatarImage'
@@ -19,7 +18,10 @@ function NewCommentSection(post) {
     const [comments, setComments] = useState(post.data.comments)
     const [submitting, setSubmitting] = useState(false)
     const [postError, setPostError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
+
+    const http = useAxios()
+    const { id } = useParams()
+    const endpoint = socialPosts + '/' + id + '/comment'
 
     const {
         register,
@@ -30,23 +32,12 @@ function NewCommentSection(post) {
         resolver: yupResolver(schema),
     })
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
-    const { id } = useParams()
-    const postFilter = '?_author=true&_comments=true&_reactions=true'
-
-    const url = BASE_URL + socialPosts + '/' + id + '/comment'
-
     async function onSubmit(data) {
         setSubmitting(true)
         setPostError(null)
 
         try {
-            const response = await axios.post(url, data, options)
+            const response = await http.post(endpoint, data)
             console.log(response.data)
             const newComment = response.data
             setComments([...comments, newComment])
@@ -73,7 +64,6 @@ function NewCommentSection(post) {
                     >
                         <Link to={`/users/${comment.author.name}`}>
                             <AvatarImage data={comment} />
-                            {/* <img src={comment.author.avatar} className="avatar-image" alt="" /> */}
                             <p className="username">{comment.author.name}</p>
                             <p>{comment.updated}</p>
                         </Link>
@@ -83,7 +73,7 @@ function NewCommentSection(post) {
             })}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <fieldset disabled={submitting}>
-                    <input
+                    <textarea
                         {...register('body')}
                         placeholder="Share your thoughts..."
                     />

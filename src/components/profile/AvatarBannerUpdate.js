@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useContext } from 'react'
 import AuthContext from '../../context/AuthContext'
 import Heading from '../layout/Heading'
 import AvatarUpdate from './AvatarUpdate'

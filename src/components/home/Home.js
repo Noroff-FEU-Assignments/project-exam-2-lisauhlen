@@ -1,14 +1,12 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { feedError } from '../common/ErrorMessages'
-import AuthContext from '../../context/AuthContext'
-import PostMenu from '../postElements/PostMenu'
 import CountReactions from '../postElements/CountReactions'
 import commentsIcon from '../../images/commentsIcon.svg'
 import AvatarImage from '../postElements/AvatarImage'
@@ -17,26 +15,20 @@ import PostBody from '../postElements/PostBody'
 export const feedFilter =
     '?limit=40&_author=true&_reactions=true&_comments=true'
 
-const url = BASE_URL + socialPosts + feedFilter
-
 function Home() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
+    const http = useAxios()
+    const endpoint = socialPosts + feedFilter
 
     useEffect(function () {
         async function getPosts() {
             setError(null)
 
             try {
-                const response = await axios(url, options)
+                const response = await http.get(endpoint)
                 console.log(response.data)
                 setPosts(response.data)
             } catch (error) {

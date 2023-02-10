@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
 import Loader from '../common/Loader'
 import Heading from '../layout/Heading'
@@ -19,18 +19,13 @@ function Profile() {
     const [error, setError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
-    const url = BASE_URL + socialUsers + '/' + auth.name
-
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
+    const http = useAxios()
+    const endpoint = socialUsers + '/' + auth.name
 
     useEffect(function () {
         async function getProfile() {
             try {
-                const response = await axios(url, options)
+                const response = await http.get(endpoint)
                 console.log(response.data)
                 setProfile(response.data)
             } catch (error) {

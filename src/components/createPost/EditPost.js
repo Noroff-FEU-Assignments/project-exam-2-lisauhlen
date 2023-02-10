@@ -2,8 +2,8 @@ import React from 'react'
 import Heading from '../layout/Heading'
 import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError, editPostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
@@ -16,7 +16,7 @@ import FormError from '../common/FormError'
 
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
-    body: yup.string(),
+    body: yup.string().max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
     // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.'),
 })
@@ -25,14 +25,12 @@ function EditPost() {
     const [submitting, setSubmitting] = useState(false)
     const [displayError, setDisplayError] = useState(null)
     const [editError, setEditError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
     const [value, setValue] = useState([])
 
+    const http = useAxios()
     const navigate = useNavigate()
-
     const { id } = useParams()
-
-    const url = BASE_URL + socialPosts + '/' + id
+    const endpoint = socialPosts + '/' + id
 
     const {
         register,
@@ -43,17 +41,11 @@ function EditPost() {
         resolver: yupResolver(schema),
     })
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
     useEffect(
         function () {
             async function defaultValues() {
                 try {
-                    const response = await axios(url, options)
+                    const response = await http.get(endpoint)
                     console.log(response.data)
                     setValue(response.data)
                     reset()
@@ -65,7 +57,6 @@ function EditPost() {
             }
             defaultValues()
         },
-        // [url]
         []
     )
 
@@ -89,24 +80,6 @@ function EditPost() {
             data.tags = ['']
         }
 
-        // if (data.title !== title) {
-        //     console.log("Changed the title!")
-        //     title = data.title
-        // }
-
-        // if (data.body !== body) {
-        //     console.log("Changed the body!")
-        //     body = data.body
-        // }
-
-        // if (data.tags) {
-        //     tags = data.tags.split(' ').join(',').split(',,').join(',').split(',')
-        // }
-
-        // if (data.media) {
-        //     media = data.media
-        // }
-
         const newData = {
             title: title,
             body: data.body,
@@ -119,7 +92,7 @@ function EditPost() {
         console.log(data)
 
         try {
-            const response = await axios.put(url, data, options)
+            const response = await http.put(endpoint, data)
             console.log(response.data)
             navigate('/home')
         } catch (error) {
@@ -166,6 +139,9 @@ function EditPost() {
                         defaultValue={body}
                         placeholder="Post Text..."
                     />
+                    {errors.body && (
+                        <FormError>{errors.body.message}</FormError>
+                    )}
                     <input
                         {...register('tags')}
                         defaultValue={tags}

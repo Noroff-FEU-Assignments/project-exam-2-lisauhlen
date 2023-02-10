@@ -1,14 +1,13 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserError } from '../common/ErrorMessages'
 import SingleUserPosts from './SingleUserPosts'
-import AuthContext from '../../context/AuthContext'
 import FollowUnfollowUser from './FollowUnfollowUser'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
@@ -19,29 +18,22 @@ function SingleUser() {
     const [user, setUser] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
+    const http = useAxios()
     let navigate = useNavigate()
-
     const { name } = useParams()
 
     if (!name) {
         navigate('/')
     }
 
-    const url = BASE_URL + socialUsers + '/' + name + postFilter
+    const endpoint = socialUsers + '/' + name + postFilter
 
     useEffect(
         function () {
             async function getUser() {
                 try {
-                    const response = await axios(url, options)
+                    const response = await http.get(endpoint)
                     console.log(response.data)
                     setUser(response.data)
                 } catch (error) {
@@ -53,7 +45,8 @@ function SingleUser() {
             }
             getUser()
         },
-        [url]
+        // [url]
+        []
     )
 
     let bannerImage = user.banner

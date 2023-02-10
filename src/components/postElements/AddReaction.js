@@ -1,37 +1,29 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
-import AuthContext from '../../context/AuthContext'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
 import { addReactionError } from '../common/ErrorMessages'
 import ErrorComponent from '../common/ErrorComponent'
 
 function AddReaction(post) {
     const reactionSum = post.data.reactions.reduce(
-        (prev, current, index) => prev + current.count,
+        (prev, current) => prev + current.count,
         0
     )
 
-    const [auth, setAuth] = useContext(AuthContext)
     const [reactionError, setReactionError] = useState(null)
     const [reactionCount, setReactionCount] = useState(reactionSum)
 
+    const http = useAxios()
     const { id } = useParams()
-
-    const url = BASE_URL + socialPosts + '/' + id + '/react/❤️'
-
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
+    const endpoint = socialPosts + '/' + id + '/react/❤️'
 
     function HandleClick() {
         async function addReaction() {
             try {
-                const response = await axios.put(url, {}, options)
+                const response = await http.put(endpoint, {})
                 console.log(response.data)
                 setReactionCount(reactionCount + 1)
             } catch (error) {

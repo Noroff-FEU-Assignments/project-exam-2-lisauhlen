@@ -1,14 +1,13 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
 import { feedFilter } from '../home/Home'
-import AuthContext from '../../context/AuthContext'
 import AvatarImage from '../postElements/AvatarImage'
 import PostBody from '../postElements/PostBody'
 
@@ -16,29 +15,22 @@ function SingleUserPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
+    const http = useAxios()
     let navigate = useNavigate()
-
     const { name } = useParams()
 
     if (!name) {
         navigate('/')
     }
 
-    const url = BASE_URL + socialUsers + '/' + name + '/posts/' + feedFilter
+    const endpoint = socialUsers + '/' + name + '/posts/' + feedFilter
 
     useEffect(
         function () {
             async function getUserPosts() {
                 try {
-                    const response = await axios(url, options)
+                    const response = await http.get(endpoint)
                     console.log(response.data)
                     setPosts(response.data)
                 } catch (error) {
@@ -50,7 +42,6 @@ function SingleUserPosts() {
             }
             getUserPosts()
         },
-        // [url]
         []
     )
 
@@ -82,9 +73,6 @@ function SingleUserPosts() {
                         </div>
                         <Link to={`../../home/detail/${post.id}`}>
                             <PostBody data={post} />
-                            {/* <img src={post.media} alt="" />
-                            <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p> */}
                             <div>
                                 <p>Comments: {post._count.comments}</p>
                                 <p>❤️ {post._count.reactions}</p>

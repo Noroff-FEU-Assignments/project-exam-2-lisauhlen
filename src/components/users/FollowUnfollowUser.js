@@ -2,8 +2,8 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
 import ErrorComponent from '../common/ErrorComponent'
 import { followUserError, unfollowUserError } from '../common/ErrorMessages'
@@ -15,17 +15,9 @@ function FollowUnfollowUser(followers) {
     const [followError, setFollowError] = useState(null)
     const [unfollowError, setUnfollowError] = useState(null)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
-    console.log(followers.data)
-
+    const http = useAxios()
     const { name } = useParams()
-
-    const url = BASE_URL + socialUsers + '/' + name
+    const endpoint = socialUsers + '/' + name
 
     useEffect(function () {
         followers.data.map(function (follower) {
@@ -36,14 +28,15 @@ function FollowUnfollowUser(followers) {
     }, [])
 
     function followUser() {
+        setFollowError(null)
+
         async function followThisUser() {
             try {
-                const response = await axios.put(url + '/follow', {}, options)
+                const response = await http.put(endpoint + '/follow', {})
                 console.log(response.data)
                 setIsFollowing(true)
                 const newFollower = response.data
                 setFollowerNr([...followerNr, newFollower])
-                // setFollowerNr(followers.data.length + 1)
             } catch (error) {
                 console.log(error)
                 const errorMessage = error.response.data.errors[0].message
@@ -54,9 +47,11 @@ function FollowUnfollowUser(followers) {
     }
 
     function unfollowUser() {
+        setUnfollowError(null)
+
         async function unfollowThisUser() {
             try {
-                const response = await axios.put(url + '/unfollow', {}, options)
+                const response = await http.put(endpoint + '/unfollow', {})
                 console.log(response.data)
                 setIsFollowing(false)
                 const lostFollower = response.data
@@ -65,7 +60,6 @@ function FollowUnfollowUser(followers) {
                         (follower) => follower.name !== lostFollower.name
                     )
                 )
-                // setFollowerNr(followers.data.length - 1)
             } catch (error) {
                 console.log(error)
                 const errorMessage = error.response.data.errors[0].message
@@ -100,7 +94,6 @@ function FollowUnfollowUser(followers) {
                     </ErrorComponent>
                 )}
             </div>
-            {/* <p>{followerNr} Followers</p> */}
             <p>{followerNr.length} Followers</p>
         </div>
     )

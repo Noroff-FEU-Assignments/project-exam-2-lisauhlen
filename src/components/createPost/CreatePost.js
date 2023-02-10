@@ -1,13 +1,9 @@
 import React from 'react'
 import Heading from '../layout/Heading'
-import { useState, useEffect, useContext } from 'react'
-import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
-import Loader from '../common/Loader'
-import ErrorComponent from '../common/ErrorComponent'
+import { useState } from 'react'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
 import { createPostError } from '../common/ErrorMessages'
-import AuthContext from '../../context/AuthContext'
 import { urlMessage } from '../common/FormMessages'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -15,20 +11,18 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormError from '../common/FormError'
 
-const url = BASE_URL + socialPosts
-
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
-    body: yup.string(),
+    body: yup.string().max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.'),
+    // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.').notRequired(),
 })
 
 function CreatePost() {
     const [submitting, setSubmitting] = useState(false)
     const [postError, setPostError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
 
+    const http = useAxios()
     const navigate = useNavigate()
 
     const {
@@ -38,12 +32,6 @@ function CreatePost() {
     } = useForm({
         resolver: yupResolver(schema),
     })
-
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
 
     async function onSubmit(data) {
         setSubmitting(true)
@@ -61,7 +49,7 @@ function CreatePost() {
         }
 
         try {
-            const response = await axios.post(url, data, options)
+            const response = await http.post(socialPosts, data)
             console.log(response.data)
             navigate('/home')
         } catch (error) {
@@ -94,6 +82,9 @@ function CreatePost() {
                         {...register('body')}
                         placeholder="Post Text..."
                     />
+                    {errors.body && (
+                        <FormError>{errors.body.message}</FormError>
+                    )}
                     <input {...register('tags')} placeholder="Post tags" />
                     <input {...register('media')} placeholder="Image URL" />
                     {errors.media && (
