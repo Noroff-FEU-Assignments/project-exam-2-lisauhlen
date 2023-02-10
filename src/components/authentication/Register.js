@@ -21,8 +21,8 @@ const schema = yup.object().shape({
         .string()
         .required('Please enter your email')
         .matches(
-            /^[\w-.]+@(?:[\w-]+.?)?noroff.no$/,
-            'The email must be a noroff.no address'
+            /^[\w!#$%&'*+\/=?^`{|}~.-]+@stud.noroff.no$/,
+            'The email must be a stud.noroff.no address'
         ),
     password: yup
         .string()
@@ -63,8 +63,7 @@ function Register() {
             navigate('/register/login')
         } catch (error) {
             console.log(error)
-            const errorMessage = error.response.data.errors[0].message
-            setRegisterError(errorMessage.toString())
+            setRegisterError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -82,10 +81,7 @@ function Register() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 {registerError && (
                     <FormError>
-                        <div>
-                            <p>{userRegisterError}</p>
-                            <p>Error message: {registerError}</p>
-                        </div>
+                        <p>{userRegisterError}</p>
                     </FormError>
                 )}
                 <fieldset>

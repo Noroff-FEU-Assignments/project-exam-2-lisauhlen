@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
-import FormError from '../common/FormError'
+import ErrorComponent from '../common/ErrorComponent'
 import { deletePostError } from '../common/ErrorMessages'
 
 function PostMenu(postId) {
@@ -28,8 +28,7 @@ function PostMenu(postId) {
                     navigate('/home')
                 } catch (error) {
                     console.log(error)
-                    const errorMessage = error.response.data.errors[0].message
-                    setDeleteError(errorMessage)
+                    setDeleteError(error.toString())
                 }
             }
             deletePost()
@@ -51,12 +50,9 @@ function PostMenu(postId) {
                 </Dropdown.Menu>
             </Dropdown>
             {deleteError && (
-                    <FormError>
-                        <div>
-                            <p>{deletePostError}</p>
-                            <p>Error message: {deleteError}</p>
-                        </div>
-                    </FormError>
+                    <ErrorComponent>
+                        <p>{deletePostError}</p>
+                    </ErrorComponent>
                 )}
         </>
     )

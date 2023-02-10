@@ -47,8 +47,7 @@ function BannerUpdate() {
             reset()
         } catch (error) {
             console.log(error)
-            const errorMessage = error.response.data.errors[0].message
-            setUpdateError(errorMessage.toString())
+            setUpdateError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -59,10 +58,7 @@ function BannerUpdate() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 {updateError && (
                     <FormError>
-                        <div>
-                            <p>{bannerError}</p>
-                            <p>Error message: {updateError}</p>
-                        </div>
+                        <p>{bannerError}</p>
                     </FormError>
                 )}
                 <fieldset disabled={submitting}>

@@ -26,7 +26,6 @@ function Home() {
     useEffect(function () {
         async function getPosts() {
             setError(null)
-
             try {
                 const response = await http.get(endpoint)
                 console.log(response.data)

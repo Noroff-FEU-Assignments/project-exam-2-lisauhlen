@@ -28,8 +28,7 @@ function AddReaction(post) {
                 setReactionCount(reactionCount + 1)
             } catch (error) {
                 console.log(error)
-                const errorMessage = error.response.data.errors[0].message
-                setReactionError(errorMessage)
+                setReactionError(error.toString())
             }
         }
         addReaction()
@@ -42,7 +41,6 @@ function AddReaction(post) {
             {reactionError ? (
                 <ErrorComponent>
                     <p>{addReactionError}</p>
-                    <p>Error message: {reactionError}</p>
                 </ErrorComponent>
             ) : (
                 <></>

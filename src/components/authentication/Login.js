@@ -1,8 +1,22 @@
 import React from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { useNavigate, Link } from 'react-router-dom'
+import AuthContext from '../../context/AuthContext'
 import Heading from '../layout/Heading'
 import LoginForm from './LoginForm'
 
+
 function Login() {
+    const [auth, setAuth] = useContext(AuthContext)
+
+    const navigate = useNavigate()
+
+    useEffect(function () {
+        if (auth) {
+            navigate('/home')
+        }
+    }, [])
+
     return (
         <div>
             <Heading headingLevel="h1">Charlie</Heading>

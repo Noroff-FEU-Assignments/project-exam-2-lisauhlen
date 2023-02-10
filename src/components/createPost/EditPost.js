@@ -6,7 +6,6 @@ import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError, editPostError } from '../common/ErrorMessages'
-import AuthContext from '../../context/AuthContext'
 import { urlMessage } from '../common/FormMessages'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -18,7 +17,7 @@ const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
     body: yup.string().max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.'),
+    media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/, 'Please enter a valid url.'),
 })
 
 function EditPost() {
@@ -51,8 +50,7 @@ function EditPost() {
                     reset()
                 } catch (error) {
                     console.log(error)
-                    const errorMessage = error.response.data.errors[0].message
-                    setDisplayError(errorMessage.toString())
+                    setDisplayError(error.toString())
                 }
             }
             defaultValues()
@@ -97,8 +95,7 @@ function EditPost() {
             navigate('/home')
         } catch (error) {
             console.log(error)
-            const errorMessage = error.response.data.errors[0].message
-            setEditError(errorMessage.toString())
+            setEditError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -108,7 +105,6 @@ function EditPost() {
         return (
             <ErrorComponent>
                 <p>{singlePostError}</p>
-                <p>Error message: {displayError}</p>
             </ErrorComponent>
         )
     }
@@ -119,10 +115,7 @@ function EditPost() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 {editError && (
                     <FormError>
-                        <div>
-                            <p>{editPostError}</p>
-                            <p>Error message: {editError}</p>
-                        </div>
+                        <p>{editPostError}</p>
                     </FormError>
                 )}
                 <fieldset disabled={submitting}>

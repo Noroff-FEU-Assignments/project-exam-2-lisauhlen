@@ -9,7 +9,6 @@ import { BASE_URL, login } from '../../constants/api/api'
 import FormError from '../common/FormError'
 import { userLoginError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
-import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 
 const schema = yup.object().shape({
@@ -23,12 +22,7 @@ function Login() {
     const [auth, setAuth] = useContext(AuthContext)
 
     const navigate = useNavigate()
-
-    useEffect(function () {
-        if (auth) {
-            navigate('/home')
-        }
-    }, [])
+    const url = BASE_URL + login
 
     const {
         register,
@@ -38,14 +32,9 @@ function Login() {
         resolver: yupResolver(schema),
     })
 
-    const url = BASE_URL + login
-
     async function onSubmit(data) {
         setSubmitting(true)
         setLoginError(null)
-
-        console.log(data)
-        console.log(url)
 
         try {
             const response = await axios.post(url, data)
@@ -54,8 +43,7 @@ function Login() {
             navigate('/home')
         } catch (error) {
             console.log(error)
-            const errorMessage = error.response.data.errors[0].message
-            setLoginError(errorMessage.toString())
+            setLoginError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -70,10 +58,7 @@ function Login() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 {loginError && (
                     <FormError>
-                        <div>
-                            <p>{userLoginError}</p>
-                            <p>Error message: {loginError}</p>
-                        </div>
+                        <p>{userLoginError}</p>
                     </FormError>
                 )}
                 <fieldset disabled={submitting}>

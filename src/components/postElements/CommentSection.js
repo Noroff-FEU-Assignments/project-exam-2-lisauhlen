@@ -44,8 +44,7 @@ function NewCommentSection(post) {
             reset()
         } catch (error) {
             console.log(error)
-            const errorMessage = error.response.data.errors[0].message
-            setPostError(errorMessage)
+            setPostError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -82,10 +81,7 @@ function NewCommentSection(post) {
                     )}
                     {postError && (
                         <FormError>
-                            <div>
-                                <p>{commentError}</p>
-                                <p>Error message: {postError}</p>
-                            </div>
+                            <p>{commentError}</p>
                         </FormError>
                     )}
                     <button>{submitting ? 'Publishing...' : 'Publish'}</button>

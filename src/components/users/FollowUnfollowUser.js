@@ -39,8 +39,7 @@ function FollowUnfollowUser(followers) {
                 setFollowerNr([...followerNr, newFollower])
             } catch (error) {
                 console.log(error)
-                const errorMessage = error.response.data.errors[0].message
-                setFollowError(errorMessage)
+                setFollowError(error.toString())
             }
         }
         followThisUser()
@@ -82,7 +81,6 @@ function FollowUnfollowUser(followers) {
                 {followError && (
                     <ErrorComponent>
                         <p>{followUserError}</p>
-                        <p>Error message: {followError}</p>
                     </ErrorComponent>
                 )}
             </div>
@@ -90,7 +88,6 @@ function FollowUnfollowUser(followers) {
                 {unfollowError && (
                     <ErrorComponent>
                         <p>{unfollowUserError}</p>
-                        <p>Error message: {unfollowError}</p>
                     </ErrorComponent>
                 )}
             </div>

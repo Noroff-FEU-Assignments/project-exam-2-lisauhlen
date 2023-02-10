@@ -48,8 +48,7 @@ function AvatarUpdate() {
             reset()
         } catch (error) {
             console.log(error)
-            const errorMessage = error.response.data.errors[0].message
-            setUpdateError(errorMessage.toString())
+            setUpdateError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -61,10 +60,7 @@ function AvatarUpdate() {
                 <fieldset disabled={submitting}>
                     {updateError && (
                         <FormError>
-                            <div>
-                                <p>{avatarError}</p>
-                                <p>Error message: {updateError}</p>
-                            </div>
+                            <p>{avatarError}</p>
                         </FormError>
                     )}
                     <input

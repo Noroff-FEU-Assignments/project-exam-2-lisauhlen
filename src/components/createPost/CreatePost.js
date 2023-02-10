@@ -15,7 +15,7 @@ const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
     body: yup.string().max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    // media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/, 'Please enter a valid url.').notRequired(),
+    media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/, 'Please enter a valid url.'),
 })
 
 function CreatePost() {
@@ -54,8 +54,7 @@ function CreatePost() {
             navigate('/home')
         } catch (error) {
             console.log(error.response.data)
-            const errorMessage = error.response.data.errors[0].message
-            setPostError(errorMessage.toString())
+            setPostError(error.toString())
         } finally {
             setSubmitting(false)
         }
@@ -67,10 +66,7 @@ function CreatePost() {
             <form onSubmit={handleSubmit(onSubmit)}>
                 {postError && (
                     <FormError>
-                        <div>
-                            <p>{createPostError}</p>
-                            <p>Error message: {postError}</p>
-                        </div>
+                        <p>{createPostError}</p>
                     </FormError>
                 )}
                 <fieldset disabled={submitting}>
