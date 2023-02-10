@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
-import { socialPosts } from '../../constants/api/api'
+import { socialPosts, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError } from '../common/ErrorMessages'
@@ -12,8 +12,6 @@ import CommentSection from '../postElements/CommentSection'
 import AddReaction from '../postElements/AddReaction'
 import AvatarImage from '../postElements/AvatarImage'
 import PostBody from '../postElements/PostBody'
-
-const postFilter = '?_author=true&_comments=true&_reactions=true'
 
 function SinglePost() {
     const [post, setPost] = useState([])
@@ -29,7 +27,7 @@ function SinglePost() {
         navigate('/home')
     }
 
-    const endpoint = socialPosts + '/' + id + postFilter
+    const endpoint = socialPosts + '/' + id + postFlags
 
     useEffect(function () {
         async function getPost() {

@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
-import { socialPosts } from '../../constants/api/api'
+import { socialPosts, postFlags } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
@@ -12,16 +12,13 @@ import commentsIcon from '../../images/commentsIcon.svg'
 import AvatarImage from '../postElements/AvatarImage'
 import PostBody from '../postElements/PostBody'
 
-export const feedFilter =
-    '?limit=40&_author=true&_reactions=true&_comments=true'
-
 function Home() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
     const http = useAxios()
-    const endpoint = socialPosts + feedFilter
+    const endpoint = socialPosts + postFlags
 
     useEffect(function () {
         async function getPosts() {
@@ -61,25 +58,10 @@ function Home() {
                 return (
                     <div key={post.id}>
                         <Link to={`/users/${post.author.name}`}>
-                            {/* <img
-                                // src={post.author.avatar}
-                                src={avatar}
-                                className="avatar-image"
-                                alt=""
-                            /> */}
                             <AvatarImage data={post} />
                             <p className="username">{post.author.name}</p>
                             <p>{post.updated}</p>
                         </Link>
-                        {/* <div
-                            className={
-                                post.author.name === auth.name
-                                    ? 'post-menu'
-                                    : 'hide-menu'
-                            }
-                        >
-                            <PostMenu postId={post.id} />
-                        </div> */}
                         <Link to={`detail/${post.id}`}>
                             <PostBody data={post} />
                             <div>
@@ -93,15 +75,6 @@ function Home() {
                                 <CountReactions data={post.reactions} />
                             </div>
                         </Link>
-                        {/* <Link to={`detail/${post.id}`}>
-                            <img src={post.media} alt="" />
-                            <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p>
-                            <div>
-                                <span><img src={commentsIcon} alt="Comments icon" /> {post._count.comments}</span>
-                                <CountReactions data={post.reactions} />
-                            </div>
-                        </Link> */}
                     </div>
                 )
             })}

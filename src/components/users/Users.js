@@ -2,13 +2,11 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
-import { socialUsers } from '../../constants/api/api'
+import { socialUsers, userFlags } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { userListError } from '../common/ErrorMessages'
-
-const postFilter = '?limit=40&_followers=true&_following=true'
 
 function Users() {
     const [users, setUsers] = useState([])
@@ -16,7 +14,7 @@ function Users() {
     const [error, setError] = useState(null)
 
     const http = useAxios()
-    const endpoint = socialUsers + postFilter
+    const endpoint = socialUsers + userFlags
 
     useEffect(function () {
         async function getUsers() {

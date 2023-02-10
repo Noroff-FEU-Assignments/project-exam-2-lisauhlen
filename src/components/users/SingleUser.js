@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
-import { socialUsers } from '../../constants/api/api'
+import { socialUsers, userFlags } from '../../constants/api/api'
 import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
@@ -11,8 +11,6 @@ import SingleUserPosts from './SingleUserPosts'
 import FollowUnfollowUser from './FollowUnfollowUser'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
-
-const postFilter = '?limit=40&_followers=true&_following=true'
 
 function SingleUser() {
     const [user, setUser] = useState([])
@@ -27,7 +25,7 @@ function SingleUser() {
         navigate('/')
     }
 
-    const endpoint = socialUsers + '/' + name + postFilter
+    const endpoint = socialUsers + '/' + name + userFlags
 
     useEffect(
         function () {

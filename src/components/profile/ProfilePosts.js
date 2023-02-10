@@ -2,8 +2,7 @@ import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
-import { socialUsers } from '../../constants/api/api'
-import Heading from '../layout/Heading'
+import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { profilePostError } from '../common/ErrorMessages'
@@ -11,8 +10,7 @@ import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 import avatarFeed from '../../images/avatarFeed.svg'
 import PostBody from '../postElements/PostBody'
-
-const postFilter = '?limit=40&_followers=true&_following=true'
+import CountReactions from '../postElements/CountReactions'
 
 function ProfilePosts() {
     const [posts, setPosts] = useState([])
@@ -21,7 +19,7 @@ function ProfilePosts() {
     const [auth, setAuth] = useContext(AuthContext)
 
     const http = useAxios()
-    const endpoint = socialUsers + '/' + auth.name + '/posts/' + postFilter
+    const endpoint = socialUsers + '/' + auth.name + '/posts/' + postFlags
 
     useEffect(function () {
         async function getPosts() {
@@ -83,7 +81,7 @@ function ProfilePosts() {
                             <PostBody data={post} />
                             <div>
                                 <p>Comments: {post._count.comments}</p>
-                                <p>❤️ {post._count.reactions}</p>
+                                <CountReactions data={post.reactions} />
                             </div>
                         </Link>
                     </div>

@@ -1,15 +1,14 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
-import { socialUsers } from '../../constants/api/api'
-import Heading from '../layout/Heading'
+import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
-import { feedFilter } from '../home/Home'
 import AvatarImage from '../postElements/AvatarImage'
 import PostBody from '../postElements/PostBody'
+import CountReactions from '../postElements/CountReactions'
 
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])
@@ -24,7 +23,7 @@ function SingleUserPosts() {
         navigate('/')
     }
 
-    const endpoint = socialUsers + '/' + name + '/posts/' + feedFilter
+    const endpoint = socialUsers + '/' + name + '/posts/' + postFlags
 
     useEffect(
         function () {
@@ -75,7 +74,7 @@ function SingleUserPosts() {
                             <PostBody data={post} />
                             <div>
                                 <p>Comments: {post._count.comments}</p>
-                                <p>❤️ {post._count.reactions}</p>
+                                <CountReactions data={post.reactions} />
                             </div>
                         </Link>
                     </div>

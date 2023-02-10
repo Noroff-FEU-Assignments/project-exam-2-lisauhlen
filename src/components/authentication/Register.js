@@ -63,7 +63,7 @@ function Register() {
             navigate('/register/login')
         } catch (error) {
             console.log(error)
-            setRegisterError(error.toString())
+            setRegisterError(error)
         } finally {
             setSubmitting(false)
         }
