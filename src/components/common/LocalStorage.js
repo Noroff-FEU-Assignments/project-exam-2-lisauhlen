@@ -1,9 +1,9 @@
-//Save and retrieve from local storage
-
+// Saving to local storage
 export function SaveToStorage(key, valueToSave) {
     localStorage.setItem(key, JSON.stringify(valueToSave))
 }
 
+// Retrieving from local storage
 export function RetrieveFromStorage(key) {
     const value = localStorage.getItem(key)
 

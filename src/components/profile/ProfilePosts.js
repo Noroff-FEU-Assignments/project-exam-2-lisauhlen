@@ -1,16 +1,17 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
-import Heading from '../layout/Heading'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { profilePostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
-
-const postFilter = '?limit=40&_followers=true&_following=true'
+import avatarFeed from '../../images/avatarFeed.svg'
+import PostBody from '../postElements/PostBody'
+import ReactionInfo from '../postElements/ReactionInfo'
+import AuthorInfo from '../postElements/AuthorInfo'
 
 function ProfilePosts() {
     const [posts, setPosts] = useState([])
@@ -18,19 +19,13 @@ function ProfilePosts() {
     const [error, setError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
-    const url =
-        BASE_URL + socialUsers + '/' + auth.name + '/posts/' + postFilter
+    const http = useAxios()
+    const endpoint = socialUsers + '/' + auth.name + '/posts/' + postFlags
 
     useEffect(function () {
         async function getPosts() {
             try {
-                const response = await axios(url, options)
+                const response = await http.get(endpoint)
                 console.log(response.data)
                 setPosts(response.data)
             } catch (error) {
@@ -42,6 +37,12 @@ function ProfilePosts() {
         }
         getPosts()
     }, [])
+
+    let avatarImage = auth.avatar
+
+    if (!avatarImage) {
+        avatarImage = avatarFeed
+    }
 
     if (loading) {
         return <Loader />
@@ -66,25 +67,14 @@ function ProfilePosts() {
                 return (
                     <div key={post.id}>
                         <div>
-                            <img
-                                src={auth.avatar}
-                                className="avatar-image"
-                                alt=""
-                            />
-                            <p>{auth.name}</p>
-                            <p>{post.updated}</p>
+                            <AuthorInfo data={post} />
                         </div>
                         <div className="post-menu">
                             <PostMenu postId={post.id} />
                         </div>
-                        <Link to={`../../detail/${post.id}`}>
-                            <img src={post.media} alt="" />
-                            <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p>
-                            <div>
-                                <p>Comments: {post._count.comments}</p>
-                                <p>❤️ {post._count.reactions}</p>
-                            </div>
+                        <Link to={`/home/detail/${post.id}`}>
+                            <PostBody data={post} />
+                            <ReactionInfo data={post} />
                         </Link>
                     </div>
                 )

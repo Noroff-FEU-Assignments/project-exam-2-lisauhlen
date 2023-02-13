@@ -1,14 +1,18 @@
 import React from 'react'
-import { useState, useContext } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
-import AuthContext from '../../context/AuthContext'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
+import ErrorComponent from '../common/ErrorComponent'
 import { deletePostError } from '../common/ErrorMessages'
 
 function PostMenu(postId) {
-    const [auth, setAuth] = useContext(AuthContext)
     const [deleteError, setDeleteError] = useState(null)
+
+    const http = useAxios()
+    const navigate = useNavigate()
+    const endpoint = socialPosts + '/' + postId.postId
 
     function handleClick() {
         const confirmDeletion = window.confirm(
@@ -16,25 +20,15 @@ function PostMenu(postId) {
         )
 
         if (confirmDeletion) {
-            const url = BASE_URL + socialPosts + '/' + postId.postId
-
-            const options = {
-                headers: {
-                    Authorization: `Bearer ${auth.accessToken}`,
-                },
-            }
 
             async function deletePost() {
                 try {
-                    const response = await axios.delete(url, options)
+                    const response = await http.delete(endpoint)
                     console.log(response)
-                    window.location.reload(false)
+                    navigate('/home')
                 } catch (error) {
                     console.log(error)
-                    const errorMessage = error.response.data.errors[0].message
-                    setDeleteError(errorMessage)
-                    //Create a modal for this message instead??
-                    alert(`${deletePostError} Error message: ${errorMessage}`)
+                    setDeleteError(error.toString())
                 }
             }
             deletePost()
@@ -42,18 +36,25 @@ function PostMenu(postId) {
     }
 
     return (
-        <Dropdown>
-            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                Menu
-            </Dropdown.Toggle>
+        <>
+            <Dropdown>
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    Menu
+                </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-                <Dropdown.Item href={'/post/' + postId.postId}>
-                    Edit Post
-                </Dropdown.Item>
-                <Dropdown.Item onClick={handleClick}>Delete Post</Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+                <Dropdown.Menu>
+                    <Dropdown.Item href={'/post/' + postId.postId}>
+                        Edit Post
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={handleClick}>Delete Post</Dropdown.Item>
+                </Dropdown.Menu>
+            </Dropdown>
+            {deleteError && (
+                    <ErrorComponent>
+                        <p>{deletePostError}</p>
+                    </ErrorComponent>
+                )}
+        </>
     )
 }
 

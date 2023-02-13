@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
+import Login from '../authentication/Login'
 
 function Navigation() {
     const [auth, setAuth] = useContext(AuthContext)
@@ -15,7 +16,7 @@ function Navigation() {
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="mr-auto">
-                            <NavLink to="/" className="nav-link">
+                            <NavLink to="/home" className="nav-link">
                                 Feed
                             </NavLink>
                             <NavLink to="/users" className="nav-link">
