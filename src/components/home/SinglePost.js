@@ -1,18 +1,18 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialPosts } from '../../constants/api/api'
+import { useParams, useNavigate, Link } from 'react-router-dom'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError } from '../common/ErrorMessages'
-import Heading from '../layout/Heading'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
-import WriteComment from '../postElements/WriteComment'
-import ReactToPost from '../postElements/ReactToPost'
-
-const postFilter = '?_author=true&_comments=true&_reactions=true'
+import CommentSection from '../postElements/CommentSection'
+import AddReaction from '../postElements/AddReaction'
+import AvatarImage from '../postElements/AvatarImage'
+import PostBody from '../postElements/PostBody'
+import AuthorInfo from '../postElements/AuthorInfo'
 
 function SinglePost() {
     const [post, setPost] = useState([])
@@ -20,42 +20,31 @@ function SinglePost() {
     const [error, setError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
+    const http = useAxios()
     let navigate = useNavigate()
-
     const { id } = useParams()
 
-    // let ownPost = "hide-menu"
-
     if (!id) {
-        navigate('/')
+        navigate('/home')
     }
 
-    const url = BASE_URL + socialPosts + '/' + id + postFilter
+    const endpoint = socialPosts + '/' + id + postFlags
 
-    useEffect(
-        function () {
-            async function getPost() {
-                try {
-                    const response = await axios(url, options)
-                    console.log(response.data)
-                    setPost(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getPost() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setPost(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getPost()
-        },
-        [url]
-    )
+        }
+        getPost()
+    }, [])
 
     if (loading) {
         return <Loader />
@@ -65,55 +54,21 @@ function SinglePost() {
         return <ErrorComponent>{singlePostError}</ErrorComponent>
     }
 
-    // if (post.author.name === auth.name) {
-    //     ownPost = "post-menu"
-    // }
-
     return (
         <div>
-            <div>
-                <img src={post.author.avatar} className="avatar-image" alt="" />
-                <p>{post.author.name}</p>
-                <p>{post.updated}</p>
-            </div>
-            <div
-                className={
+            <Link to={`/users/${post.author.name}`}>
+                <AuthorInfo data={post} /> 
+            </Link>
+            <div className={
                     post.author.name === auth.name ? 'post-menu' : 'hide-menu'
-                }
-            >
+                } >
                 <PostMenu postId={post.id} />
             </div>
-            <img src={post.media} alt="" />
-            <Heading headingLevel="h2">{post.title}</Heading>
-            <p>{post.body}</p>
+            <PostBody data={post} />
+            <p>{post.tags.join(', ')}</p>
             <div>
-                {post.comments.map(function (comment) {
-                    return (
-                        <div
-                            key={comment.id}
-                            className={`comment ${
-                                comment.replyToId ? 'reply' : ''
-                            }`}
-                        >
-                            <div>
-                                <img
-                                    src={comment.author.avatar}
-                                    className="avatar-image"
-                                    alt=""
-                                />
-                                <p className="username">
-                                    {comment.author.name}
-                                </p>
-                                <p>{comment.updated}</p>
-                            </div>
-                            <p>{comment.body}</p>
-                        </div>
-                    )
-                })}
-            </div>
-            <div>
-                <ReactToPost data={[post.reactions]} />
-                <WriteComment />
+                <AddReaction data={post} />
+                <CommentSection data={post} />
             </div>
         </div>
     )

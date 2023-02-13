@@ -1,42 +1,37 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
-import axios from 'axios'
-import { BASE_URL, socialUsers } from '../../constants/api/api'
-import Heading from '../layout/Heading'
+import useAxios from '../../hooks/useAxios'
+import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
-import { feedFilter } from '../home/Home'
-import AuthContext from '../../context/AuthContext'
+import AvatarImage from '../postElements/AvatarImage'
+import PostBody from '../postElements/PostBody'
+import CountReactions from '../postElements/CountReactions'
+import AuthorInfo from '../postElements/AuthorInfo'
+import ReactionInfo from '../postElements/ReactionInfo'
 
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
 
-    const options = {
-        headers: {
-            Authorization: `Bearer ${auth.accessToken}`,
-        },
-    }
-
+    const http = useAxios()
     let navigate = useNavigate()
-
     const { name } = useParams()
 
     if (!name) {
         navigate('/')
     }
 
-    const url = BASE_URL + socialUsers + '/' + name + '/posts/' + feedFilter
+    const endpoint = socialUsers + '/' + name + '/posts/' + postFlags
 
     useEffect(
         function () {
             async function getUserPosts() {
                 try {
-                    const response = await axios(url, options)
+                    const response = await http.get(endpoint)
                     console.log(response.data)
                     setPosts(response.data)
                 } catch (error) {
@@ -48,7 +43,7 @@ function SingleUserPosts() {
             }
             getUserPosts()
         },
-        [url]
+        []
     )
 
     if (loading) {
@@ -73,22 +68,18 @@ function SingleUserPosts() {
                 return (
                     <div key={post.id}>
                         <div>
-                            <img
-                                src={post.author.avatar}
-                                className="avatar-image"
-                                alt=""
-                            />
+                            {/* <AvatarImage data={post} />
                             <p>{post.author.name}</p>
-                            <p>{post.updated}</p>
+                            <p>{post.updated}</p> */}
+                            <AuthorInfo data={post} />
                         </div>
-                        <Link to={`../../detail/${post.id}`}>
-                            <img src={post.media} alt="" />
-                            <Heading headingLevel="h2">{post.title}</Heading>
-                            <p>{post.body}</p>
-                            <div>
+                        <Link to={`../../home/detail/${post.id}`}>
+                            <PostBody data={post} />
+                            <ReactionInfo data={post} />
+                            {/* <div>
                                 <p>Comments: {post._count.comments}</p>
-                                <p>❤️ {post._count.reactions}</p>
-                            </div>
+                                <CountReactions data={post.reactions} />
+                            </div> */}
                         </Link>
                     </div>
                 )

@@ -1,6 +1,7 @@
 import React from 'react'
-import Login from './Login'
+import LoginForm from './LoginForm'
 import { RetrieveFromStorage } from '../common/LocalStorage'
+import Heading from '../layout/Heading'
 
 function NewUserLogin() {
     const userInfo = RetrieveFromStorage('userInfo')
@@ -9,9 +10,10 @@ function NewUserLogin() {
 
     return (
         <div>
+            <Heading headingLevel="h1">Charlie</Heading>
             <p>Success, {userInfo.name}!</p>
             <p>You can now login to you new Charlie account:</p>
-            <Login />
+            <LoginForm />
         </div>
     )
 }

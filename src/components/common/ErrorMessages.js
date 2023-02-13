@@ -1,4 +1,11 @@
 // Error message for failed API call to display main feed
+export const userLoginError = 'Login failed. Please try again later.'
+
+// Error message for failed API call to register
+export const userRegisterError =
+    'Unfortunately, the registration failed. Please try again later.'
+
+// Error message for failed API call to display main feed
 export const feedError =
     'We were unable to load the content of your feed. Please try again later.'
 
@@ -17,6 +24,10 @@ export const singleUserError =
 // Error message for failed API call to display a single user's posts
 export const singleUserPostsError =
     "We were unable to display this user's posts. Please try again later."
+
+// Error message for failed API call to display a post's comments
+export const displayCommentsError =
+    "We were unable to display this post's comments. Please try again later."
 
 // Error message for failed API call to display your own profile
 export const profileError =
@@ -45,3 +56,19 @@ export const commentError =
 // Error message for failed API call to add a reaction to a post
 export const addReactionError =
     'We were unable to add your reaction to this post. Please try again later.'
+
+// Error message for failed API call to follow a user
+export const followUserError =
+    'Following this user is not possible at the moment. Please try again later.'
+
+// Error message for failed API call to unfollow a user
+export const unfollowUserError =
+    'Unfollowing this user is not possible at the moment. Please try again later.'
+
+// Error message for failed API call to update banner photo
+export const bannerError =
+    'We were unable to update your banner image. Please try again later.'
+
+// Error message for failed API call to update avatar image
+export const avatarError =
+    'We were unable to update your profile picture. Please try again later.'
