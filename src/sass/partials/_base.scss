@@ -6,6 +6,7 @@ body {
 .container-fluid {
     background-color: getColor(dark);
     max-width: 600px;
+    padding: 0;
 }
 
 a {

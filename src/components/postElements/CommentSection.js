@@ -54,7 +54,7 @@ function NewCommentSection(post) {
 
     return (
         <div>
-            <Card.Body>
+            <Card.Body className='comment-section'>
                 {comments.map(function (comment) {
                     return (
                         <div key={comment.id} className={`comment ${comment.replyToId ? 'reply' : ''}`}>

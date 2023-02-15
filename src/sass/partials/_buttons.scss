@@ -1,0 +1,8 @@
+.btn-primary {
+    background-color: getColor(primary);
+    color: getColor(dark);
+    font-weight: 700;
+    border-radius: getSize(borderRadius);
+    border: none;
+    min-width: 110px;
+}

@@ -35,7 +35,7 @@
     }
 }
 
-@media (min-width: 384px) {
+@media (min-width: getBreakpoint(xxSmall)) {
 
     .user-banner {
         max-height: getSize(userAvatar);

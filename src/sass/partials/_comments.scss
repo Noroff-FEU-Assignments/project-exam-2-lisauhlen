@@ -1,8 +1,10 @@
+.comment-section {
+    font-size: getFontSize(mediumFont);
+}
 .comment {
     background-color: getColor(dark);
     margin: var(--bs-card-spacer-y) 0;
     border-radius: getSize(borderRadius);
-
     padding: getSize(cardSpacer)
 }
 
@@ -26,7 +28,6 @@
     animation-name: heartAnimation;
     animation-iteration-count: 1;
     animation-timing-function: ease-in;
-    // animation-duration: 0.2s;
     animation-duration: 0.2s;
 }
 

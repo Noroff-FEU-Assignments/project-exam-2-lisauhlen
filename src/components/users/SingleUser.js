@@ -1,6 +1,8 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, userFlags } from '../../constants/api/api'
 import Heading from '../layout/Heading'
@@ -69,18 +71,18 @@ function SingleUser() {
     return (
         <div>
             <Heading headingLevel="h1">{user.name}</Heading>
-            <div>
-                <img src={bannerImage} alt="" />
-                <img src={avatarImage} alt="" />
-                <p>{user.name}</p>
-                <div>
-                    <FollowUnfollowUser data={user.followers} />
-                    <p>{user.following.length} Following</p>
-                </div>
-            </div>
-            <div>
-                <SingleUserPosts />
-            </div>
+                <Image fluid src={bannerImage} alt="" className="profile-banner" />
+                <Container className="user-profile">
+                    <Image roundedCircle src={avatarImage} alt="" className="profile-avatar" />
+                    <p className='username'>{user.name}</p>
+                    <div className='user-info'>
+                        <FollowUnfollowUser data={user.followers} />
+                        <p>{user.following.length} Following</p>
+                    </div>
+                </Container>
+                <Container>
+                    <SingleUserPosts />
+                </Container>
         </div>
     )
 }

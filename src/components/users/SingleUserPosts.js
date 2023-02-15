@@ -55,7 +55,7 @@ function SingleUserPosts() {
 
     if (posts.length === 0) {
         return (
-            <div>
+            <div className='no-posts'>
                 <p>This user hasn't posted anything yet.</p>
             </div>
         )

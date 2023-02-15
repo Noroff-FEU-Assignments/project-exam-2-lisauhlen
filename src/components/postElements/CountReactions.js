@@ -8,7 +8,7 @@ function CountReactions(reactions) {
         0
     )
 
-    return <Button>❤️ {count}</Button>
+    return <Button variant="secondary">❤️ {count}</Button>
 }
 
 export default CountReactions

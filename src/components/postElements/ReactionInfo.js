@@ -11,7 +11,7 @@ function ReactionInfo(data) {
   return (
     <Card.Body className="text-center">
       <ButtonGroup>
-          <Button>
+          <Button variant="secondary">
               <img src={commentsIcon} alt="Comments icon" />{' '}
               {post._count.comments}
           </Button>

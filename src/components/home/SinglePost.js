@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
@@ -55,22 +56,24 @@ function SinglePost() {
     }
 
     return (
-        <Card>
-            <Link to={`/users/${post.author.name}`}>
-                <AuthorInfo data={post} /> 
-            </Link>
-            <div className={
-                    post.author.name === auth.name ? 'post-menu' : 'hide-menu'
-                } >
-                <PostMenu postId={post.id} />
-            </div>
-            <PostBody data={post} />
-            <Card.Body>
-                <p className={`${post.tags ? 'hide' : 'tags'}`}>{post.tags.join(', ')}</p>
-                <AddReaction data={post} />
-            </Card.Body>
-            <CommentSection data={post} />
-        </Card>
+        <Container>
+            <Card>
+                <Link to={`/users/${post.author.name}`}>
+                    <AuthorInfo data={post} /> 
+                </Link>
+                <div className={
+                        post.author.name === auth.name ? 'post-menu' : 'hide-menu'
+                    } >
+                    <PostMenu postId={post.id} />
+                </div>
+                <PostBody data={post} />
+                <Card.Body>
+                    <p className={`${post.tags ? 'hide' : 'tags'}`}>{post.tags.join(', ')}</p>
+                    <AddReaction data={post} />
+                </Card.Body>
+                <CommentSection data={post} />
+            </Card>
+        </Container>
     )
 }
 

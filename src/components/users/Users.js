@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, userFlags } from '../../constants/api/api'
 import Heading from '../layout/Heading'
@@ -43,7 +44,7 @@ function Users() {
     }
 
     return (
-        <div>
+        <Container>
             <Heading headingLevel="h1">Users</Heading>
             {users.map(function (user) {
                 let avatarImage = user.avatar
@@ -74,7 +75,7 @@ function Users() {
                     </Link>
                 )
             })}
-        </div>
+        </Container>
     )
 }
 

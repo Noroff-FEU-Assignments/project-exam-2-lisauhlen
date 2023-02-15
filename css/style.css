@@ -10,6 +10,7 @@ body {
 .container-fluid {
   background-color: #21242A;
   max-width: 600px;
+  padding: 0;
 }
 
 a {
@@ -25,6 +26,7 @@ a {
   margin: var(--bs-card-spacer-y) 0;
   background-color: #393C45;
   border-radius: 20px;
+  border: none;
 }
 
 .card-body {
@@ -207,5 +209,97 @@ a {
 .form-error, .error-component {
   padding: 0.65rem;
   color: #FF9D9D;
+}
+
+.user-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.user-card p {
+  margin-bottom: 0.5rem;
+}
+
+.user-banner {
+  max-height: 100px;
+  margin-bottom: 0;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 20px 20px 0 0;
+}
+
+.user-avatar {
+  width: 100px;
+  min-width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-right: 0.65rem;
+}
+
+.bottom-align {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.follower-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+}
+
+.follower-info p:first-of-type {
+  margin-right: 0.65rem;
+}
+
+@media (min-width: 384px) {
+  .user-banner {
+    max-height: 140px;
+    margin-bottom: -70px;
+  }
+  .user-avatar {
+    width: 140px;
+    height: 140px;
+    min-width: 140px;
+  }
+  .bottom-align {
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end;
+  }
+}
+
+.user-profile {
+  text-align: center;
+}
+
+.user-profile .username {
+  color: #FFDAB7;
+}
+
+.profile-banner {
+  width: 100%;
+  max-height: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.profile-avatar {
+  width: 200px;
+  height: 200px;
+  max-width: 200px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin-top: -100px;
+  padding: 0.65rem;
 }
 /*# sourceMappingURL=style.css.map */

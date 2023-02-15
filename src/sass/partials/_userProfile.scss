@@ -1,0 +1,40 @@
+.user-profile {
+    text-align: center;
+
+    .username {
+        color: getColor(fontPrimary)
+    }
+}
+
+.profile-banner {
+    width: 100%;
+    max-height: getSize(profileAvatar);
+    object-fit: cover;
+}
+
+.profile-avatar {
+    width: getSize(profileAvatar);
+    height: getSize(profileAvatar);
+    max-width: getSize(profileAvatar);
+    object-fit: cover;
+    margin-top: -100px;
+    padding: getSize(cardSpacer);
+}
+
+.user-info {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    align-items: baseline;
+    font-size: getFontSize(mediumFont);
+
+    button {
+        font-size: getFontSize(mediumFont);
+    }
+}
+
+.no-posts {
+    text-align: center;
+    padding: 0.65rem;
+    margin: 0.65rem 0;
+}

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts, postFlags } from '../../constants/api/api'
 import Heading from '../layout/Heading'
@@ -45,29 +46,31 @@ function Home() {
     }
 
     return (
-        <div>
+        <>
             <Heading headingLevel="h1">Charlie</Heading>
-            {posts.map(function (post) {
-                // let avatar = post.author.avatar
+            <Container>
+                {posts.map(function (post) {
+                    // let avatar = post.author.avatar
 
-                // if (!avatar) {
-                //     avatar =
-                //         'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/avatar-default_kbh9mo.svg'
-                // }
+                    // if (!avatar) {
+                    //     avatar =
+                    //         'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/avatar-default_kbh9mo.svg'
+                    // }
 
-                return (
-                    <Card key={post.id}>
-                        <Link to={`/users/${post.author.name}`}>
-                            <AuthorInfo data={post} />
-                        </Link>
-                        <Link to={`detail/${post.id}`}>
-                            <PostBody data={post} />
-                            <ReactionInfo data={post} />
-                        </Link>
-                    </Card>
-                )
-            })}
-        </div>
+                    return (
+                        <Card key={post.id}>
+                            <Link to={`/users/${post.author.name}`}>
+                                <AuthorInfo data={post} />
+                            </Link>
+                            <Link to={`detail/${post.id}`}>
+                                <PostBody data={post} />
+                                <ReactionInfo data={post} />
+                            </Link>
+                        </Card>
+                    )
+                })}
+            </Container>
+        </>
     )
 }
 
