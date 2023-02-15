@@ -4,6 +4,7 @@ $font: 'Raleway', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
 
 $fontSizes: (
     smallFont: 0.7rem,
+mediumFont: 1.4rem,
 );
 
 @function getFontSize($fontSize) {
@@ -28,10 +29,13 @@ error: #FF9D9D,
 // SIZE variables
 
 $sizes: (
-    authorAvatar: 2.6rem,
-    cardSpacer: 0.65rem,
-    borderRadius: 20px,
-    addReaction: 2.5rem,
+authorAvatar: 2.6rem,
+userAvatar: 140px,
+cardSpacer: 0.65rem,
+borderRadius: 20px,
+addReaction: 2.5rem,
+followersInfo: 2rem,
+usernameMargin: 0.5rem,
 );
 
 @function getSize($size) {

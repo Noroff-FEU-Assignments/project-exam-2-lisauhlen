@@ -3,11 +3,6 @@
   width: 40px;
 }
 
-input,
-textarea {
-  display: block;
-}
-
 .reply {
   padding-left: 20px;
 }

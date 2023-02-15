@@ -2,6 +2,7 @@
     margin: var(--bs-card-spacer-y) 0;
     background-color: getColor(cards);
     border-radius: getSize(borderRadius);
+    border: none;
 }
 
 .card-body {
