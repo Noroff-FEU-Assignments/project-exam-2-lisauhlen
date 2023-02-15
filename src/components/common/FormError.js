@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 
 export default function ValidationError({ children }) {
-    return <span className="form-error">{children}</span>
+    return <div className="form-error"><p>{children}</p></div>
 }
 
 ValidationError.proptTypes = {

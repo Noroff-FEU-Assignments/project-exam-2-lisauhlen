@@ -1,0 +1,18 @@
+body {
+    color: getColor(white);
+    background-color: getColor(black);
+}
+
+.container-fluid {
+    background-color: getColor(dark);
+    max-width: 600px;
+}
+
+a {
+    color: getColor(white);
+    text-decoration: none;
+}
+
+.hide {
+    display: none;
+}

@@ -1,14 +1,17 @@
 import React from 'react'
 import Heading from '../layout/Heading'
+import Card from 'react-bootstrap/Card';
 
 function PostBody(data) {
     const post = data.data
 
     return (
         <>
-            <img src={post.media} alt="" />
-            <Heading headingLevel="h2">{post.title}</Heading>
-            <p>{post.body}</p>
+            <Card.Img src={post.media} alt="" />
+            <Card.Body>
+                <Card.Title>{post.title}</Card.Title>
+                <Card.Text>{post.body}</Card.Text>
+            </Card.Body>
         </>
     )
 }

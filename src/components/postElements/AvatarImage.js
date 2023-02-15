@@ -1,5 +1,6 @@
 import React from 'react'
 import avatarFeed from '../../images/avatarFeed.svg'
+import Image from 'react-bootstrap/Image'
 
 function AvatarImage(avatar) {
     let avatarImage = avatar.data.author.avatar
@@ -8,7 +9,7 @@ function AvatarImage(avatar) {
         avatarImage = avatarFeed
     }
 
-    return <img src={avatarImage} className="avatar-image" alt="" />
+    return <Image src={avatarImage} roundedCircle className="author-avatar"></Image>
 }
 
 export default AvatarImage

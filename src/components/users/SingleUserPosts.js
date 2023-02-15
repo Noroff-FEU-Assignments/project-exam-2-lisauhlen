@@ -6,11 +6,10 @@ import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
-import AvatarImage from '../postElements/AvatarImage'
 import PostBody from '../postElements/PostBody'
-import CountReactions from '../postElements/CountReactions'
 import AuthorInfo from '../postElements/AuthorInfo'
 import ReactionInfo from '../postElements/ReactionInfo'
+import Card from 'react-bootstrap/Card'
 
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])
@@ -66,22 +65,13 @@ function SingleUserPosts() {
         <div>
             {posts.map(function (post) {
                 return (
-                    <div key={post.id}>
-                        <div>
-                            {/* <AvatarImage data={post} />
-                            <p>{post.author.name}</p>
-                            <p>{post.updated}</p> */}
+                    <Card key={post.id}>
                             <AuthorInfo data={post} />
-                        </div>
                         <Link to={`../../home/detail/${post.id}`}>
                             <PostBody data={post} />
                             <ReactionInfo data={post} />
-                            {/* <div>
-                                <p>Comments: {post._count.comments}</p>
-                                <CountReactions data={post.reactions} />
-                            </div> */}
                         </Link>
-                    </div>
+                    </Card>
                 )
             })}
         </div>

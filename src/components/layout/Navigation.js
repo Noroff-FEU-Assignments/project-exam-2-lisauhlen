@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
-import Login from '../authentication/Login'
 
 function Navigation() {
     const [auth, setAuth] = useContext(AuthContext)

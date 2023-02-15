@@ -1,0 +1,50 @@
+.card {
+    margin: var(--bs-card-spacer-y) 0;
+    background-color: getColor(cards);
+    border-radius: getSize(borderRadius);
+}
+
+.card-body {
+    padding: getSize(cardSpacer)
+}
+
+.author-info {
+    display: flex;
+
+    p {
+        margin: 0 0 0 getSize(cardSpacer);
+    }
+}
+
+.author-avatar {
+    width: getSize(authorAvatar);
+    height: getSize(authorAvatar);
+    object-fit: cover;
+}
+
+.username {
+    font-weight: 700;
+}
+
+.date {
+    font-size: getFontSize(smallFont);
+}
+
+.card-img {
+    border-radius: 0;
+}
+
+.card-title {
+    color: getColor(fontPrimary);
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.btn-group {
+
+    button {
+        background-color: getColor(cards);
+        border: none;
+        padding-bottom: 0;
+    }
+}

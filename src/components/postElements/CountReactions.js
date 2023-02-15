@@ -1,4 +1,5 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button';
 
 function CountReactions(reactions) {
 
@@ -7,7 +8,7 @@ function CountReactions(reactions) {
         0
     )
 
-    return <div>❤️ {count}</div>
+    return <Button>❤️ {count}</Button>
 }
 
 export default CountReactions

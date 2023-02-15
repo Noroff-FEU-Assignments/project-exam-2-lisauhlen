@@ -10,9 +10,9 @@ import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 import CommentSection from '../postElements/CommentSection'
 import AddReaction from '../postElements/AddReaction'
-import AvatarImage from '../postElements/AvatarImage'
 import PostBody from '../postElements/PostBody'
 import AuthorInfo from '../postElements/AuthorInfo'
+import Card from 'react-bootstrap/Card'
 
 function SinglePost() {
     const [post, setPost] = useState([])
@@ -55,7 +55,7 @@ function SinglePost() {
     }
 
     return (
-        <div>
+        <Card>
             <Link to={`/users/${post.author.name}`}>
                 <AuthorInfo data={post} /> 
             </Link>
@@ -65,12 +65,12 @@ function SinglePost() {
                 <PostMenu postId={post.id} />
             </div>
             <PostBody data={post} />
-            <p>{post.tags.join(', ')}</p>
-            <div>
+            <Card.Body>
+                <p className={`${post.tags ? 'hide' : 'tags'}`}>{post.tags.join(', ')}</p>
                 <AddReaction data={post} />
-                <CommentSection data={post} />
-            </div>
-        </div>
+            </Card.Body>
+            <CommentSection data={post} />
+        </Card>
     )
 }
 

@@ -23,7 +23,7 @@ function App() {
         <AuthProvider>
             <Router>
                 <Navigation />
-                <Container>
+                <Container fluid className="rounded">
                     <Routes>
                         <Route path="/home" element={<Home />} />
                         <Route path="/users" element={<Users />} />{' '}

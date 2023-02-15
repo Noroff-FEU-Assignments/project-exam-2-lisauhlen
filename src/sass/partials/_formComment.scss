@@ -1,0 +1,52 @@
+.form-comment {
+    width: 100%;
+    border-top: 1px solid getColor(primary);
+    border-radius: getSize(borderRadius);
+    padding-top: 10px;
+
+
+    .flex-elements {
+        display: flex;
+        flex-flow: row nowrap;
+    }
+
+    textarea {
+        flex-grow: 1;
+        border-radius: getSize(borderRadius) 0 0 getSize(borderRadius);
+        border: none;
+        padding: getSize(cardSpacer);
+        background-color: getColor(dark);
+        color: getColor(white);
+    }
+
+    ::placeholder {
+        color: getColor(white)
+    }
+
+    textarea:focus-visible {
+        outline: none;
+    }
+
+    ::-webkit-resizer {
+        display: none;
+    }
+
+    button {
+        flex-basis: auto;
+        border-radius: 0 getSize(borderRadius) getSize(borderRadius) 0;
+        border: none;
+        padding: getSize(cardSpacer);
+        background-color: getColor(dark);
+        color: getColor(fontPrimary);
+        font-weight: 700;
+    }
+
+    button:hover,
+    button:focus-visible,
+    button:active {
+        color: getColor(white);
+        background-color: getColor(dark) !important;
+        border: none;
+        outline: none;
+    }
+}

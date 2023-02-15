@@ -12,6 +12,7 @@ import avatarFeed from '../../images/avatarFeed.svg'
 import PostBody from '../postElements/PostBody'
 import ReactionInfo from '../postElements/ReactionInfo'
 import AuthorInfo from '../postElements/AuthorInfo'
+import Card from 'react-bootstrap/Card'
 
 function ProfilePosts() {
     const [posts, setPosts] = useState([])
@@ -65,18 +66,16 @@ function ProfilePosts() {
         <div>
             {posts.map(function (post) {
                 return (
-                    <div key={post.id}>
-                        <div>
-                            <AuthorInfo data={post} />
-                        </div>
-                        <div className="post-menu">
+                    <Card key={post.id}>
+                        <AuthorInfo data={post} />
+                        <Card.Body className="post-menu">
                             <PostMenu postId={post.id} />
-                        </div>
+                        </Card.Body>
                         <Link to={`/home/detail/${post.id}`}>
                             <PostBody data={post} />
                             <ReactionInfo data={post} />
                         </Link>
-                    </div>
+                    </Card>
                 )
             })}
         </div>

@@ -1,1 +1,153 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+body {
+  font-family: "Raleway", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  color: #fff;
+  background-color: #1A1E24;
+}
+
+.container-fluid {
+  background-color: #21242A;
+  max-width: 600px;
+}
+
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.card {
+  margin: var(--bs-card-spacer-y) 0;
+  background-color: #393C45;
+  border-radius: 20px;
+}
+
+.card-body {
+  padding: 0.65rem;
+}
+
+.author-info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.author-info p {
+  margin: 0 0 0 0.65rem;
+}
+
+.author-avatar {
+  width: 2.6rem;
+  height: 2.6rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.username {
+  font-weight: 700;
+}
+
+.date {
+  font-size: 0.7rem;
+}
+
+.card-img {
+  border-radius: 0;
+}
+
+.card-title {
+  color: #FFDAB7;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.btn-group button {
+  background-color: #393C45;
+  border: none;
+  padding-bottom: 0;
+}
+
+.comment {
+  background-color: #21242A;
+  margin: var(--bs-card-spacer-y) 0;
+  border-radius: 20px;
+  padding: 0.65rem;
+}
+
+.form-comment {
+  width: 100%;
+  border-top: 1px solid #F5C495;
+  border-radius: 20px;
+  padding-top: 10px;
+}
+
+.form-comment .flex-elements {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row nowrap;
+          flex-flow: row nowrap;
+}
+
+.form-comment textarea {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  border-radius: 20px 0 0 20px;
+  border: none;
+  padding: 0.65rem;
+  background-color: #21242A;
+  color: #fff;
+}
+
+.form-comment ::-webkit-input-placeholder {
+  color: #fff;
+}
+
+.form-comment :-ms-input-placeholder {
+  color: #fff;
+}
+
+.form-comment ::-ms-input-placeholder {
+  color: #fff;
+}
+
+.form-comment ::placeholder {
+  color: #fff;
+}
+
+.form-comment textarea:focus-visible {
+  outline: none;
+}
+
+.form-comment ::-webkit-resizer {
+  display: none;
+}
+
+.form-comment button {
+  -ms-flex-preferred-size: auto;
+      flex-basis: auto;
+  border-radius: 0 20px 20px 0;
+  border: none;
+  padding: 0.65rem;
+  background-color: #21242A;
+  color: #FFDAB7;
+  font-weight: 700;
+}
+
+.form-comment button:hover,
+.form-comment button:focus-visible,
+.form-comment button:active {
+  color: #fff;
+  background-color: #21242A !important;
+  border: none;
+  outline: none;
+}
+
+.form-error {
+  padding: 0.65rem;
+}
+/*# sourceMappingURL=style.css.map */
