@@ -1,20 +1,20 @@
 import React from 'react'
-import Heading from '../layout/Heading'
 import { useState, useContext } from 'react'
-import Container from 'react-bootstrap/Container'
-import Card from 'react-bootstrap/Card'
-import useAxios from '../../hooks/useAxios'
-import { socialPosts } from '../../constants/api/api'
-import { createPostError } from '../common/ErrorMessages'
-import { urlMessage } from '../common/FormMessages'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import Image from 'react-bootstrap/Image'
+import useAxios from '../../hooks/useAxios'
+import { socialPosts } from '../../constants/api/api'
+import { createPostError } from '../common/ErrorMessages'
+import { urlMessage } from '../common/FormMessages'
+import Heading from '../layout/Heading'
 import FormError from '../common/FormError'
 import AuthContext from '../../context/AuthContext'
 import avatarFeed from '../../images/avatarFeed.svg'
-import Image from 'react-bootstrap/Image'
 
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
@@ -94,11 +94,7 @@ function CreatePost() {
                 </Card.Body>
                 <Card.Body>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        {postError && (
-                            <FormError>
-                                <p>{createPostError}</p>
-                            </FormError>
-                        )}
+                        {postError && <FormError>{createPostError}</FormError>}
                         <fieldset disabled={submitting}>
                             <input
                                 {...register('title')}
