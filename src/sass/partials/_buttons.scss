@@ -4,29 +4,40 @@
     font-weight: 700;
     border-radius: getSize(borderRadius);
     border: none;
+    width: 100%;
     min-width: 110px;
-}
-.btn-primary:hover {
-    background-color: getColor(fontPrimary);
-    color: getColor(dark);
-}
+    padding: getSize(cardSpacer);
 
+    &.follow {
+        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+        width: 110px;
+    }
+}
+.btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus-visible {
-    @extend .btn-primary;
+    background-color: getColor(fontPrimary) !important;
+    color: getColor(dark) !important;
     outline: none;
+    box-shadow: none;
 }
+
+// .btn-primary:active,
+// .btn-primary:focus-visible {
+//     @extend .btn-primary;
+//     outline: none;
+//     box-shadow: none;
+// }
 
 .btn-secondary {
     background-color: transparent;
     color: getColor(fontPrimary);
     border-radius: getSize(borderRadius);
-
 }
 
 .btn-group {
-    .btn:hover, 
-    .btn:active, 
+    .btn:hover,
+    .btn:active,
     .btn:focus-visible {
         background-color: transparent !important;
         outline: none;

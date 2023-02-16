@@ -1,6 +1,8 @@
 import React from 'react'
 import Heading from '../layout/Heading'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
 import { createPostError } from '../common/ErrorMessages'
@@ -10,6 +12,9 @@ import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import FormError from '../common/FormError'
+import AuthContext from '../../context/AuthContext'
+import avatarFeed from '../../images/avatarFeed.svg'
+import Image from 'react-bootstrap/Image'
 
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
@@ -28,6 +33,7 @@ const schema = yup.object().shape({
 function CreatePost() {
     const [submitting, setSubmitting] = useState(false)
     const [postError, setPostError] = useState(null)
+    const [auth] = useContext(AuthContext)
 
     const http = useAxios()
     const navigate = useNavigate()
@@ -67,37 +73,71 @@ function CreatePost() {
         }
     }
 
+    let avatarImage = auth.avatar
+
+    if (!avatarImage) {
+        avatarImage = avatarFeed
+    }
+
     return (
-        <div>
+        <Container>
             <Heading headingLevel="h1">Create Post</Heading>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {postError && (
-                    <FormError>
-                        <p>{createPostError}</p>
-                    </FormError>
-                )}
-                <fieldset disabled={submitting}>
-                    <input {...register('title')} placeholder="Post Title" />
-                    {errors.title && (
-                        <FormError>{errors.title.message}</FormError>
-                    )}
-                    <textarea
-                        {...register('body')}
-                        placeholder="Post Text..."
+            <Card>
+                <Card.Body className="author-info">
+                    <Image
+                        src={avatarImage}
+                        roundedCircle
+                        className="author-avatar"
+                        alt=""
                     />
-                    {errors.body && (
-                        <FormError>{errors.body.message}</FormError>
-                    )}
-                    <input {...register('tags')} placeholder="Post tags" />
-                    <input {...register('media')} placeholder="Image URL" />
-                    {errors.media && (
-                        <FormError>{errors.media.message}</FormError>
-                    )}
-                    <p>{urlMessage}</p>
-                    <button>{submitting ? 'Publishing...' : 'Publish'}</button>
-                </fieldset>
-            </form>
-        </div>
+                    <p className="username">{auth.name}</p>
+                </Card.Body>
+                <Card.Body>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        {postError && (
+                            <FormError>
+                                <p>{createPostError}</p>
+                            </FormError>
+                        )}
+                        <fieldset disabled={submitting}>
+                            <input
+                                {...register('title')}
+                                placeholder="Post Title"
+                                className="form-input title-input"
+                            />
+                            {errors.title && (
+                                <FormError>{errors.title.message}</FormError>
+                            )}
+                            <textarea
+                                {...register('body')}
+                                placeholder="Post Text..."
+                                className="form-input"
+                            />
+                            {errors.body && (
+                                <FormError>{errors.body.message}</FormError>
+                            )}
+                            <input
+                                {...register('tags')}
+                                placeholder="Post tags"
+                                className="form-input"
+                            />
+                            <input
+                                {...register('media')}
+                                placeholder="Image URL"
+                                className="form-input"
+                            />
+                            {errors.media && (
+                                <FormError>{errors.media.message}</FormError>
+                            )}
+                            <p className="url-message">{urlMessage}</p>
+                            <button className="btn btn-primary">
+                                {submitting ? 'Publishing...' : 'Publish'}
+                            </button>
+                        </fieldset>
+                    </form>
+                </Card.Body>
+            </Card>
+        </Container>
     )
 }
 

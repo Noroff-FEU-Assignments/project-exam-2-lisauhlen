@@ -1,0 +1,42 @@
+.form-input {
+    display: block;
+    width: 100%;
+    background-color: getColor(cards);
+    border: 1px solid getColor(dark);
+    border-radius: getSize(borderRadius);
+    padding: 0.65rem;
+    color: getColor(white);
+    margin-top: getSize(cardSpacer);
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &::placeholder {
+        color: getColor(white);
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.title-input {
+    color: getColor(fontPrimary);
+    font-weight: 700;
+
+    &::placeholder {
+        @extend .title-input;
+    }
+}
+
+.url-message {
+    font-size: getFontSize(mediumFont);
+    color: getColor(primary);
+    font-style: italic;
+    margin-top: getSize(cardSpacer);
+}
+
+::-webkit-resizer {
+    display: none;
+}

@@ -16,10 +16,12 @@ function Logout() {
         navigate('/')
     }
 
-    return <div onClick={loggingOut} className='logout-button'>
-                <Image src={logoutIcon} alt='logout icon'/>
-                <p>Logout</p>
-            </div>
+    return (
+        <div onClick={loggingOut} className="logout-button">
+            <Image src={logoutIcon} alt="logout icon" />
+            <p>Logout</p>
+        </div>
+    )
 }
 
 export default Logout

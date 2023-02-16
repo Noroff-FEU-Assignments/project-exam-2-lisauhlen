@@ -12,6 +12,7 @@
 
 .author-info {
     display: flex;
+    align-items: center;
 
     p {
         margin: 0 0 0 getSize(cardSpacer);
@@ -51,5 +52,4 @@
 }
 
 .post-menu {
-    
 }

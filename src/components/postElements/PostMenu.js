@@ -38,9 +38,9 @@ function PostMenu(postId) {
 
     return (
         <>
-            <Dropdown className='post-menu'>
-                <Dropdown.Toggle variant="success" id="dropdown-basic" >
-                    <Image src={postMenu} alt='Post menu' />
+            <Dropdown className="post-menu">
+                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                    <Image src={postMenu} alt="Post menu" />
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>

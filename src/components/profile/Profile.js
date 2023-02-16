@@ -64,7 +64,7 @@ function Profile() {
         <div className="position-relative">
             <Heading headingLevel="h1">{profile.name}</Heading>
             <Logout />
-            <div className='banner-container'>
+            <div className="banner-container">
                 <Image
                     fluid
                     src={bannerImage}
@@ -76,7 +76,7 @@ function Profile() {
                 </Link>
             </div>
             <Container className="user-profile">
-                <div className='avatar-container'>
+                <div className="avatar-container">
                     <Image
                         roundedCircle
                         src={avatarImage}

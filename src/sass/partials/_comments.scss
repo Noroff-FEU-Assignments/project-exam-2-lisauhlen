@@ -44,3 +44,9 @@
         opacity: 1;
     }
 }
+
+@media (min-width: getBreakpoint(xSmall)) {
+    .comment-section {
+        font-size: 1rem;
+    }
+}

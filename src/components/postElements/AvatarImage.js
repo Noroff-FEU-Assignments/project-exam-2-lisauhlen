@@ -14,6 +14,7 @@ function AvatarImage(avatar) {
             src={avatarImage}
             roundedCircle
             className="author-avatar"
+            alt=""
         ></Image>
     )
 }

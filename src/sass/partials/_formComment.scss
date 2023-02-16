@@ -26,10 +26,6 @@
         outline: none;
     }
 
-    ::-webkit-resizer {
-        display: none;
-    }
-
     button {
         flex-basis: auto;
         border-radius: 0 getSize(borderRadius) getSize(borderRadius) 0;
