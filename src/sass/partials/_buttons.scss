@@ -6,3 +6,13 @@
     border: none;
     min-width: 110px;
 }
+.btn-primary:hover {
+    background-color: getColor(fontPrimary);
+    color: getColor(dark);
+}
+
+.btn-primary:active,
+.btn-primary:focus-visible {
+    @extend .btn-primary;
+    outline: none;
+}
