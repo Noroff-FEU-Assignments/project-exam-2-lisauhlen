@@ -10,7 +10,7 @@ import FormError from '../common/FormError'
 import { commentError } from '../common/ErrorMessages'
 import AvatarImage from '../postElements/AvatarImage'
 import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button';
+import Button from 'react-bootstrap/Button'
 
 const schema = yup.object().shape({
     body: yup.string().required('Please write your comment.'),
@@ -54,15 +54,25 @@ function NewCommentSection(post) {
 
     return (
         <div>
-            <Card.Body className='comment-section'>
+            <Card.Body className="comment-section">
                 {comments.map(function (comment) {
                     return (
-                        <div key={comment.id} className={`comment ${comment.replyToId ? 'reply' : ''}`}>
-                            <Link to={`/users/${comment.author.name}`} className="author-info">
+                        <div
+                            key={comment.id}
+                            className={`comment ${
+                                comment.replyToId ? 'reply' : ''
+                            }`}
+                        >
+                            <Link
+                                to={`/users/${comment.author.name}`}
+                                className="author-info"
+                            >
                                 {/* <AuthorInfo data={comment} /> */}
                                 <AvatarImage data={comment} />
                                 <div>
-                                    <p className="username">{comment.author.name}</p>
+                                    <p className="username">
+                                        {comment.author.name}
+                                    </p>
                                     <p className="date">{comment.created}</p>
                                 </div>
                             </Link>
@@ -73,19 +83,19 @@ function NewCommentSection(post) {
             </Card.Body>
             <form onSubmit={handleSubmit(onSubmit)} className="form-comment">
                 <fieldset disabled={submitting} className="card-body">
-                    <div className='flex-elements'>
+                    <div className="flex-elements">
                         <textarea
                             {...register('body')}
                             placeholder="Share your thoughts..."
                         />
-                        <button>{submitting ? 'Publishing...' : 'Publish'}</button>
+                        <button>
+                            {submitting ? 'Publishing...' : 'Publish'}
+                        </button>
                     </div>
                     {errors.body && (
                         <FormError>{errors.body.message}</FormError>
                     )}
-                    {postError && (
-                        <FormError>{commentError}</FormError>
-                    )}
+                    {postError && <FormError>{commentError}</FormError>}
                 </fieldset>
             </form>
         </div>

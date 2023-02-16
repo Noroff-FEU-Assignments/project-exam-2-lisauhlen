@@ -71,18 +71,23 @@ function SingleUser() {
     return (
         <div>
             <Heading headingLevel="h1">{user.name}</Heading>
-                <Image fluid src={bannerImage} alt="" className="profile-banner" />
-                <Container className="user-profile">
-                    <Image roundedCircle src={avatarImage} alt="" className="profile-avatar" />
-                    <p className='username'>{user.name}</p>
-                    <div className='user-info'>
-                        <FollowUnfollowUser data={user.followers} />
-                        <p>{user.following.length} Following</p>
-                    </div>
-                </Container>
-                <Container>
-                    <SingleUserPosts />
-                </Container>
+            <Image fluid src={bannerImage} alt="" className="profile-banner" />
+            <Container className="user-profile">
+                <Image
+                    roundedCircle
+                    src={avatarImage}
+                    alt=""
+                    className="profile-avatar"
+                />
+                <p className="username">{user.name}</p>
+                <div className="user-info">
+                    <FollowUnfollowUser data={user.followers} />
+                    <p>{user.following.length} Following</p>
+                </div>
+            </Container>
+            <Container>
+                <SingleUserPosts />
+            </Container>
         </div>
     )
 }

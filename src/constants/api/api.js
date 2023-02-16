@@ -14,7 +14,6 @@ export const socialPosts = 'social/posts'
 // Endpoint to users
 export const socialUsers = 'social/profiles'
 
-
 // _flags used to filter the API calls:
 
 // limiting the call to display 40 results, and showing the author, comments and reactions info

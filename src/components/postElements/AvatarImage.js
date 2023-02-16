@@ -9,7 +9,13 @@ function AvatarImage(avatar) {
         avatarImage = avatarFeed
     }
 
-    return <Image src={avatarImage} roundedCircle className="author-avatar"></Image>
+    return (
+        <Image
+            src={avatarImage}
+            roundedCircle
+            className="author-avatar"
+        ></Image>
+    )
 }
 
 export default AvatarImage

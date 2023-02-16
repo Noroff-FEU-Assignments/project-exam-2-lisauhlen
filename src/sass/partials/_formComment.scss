@@ -4,7 +4,6 @@
     border-radius: getSize(borderRadius);
     padding-top: 10px;
 
-
     .flex-elements {
         display: flex;
         flex-flow: row nowrap;
@@ -20,7 +19,7 @@
     }
 
     ::placeholder {
-        color: getColor(white)
+        color: getColor(white);
     }
 
     textarea:focus-visible {

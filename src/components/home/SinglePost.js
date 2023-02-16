@@ -59,16 +59,22 @@ function SinglePost() {
         <Container>
             <Card>
                 <Link to={`/users/${post.author.name}`}>
-                    <AuthorInfo data={post} /> 
+                    <AuthorInfo data={post} />
                 </Link>
-                <div className={
-                        post.author.name === auth.name ? 'post-menu' : 'hide-menu'
-                    } >
+                <div
+                    className={
+                        post.author.name === auth.name
+                            ? 'post-menu'
+                            : 'hide-menu'
+                    }
+                >
                     <PostMenu postId={post.id} />
                 </div>
                 <PostBody data={post} />
                 <Card.Body>
-                    <p className={`${post.tags ? 'hide' : 'tags'}`}>{post.tags.join(', ')}</p>
+                    <p className={`${post.tags ? 'hide' : 'tags'}`}>
+                        {post.tags.join(', ')}
+                    </p>
                     <AddReaction data={post} />
                 </Card.Body>
                 <CommentSection data={post} />

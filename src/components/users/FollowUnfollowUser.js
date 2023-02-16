@@ -75,9 +75,7 @@ function FollowUnfollowUser(followers) {
             ) : (
                 <Button onClick={followUser}>Follow</Button>
             )}
-            {followError && (
-                <ErrorComponent>{followUserError}</ErrorComponent>
-            )}
+            {followError && <ErrorComponent>{followUserError}</ErrorComponent>}
             {unfollowError && (
                 <ErrorComponent>{unfollowUserError}</ErrorComponent>
             )}

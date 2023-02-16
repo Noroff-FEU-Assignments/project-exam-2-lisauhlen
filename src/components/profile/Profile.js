@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
-import Button from 'react-bootstrap/Button'
+import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
@@ -14,6 +14,7 @@ import ErrorComponent from '../common/ErrorComponent'
 import { profileError } from '../common/ErrorMessages'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
+import secondaryButton from '../../images/secondaryButton.svg'
 
 function Profile() {
     const [profile, setProfile] = useState([])
@@ -60,20 +61,34 @@ function Profile() {
     }
 
     return (
-        <div>
+        <div className="position-relative">
             <Heading headingLevel="h1">{profile.name}</Heading>
             <Logout />
-            <div>
-                <Image fluid src={bannerImage} alt="" className="profile-banner" />
-                <Button href={'/profile/update-images'}>+</Button>
+            <div className='banner-container'>
+                <Image
+                    fluid
+                    src={bannerImage}
+                    alt=""
+                    className="profile-banner"
+                />
+                <Link to={'/profile/update-images'}>
+                    <Image src={secondaryButton} />
+                </Link>
             </div>
             <Container className="user-profile">
-            <div>
-                <Image roundedCircle src={avatarImage} alt="" className="profile-avatar" />
-                <Button href={'/profile/update-images'}>+</Button>
-            </div>
-                <p className='username'>{profile.name}</p>
-                <div className='user-info own-profile'>
+                <div className='avatar-container'>
+                    <Image
+                        roundedCircle
+                        src={avatarImage}
+                        alt=""
+                        className="profile-avatar"
+                    />
+                    <Link to={'/profile/update-images'}>
+                        <Image src={secondaryButton} />
+                    </Link>
+                </div>
+                <p className="username">{profile.name}</p>
+                <div className="user-info own-profile">
                     <p>{profile._count.following} Following</p>
                     <p>{profile._count.followers} Followers</p>
                 </div>

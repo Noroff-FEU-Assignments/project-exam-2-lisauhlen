@@ -5,7 +5,6 @@ import AuthContext from '../../context/AuthContext'
 import Heading from '../layout/Heading'
 import LoginForm from './LoginForm'
 
-
 function Login() {
     const [auth, setAuth] = useContext(AuthContext)
 

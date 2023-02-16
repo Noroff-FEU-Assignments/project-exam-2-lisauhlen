@@ -57,15 +57,29 @@ function Users() {
                     <Link to={`/users/${user.name}`} key={user.name}>
                         <Card>
                             {user.banner ? (
-                                <Card.Img variant="top" className="user-banner" src={user.banner} alt="" />
+                                <Card.Img
+                                    variant="top"
+                                    className="user-banner"
+                                    src={user.banner}
+                                    alt=""
+                                />
                             ) : (
                                 <></>
                             )}
-                            <Card.Body className={`user-card ${user.banner ? 'bottom-align' : ''}`}>
-                                <Image roundedCircle className="user-avatar" src={avatarImage} alt="" />
+                            <Card.Body
+                                className={`user-card ${
+                                    user.banner ? 'bottom-align' : ''
+                                }`}
+                            >
+                                <Image
+                                    roundedCircle
+                                    className="user-avatar"
+                                    src={avatarImage}
+                                    alt=""
+                                />
                                 <div>
-                                    <p className='username'>{user.name}</p>
-                                    <div className='follower-info'>
+                                    <p className="username">{user.name}</p>
+                                    <div className="follower-info">
                                         <p>{user.followers.length} Followers</p>
                                         <p>{user.following.length} Following</p>
                                     </div>

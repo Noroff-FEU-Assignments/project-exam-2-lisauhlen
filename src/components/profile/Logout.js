@@ -1,8 +1,9 @@
 import React from 'react'
 import { useContext } from 'react'
-import Button from 'react-bootstrap/Button'
+import Image from 'react-bootstrap/Image'
 import { useNavigate } from 'react-router-dom'
 import AuthContext from '../../context/AuthContext'
+import logoutIcon from '../../images/logoutIcon.svg'
 
 function Logout() {
     const [auth, setAuth] = useContext(AuthContext)
@@ -15,7 +16,10 @@ function Logout() {
         navigate('/')
     }
 
-    return <Button onClick={loggingOut}>Logout</Button>
+    return <div onClick={loggingOut} className='logout-button'>
+                <Image src={logoutIcon} alt='logout icon'/>
+                <p>Logout</p>
+            </div>
 }
 
 export default Logout

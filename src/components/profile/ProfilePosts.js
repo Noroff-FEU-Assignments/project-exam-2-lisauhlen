@@ -55,7 +55,7 @@ function ProfilePosts() {
 
     if (posts.length === 0) {
         return (
-            <div>
+            <div className="no-posts">
                 <p>You haven't posted anything yet.</p>
                 <Link to={`../post`}>Create your first post.</Link>
             </div>
@@ -68,9 +68,7 @@ function ProfilePosts() {
                 return (
                     <Card key={post.id}>
                         <AuthorInfo data={post} />
-                        <Card.Body className="post-menu">
-                            <PostMenu postId={post.id} />
-                        </Card.Body>
+                        <PostMenu postId={post.id} />
                         <Link to={`/home/detail/${post.id}`}>
                             <PostBody data={post} />
                             <ReactionInfo data={post} />

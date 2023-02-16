@@ -5,7 +5,7 @@
     background-color: getColor(dark);
     margin: var(--bs-card-spacer-y) 0;
     border-radius: getSize(borderRadius);
-    padding: getSize(cardSpacer)
+    padding: getSize(cardSpacer);
 }
 
 .comment:first-of-type {

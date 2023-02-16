@@ -15,9 +15,16 @@ import FormError from '../common/FormError'
 
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
-    body: yup.string().max(280, 'The post text can not be longer than 280 characters.'),
+    body: yup
+        .string()
+        .max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    media: yup.string().matches(/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/, 'Please enter a valid url.'),
+    media: yup
+        .string()
+        .matches(
+            /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/,
+            'Please enter a valid url.'
+        ),
 })
 
 function EditPost() {
@@ -40,23 +47,20 @@ function EditPost() {
         resolver: yupResolver(schema),
     })
 
-    useEffect(
-        function () {
-            async function defaultValues() {
-                try {
-                    const response = await http.get(endpoint)
-                    console.log(response.data)
-                    setValue(response.data)
-                    reset()
-                } catch (error) {
-                    console.log(error)
-                    setDisplayError(error.toString())
-                }
+    useEffect(function () {
+        async function defaultValues() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setValue(response.data)
+                reset()
+            } catch (error) {
+                console.log(error)
+                setDisplayError(error.toString())
             }
-            defaultValues()
-        },
-        []
-    )
+        }
+        defaultValues()
+    }, [])
 
     let title = value.title
     let body = value.body

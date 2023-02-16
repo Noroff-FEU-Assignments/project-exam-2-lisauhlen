@@ -40,8 +40,10 @@ function AddReaction(post) {
 
     return (
         <>
-            <div onClick={HandleClick} className="add-reaction"><span className="heart">❤️</span> <span>{reactionCount}</span></div>
-            
+            <div onClick={HandleClick} className="add-reaction">
+                <span className="heart">❤️</span> <span>{reactionCount}</span>
+            </div>
+
             {reactionError ? (
                 <ErrorComponent>{addReactionError}</ErrorComponent>
             ) : (

@@ -26,24 +26,21 @@ function SingleUserPosts() {
 
     const endpoint = socialUsers + '/' + name + '/posts/' + postFlags
 
-    useEffect(
-        function () {
-            async function getUserPosts() {
-                try {
-                    const response = await http.get(endpoint)
-                    console.log(response.data)
-                    setPosts(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getUserPosts() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setPosts(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getUserPosts()
-        },
-        []
-    )
+        }
+        getUserPosts()
+    }, [])
 
     if (loading) {
         return <Loader />
@@ -55,7 +52,7 @@ function SingleUserPosts() {
 
     if (posts.length === 0) {
         return (
-            <div className='no-posts'>
+            <div className="no-posts">
                 <p>This user hasn't posted anything yet.</p>
             </div>
         )
@@ -66,7 +63,7 @@ function SingleUserPosts() {
             {posts.map(function (post) {
                 return (
                     <Card key={post.id}>
-                            <AuthorInfo data={post} />
+                        <AuthorInfo data={post} />
                         <Link to={`../../home/detail/${post.id}`}>
                             <PostBody data={post} />
                             <ReactionInfo data={post} />

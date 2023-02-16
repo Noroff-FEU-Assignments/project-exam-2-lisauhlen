@@ -1,3 +1,10 @@
 body {
     font-family: $font;
 }
+
+h1 {
+    color: getColor(fontPrimary);
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: getSize(cardSpacer);
+}

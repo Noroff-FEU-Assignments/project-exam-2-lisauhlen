@@ -3,10 +3,11 @@
     background-color: getColor(cards);
     border-radius: getSize(borderRadius);
     border: none;
+    position: relative;
 }
 
 .card-body {
-    padding: getSize(cardSpacer)
+    padding: getSize(cardSpacer);
 }
 
 .author-info {
@@ -42,10 +43,13 @@
 }
 
 .btn-group {
-
     button {
         background-color: getColor(cards);
         border: none;
         padding-bottom: 0;
     }
+}
+
+.post-menu {
+    
 }
