@@ -61,6 +61,10 @@
 
     a {
         color: getColor(fontPrimary);
-        font-weight: 700;
+        font-weight: getFontSize(fontWeight);
+    }
+
+    a:hover {
+        text-decoration: underline;
     }
 }

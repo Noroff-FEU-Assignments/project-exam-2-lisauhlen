@@ -23,7 +23,7 @@
 
 .title-input {
     color: getColor(fontPrimary);
-    font-weight: 700;
+    font-weight: getFontSize(fontWeight);
 
     &::placeholder {
         @extend .title-input;

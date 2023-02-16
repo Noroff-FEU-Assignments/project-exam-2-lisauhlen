@@ -1,7 +1,7 @@
 .btn-primary {
     background-color: getColor(primary);
     color: getColor(dark);
-    font-weight: 700;
+    font-weight: getFontSize(fontWeight);
     border-radius: getSize(borderRadius);
     border: none;
     width: 100%;

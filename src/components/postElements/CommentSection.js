@@ -88,7 +88,7 @@ function NewCommentSection(post) {
                             {...register('body')}
                             placeholder="Share your thoughts..."
                         />
-                        <button>
+                        <button className="input-button">
                             {submitting ? 'Publishing...' : 'Publish'}
                         </button>
                     </div>

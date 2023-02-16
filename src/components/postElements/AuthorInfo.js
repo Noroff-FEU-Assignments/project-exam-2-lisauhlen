@@ -3,8 +3,6 @@ import AvatarImage from './AvatarImage'
 import Card from 'react-bootstrap/Card'
 
 function AuthorInfo(data) {
-    console.log(data)
-
     const post = data.data
 
     return (

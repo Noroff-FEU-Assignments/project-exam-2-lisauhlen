@@ -5,6 +5,12 @@ body {
 h1 {
     color: getColor(fontPrimary);
     text-align: center;
-    font-weight: 700;
+    font-weight: getFontSize(fontWeight);
     margin-bottom: getSize(cardSpacer);
+}
+
+h2 {
+    color: getColor(fontPrimary);
+    font-size: 1rem;
+    font-weight: getFontSize(fontWeight);
 }

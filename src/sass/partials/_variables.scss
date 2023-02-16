@@ -6,6 +6,7 @@ $fontSizes: (
     smallFont: 0.7rem,
     mediumFont: 0.8rem,
     // largeFont: 1.4rem,
+    fontWeight: 700,
 );
 
 @function getFontSize($fontSize) {

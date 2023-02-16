@@ -4,11 +4,6 @@
     border-radius: getSize(borderRadius);
     padding-top: 10px;
 
-    .flex-elements {
-        display: flex;
-        flex-flow: row nowrap;
-    }
-
     textarea {
         flex-grow: 1;
         border-radius: getSize(borderRadius) 0 0 getSize(borderRadius);
@@ -25,23 +20,28 @@
     textarea:focus-visible {
         outline: none;
     }
+}
 
-    button {
-        flex-basis: auto;
-        border-radius: 0 getSize(borderRadius) getSize(borderRadius) 0;
-        border: none;
-        padding: getSize(cardSpacer);
-        background-color: getColor(dark);
-        color: getColor(fontPrimary);
-        font-weight: 700;
-    }
+.flex-elements {
+    display: flex;
+    flex-flow: row nowrap;
+}
 
-    button:hover,
-    button:focus-visible,
-    button:active {
-        color: getColor(white);
-        background-color: getColor(dark) !important;
-        border: none;
-        outline: none;
-    }
+.input-button {
+    flex-basis: auto;
+    border-radius: 0 getSize(borderRadius) getSize(borderRadius) 0;
+    border: none;
+    padding: getSize(cardSpacer);
+    background-color: getColor(dark);
+    color: getColor(fontPrimary);
+    font-weight: getFontSize(fontWeight);
+}
+
+.input-button:hover,
+.input-button:focus-visible,
+.input-button:active {
+    color: getColor(white);
+    background-color: getColor(dark) !important;
+    border: none;
+    outline: none;
 }
