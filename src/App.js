@@ -13,10 +13,8 @@ import EditPost from './components/createPost/EditPost'
 import Profile from './components/profile/Profile'
 import SinglePost from './components/home/SinglePost'
 import SingleUser from './components/users/SingleUser'
-import './sass/style.scss'
-
-import './App.scss'
 import AvatarBannerUpdate from './components/profile/AvatarBannerUpdate'
+import './sass/style.scss'
 
 function App() {
     return (

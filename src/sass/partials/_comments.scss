@@ -23,6 +23,11 @@
     }
 }
 
+.reply {
+    margin-left: calc(2*getSize(cardSpacer));
+}
+
+
 // Animates heart icon on click:
 
 .reaction-animation {

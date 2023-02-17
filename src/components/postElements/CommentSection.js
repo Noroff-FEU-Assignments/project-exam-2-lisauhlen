@@ -24,6 +24,7 @@ function NewCommentSection(post) {
     const http = useAxios()
     const { id } = useParams()
     const endpoint = socialPosts + '/' + id + '/comment'
+    const dayjs = require('dayjs')
 
     const {
         register,
@@ -56,6 +57,8 @@ function NewCommentSection(post) {
         <div>
             <Card.Body className="comment-section">
                 {comments.map(function (comment) {
+                    const date = dayjs(comment.created).format('D. MMM YYYY')
+
                     return (
                         <div
                             key={comment.id}
@@ -67,13 +70,12 @@ function NewCommentSection(post) {
                                 to={`/users/${comment.author.name}`}
                                 className="author-info"
                             >
-                                {/* <AuthorInfo data={comment} /> */}
                                 <AvatarImage data={comment} />
                                 <div>
                                     <p className="username">
                                         {comment.author.name}
                                     </p>
-                                    <p className="date">{comment.created}</p>
+                                    <p className="date">{date}</p>
                                 </div>
                             </Link>
                             {comment.body}
