@@ -15,8 +15,8 @@ function PostIcon() {
             <title id="postIconTitle">Post icon</title>
             <path
                 d="M10.5 1V20M1 10.5H20"
-                stroke-linecap="round"
-                stroke-linejoin="round"
+                strokeLinecap="round"
+                strokeLinejoin="round"
             />
         </svg>
     )
