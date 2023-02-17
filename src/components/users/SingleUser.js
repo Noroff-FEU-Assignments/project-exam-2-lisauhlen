@@ -9,6 +9,7 @@ import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserError } from '../common/ErrorMessages'
+import BackButton from '../common/BackButton'
 import SingleUserPosts from './SingleUserPosts'
 import FollowUnfollowUser from './FollowUnfollowUser'
 import avatarProfile from '../../images/avatarProfile.svg'
@@ -29,25 +30,21 @@ function SingleUser() {
 
     const endpoint = socialUsers + '/' + name + userFlags
 
-    useEffect(
-        function () {
-            async function getUser() {
-                try {
-                    const response = await http.get(endpoint)
-                    console.log(response.data)
-                    setUser(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getUser() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setUser(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getUser()
-        },
-        // [url]
-        []
-    )
+        }
+        getUser()
+    }, [])
 
     let bannerImage = user.banner
     let avatarImage = user.avatar
@@ -69,7 +66,8 @@ function SingleUser() {
     }
 
     return (
-        <div>
+        <div className="position-relative">
+            <BackButton data="back" />
             <Heading headingLevel="h1">{user.name}</Heading>
             <Image fluid src={bannerImage} alt="" className="profile-banner" />
             <Container className="user-profile">

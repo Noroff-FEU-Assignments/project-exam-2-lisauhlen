@@ -1,9 +1,13 @@
 import React from 'react'
 import { useContext } from 'react'
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
 import { NavLink } from 'react-router-dom'
+import Navbar from 'react-bootstrap/Navbar'
+import Image from 'react-bootstrap/Image'
 import AuthContext from '../../context/AuthContext'
+import FeedIcon from './menuIcons/FeedIcon'
+import UsersIcon from './menuIcons/UsersIcon'
+import PostIcon from './menuIcons/PostIcon'
+import ProfileIcon from './menuIcons/ProfileIcon'
 
 function Navigation() {
     const [auth, setAuth] = useContext(AuthContext)
@@ -11,25 +15,23 @@ function Navigation() {
     return (
         <>
             {auth ? (
-                <Navbar bg="dark" variant="dark" expand="lg">
-                    <Navbar.Toggle aria-controls="basic-navbar-nav" />
-                    <Navbar.Collapse id="basic-navbar-nav">
-                        <Nav className="mr-auto">
-                            <NavLink to="/home" className="nav-link">
-                                Feed
-                            </NavLink>
-                            <NavLink to="/users" className="nav-link">
-                                Users
-                            </NavLink>
-                            <NavLink to="/post" className="nav-link">
-                                Post
-                            </NavLink>
-                            <NavLink to="/profile/" className="nav-link">
-                                {' '}
-                                Profile{' '}
-                            </NavLink>
-                        </Nav>
-                    </Navbar.Collapse>
+                <Navbar className="navigation">
+                    <NavLink to="/home" className="nav-link">
+                        <FeedIcon />
+                        Feed
+                    </NavLink>
+                    <NavLink to="/users" className="nav-link">
+                        <UsersIcon />
+                        Users
+                    </NavLink>
+                    <NavLink to="/post" className="nav-link">
+                        <PostIcon />
+                        Post
+                    </NavLink>
+                    <NavLink to="/profile" className="nav-link">
+                        <ProfileIcon />
+                        Profile
+                    </NavLink>
                 </Navbar>
             ) : (
                 <></>

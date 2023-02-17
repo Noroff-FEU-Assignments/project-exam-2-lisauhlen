@@ -1,12 +1,13 @@
 // FONT variables
 $font: 'Raleway', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+$logoFont: 'Qwitcher Grypen', cursive;
 
 $fontSizes: (
     smallFont: 0.7rem,
     mediumFont: 0.8rem,
-    // largeFont: 1.4rem,
-    fontWeight: 700,
+    largeFont: 1.4rem,
+    fontWeight: 600,
 );
 
 @function getFontSize($fontSize) {

@@ -3,6 +3,7 @@ import { useContext } from 'react'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import AuthContext from '../../context/AuthContext'
+import BackButton from '../common/BackButton'
 import Heading from '../layout/Heading'
 import AvatarUpdate from './AvatarUpdate'
 import BannerUpdate from './BannerUpdate'
@@ -24,7 +25,8 @@ function AvatarBannerUpdate() {
     }
 
     return (
-        <Container className="update-images-container">
+        <Container className="update-images-container position-relative">
+            <BackButton data="value" />
             <Heading headingLevel="h1">{auth.name}</Heading>
             <Heading headingLevel="h2">Avatar</Heading>
             <div className="image-container">

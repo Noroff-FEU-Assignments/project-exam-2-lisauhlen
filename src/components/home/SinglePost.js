@@ -7,6 +7,7 @@ import { socialPosts, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { singlePostError } from '../common/ErrorMessages'
+import BackButton from '../common/BackButton'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
 import CommentSection from '../postElements/CommentSection'
@@ -56,16 +57,15 @@ function SinglePost() {
     }
 
     return (
-        <Container>
+        <Container className="position-relative container-padding">
+            <BackButton data="back" />
             <Card>
                 <Link to={`/users/${post.author.name}`}>
                     <AuthorInfo data={post} />
                 </Link>
                 <div
                     className={
-                        post.author.name === auth.name
-                            ? 'post-menu'
-                            : 'hide-menu'
+                        post.author.name === auth.name ? 'post-menu' : 'hide'
                     }
                 >
                     <PostMenu postId={post.id} />

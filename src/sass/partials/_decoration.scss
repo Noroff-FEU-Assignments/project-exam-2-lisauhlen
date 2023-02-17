@@ -1,0 +1,8 @@
+.decor-top {
+    align-self: flex-end;
+    padding-top: getSize(cardSpacer);
+}
+.decor-bottom {
+    align-self: flex-start;
+    max-width: 100%;
+}

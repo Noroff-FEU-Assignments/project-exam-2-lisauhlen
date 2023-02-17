@@ -1,6 +1,6 @@
 import React from 'react'
-import { useState, useEffect, useContext } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
+import { useState, useContext } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -54,32 +54,29 @@ function Login() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {loginError && (
-                    <FormError>
-                        <p>{userLoginError}</p>
-                    </FormError>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            {loginError && <FormError>{userLoginError}</FormError>}
+            <fieldset disabled={submitting}>
+                <input
+                    {...register('email')}
+                    placeholder="Email"
+                    className="form-input"
+                />
+                {errors.email && <FormError>{errors.email.message}</FormError>}
+                <input
+                    {...register('password')}
+                    placeholder="Password"
+                    type="password"
+                    className="form-input"
+                />
+                {errors.password && (
+                    <FormError>{errors.password.message}</FormError>
                 )}
-                <fieldset disabled={submitting}>
-                    <input {...register('email')} placeholder="Email" />
-                    {errors.email && (
-                        <FormError>{errors.email.message}</FormError>
-                    )}
-                    <input
-                        {...register('password')}
-                        placeholder="Password"
-                        type="password"
-                    />
-                    {errors.password && (
-                        <FormError>{errors.password.message}</FormError>
-                    )}
-                    <button>{submitting ? 'Logging in...' : 'Login'}</button>
-                </fieldset>
-            </form>
-            <p>Don’t miss out on the fun!</p>
-            <Link to="/register">Register</Link>
-        </div>
+                <button className="btn btn-primary">
+                    {submitting ? 'Logging in...' : 'Login'}
+                </button>
+            </fieldset>
+        </form>
     )
 }
 

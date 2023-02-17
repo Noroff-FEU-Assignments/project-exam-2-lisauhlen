@@ -1,7 +1,7 @@
 import React from 'react'
 import { useContext } from 'react'
-import Image from 'react-bootstrap/Image'
 import { useNavigate } from 'react-router-dom'
+import Image from 'react-bootstrap/Image'
 import AuthContext from '../../context/AuthContext'
 import logoutIcon from '../../images/logoutIcon.svg'
 
@@ -11,9 +11,13 @@ function Logout() {
     const navigate = useNavigate()
 
     function loggingOut() {
-        console.log('Logging out!')
-        setAuth(null)
-        navigate('/')
+        const confirmLogout = window.confirm('Are you sure you wanna logout?')
+
+        if (confirmLogout) {
+            console.log('Logging out!')
+            setAuth(null)
+            navigate('/')
+        }
     }
 
     return (

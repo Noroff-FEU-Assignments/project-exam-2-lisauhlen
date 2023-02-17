@@ -22,11 +22,11 @@
 }
 
 .profile-avatar {
-    width: getSize(profileAvatar);
-    height: getSize(profileAvatar);
-    max-width: getSize(profileAvatar);
+    width: getSize(userAvatar);
+    height: getSize(userAvatar);
+    max-width: getSize(userAvatar);
     object-fit: cover;
-    margin-top: -100px;
+    margin-top: -70px;
     padding: getSize(cardSpacer);
 }
 
@@ -40,6 +40,7 @@
 
 .user-info {
     display: flex;
+    flex-flow: row wrap;
     width: 100%;
     justify-content: space-around;
     align-items: baseline;
@@ -66,5 +67,14 @@
 
     a:hover {
         text-decoration: underline;
+    }
+}
+
+@media (min-width: getBreakpoint(xxSmall)) {
+    .profile-avatar {
+        width: getSize(profileAvatar);
+        height: getSize(profileAvatar);
+        max-width: getSize(profileAvatar);
+        margin-top: -100px;
     }
 }

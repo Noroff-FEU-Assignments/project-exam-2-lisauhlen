@@ -1,6 +1,10 @@
 .form-error {
     padding: getSize(cardSpacer);
     color: getColor(error);
+
+    p {
+        margin: 0;
+    }
 }
 
 .error-component {

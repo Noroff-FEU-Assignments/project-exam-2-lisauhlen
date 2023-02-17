@@ -18,7 +18,7 @@ function PostMenu(postId) {
 
     function handleClick() {
         const confirmDeletion = window.confirm(
-            'Are you sure you want to delete this post?'
+            'Are you sure you wanna delete this post?'
         )
 
         if (confirmDeletion) {

@@ -11,6 +11,7 @@ import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
 import { createPostError } from '../common/ErrorMessages'
 import { urlMessage } from '../common/FormMessages'
+import BackButton from '../common/BackButton'
 import Heading from '../layout/Heading'
 import FormError from '../common/FormError'
 import AuthContext from '../../context/AuthContext'
@@ -80,7 +81,8 @@ function CreatePost() {
     }
 
     return (
-        <Container>
+        <Container className="position-relative">
+            <BackButton data="close" />
             <Heading headingLevel="h1">Create Post</Heading>
             <Card>
                 <Card.Body className="author-info">

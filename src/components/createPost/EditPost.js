@@ -12,6 +12,7 @@ import useAxios from '../../hooks/useAxios'
 import AuthContext from '../../context/AuthContext'
 import { socialPosts } from '../../constants/api/api'
 import ErrorComponent from '../common/ErrorComponent'
+import BackButton from '../common/BackButton'
 import Heading from '../layout/Heading'
 import FormError from '../common/FormError'
 import { singlePostError, editPostError } from '../common/ErrorMessages'
@@ -112,11 +113,7 @@ function EditPost() {
     }
 
     if (displayError) {
-        return (
-            <ErrorComponent>
-                <p>{singlePostError}</p>
-            </ErrorComponent>
-        )
+        return <ErrorComponent>{singlePostError}</ErrorComponent>
     }
 
     let avatarImage = auth.avatar
@@ -126,7 +123,8 @@ function EditPost() {
     }
 
     return (
-        <Container>
+        <Container className="position-relative">
+            <BackButton data="close" />
             <Heading headingLevel="h1">Edit Post</Heading>
             <Card>
                 <Card.Body className="author-info">

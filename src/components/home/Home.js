@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts, postFlags } from '../../constants/api/api'
-import Heading from '../layout/Heading'
+import Logo from '../layout/Logo'
 import Loader from '../common/Loader'
 import ErrorComponent from '../common/ErrorComponent'
 import { feedError } from '../common/ErrorMessages'
@@ -47,16 +47,9 @@ function Home() {
 
     return (
         <>
-            <Heading headingLevel="h1">Charlie</Heading>
+            <Logo headingLevel="h1">Charlie</Logo>
             <Container>
                 {posts.map(function (post) {
-                    // let avatar = post.author.avatar
-
-                    // if (!avatar) {
-                    //     avatar =
-                    //         'https://res.cloudinary.com/lisaur/image/upload/v1675421845/PE2/avatar-default_kbh9mo.svg'
-                    // }
-
                     return (
                         <Card key={post.id}>
                             <Link to={`/users/${post.author.name}`}>

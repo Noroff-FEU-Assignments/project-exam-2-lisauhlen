@@ -22,12 +22,12 @@
     box-shadow: none;
 }
 
-// .btn-primary:active,
-// .btn-primary:focus-visible {
-//     @extend .btn-primary;
-//     outline: none;
-//     box-shadow: none;
-// }
+.btn.disabled,
+.btn:disabled,
+.fieldset:disabled .btn {
+    background-color: getColor(fontPrimary) !important;
+    color: getColor(dark) !important;
+}
 
 .btn-secondary {
     background-color: transparent;
@@ -63,4 +63,13 @@
 
 .logout-button:hover {
     cursor: pointer;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.65rem;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
