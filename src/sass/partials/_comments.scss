@@ -5,7 +5,7 @@
     background-color: getColor(dark);
     margin: var(--bs-card-spacer-y) 0;
     border-radius: getSize(borderRadius);
-    padding: getSize(cardSpacer);
+    padding: getSize(mainSpacer);
 }
 
 .comment:first-of-type {
@@ -24,9 +24,8 @@
 }
 
 .reply {
-    margin-left: calc(2*getSize(cardSpacer));
+    margin-left: calc(2 * getSize(mainSpacer));
 }
-
 
 // Animates heart icon on click:
 

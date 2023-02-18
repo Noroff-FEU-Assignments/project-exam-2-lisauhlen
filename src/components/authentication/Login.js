@@ -9,6 +9,13 @@ import LoginForm from './LoginForm'
 import decorTop from '../../images/decorTop.svg'
 import decorBottom from '../../images/decorBottom.svg'
 
+/**
+ * This is the Login page.
+ * - It checks for auth, to see if the user is already logged in. If so, it navigates to '/home.'
+ * - If the user is not logged in, the LoginForm component is rendered.
+ * - A link to the '/register' page is provided for the user who wants to register instead of logging in.
+ */
+
 function Login() {
     const [auth, setAuth] = useContext(AuthContext)
 

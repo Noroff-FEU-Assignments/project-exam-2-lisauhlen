@@ -1,18 +1,18 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
-import ErrorComponent from '../common/ErrorComponent'
-import { profilePostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
-import avatarFeed from '../../images/avatarFeed.svg'
+import AuthorInfo from '../postElements/AuthorInfo'
 import PostBody from '../postElements/PostBody'
 import ReactionInfo from '../postElements/ReactionInfo'
-import AuthorInfo from '../postElements/AuthorInfo'
-import Card from 'react-bootstrap/Card'
+
+import ErrorComponent from '../common/ErrorComponent'
+import { profilePostError } from '../common/ErrorMessages'
 
 function ProfilePosts() {
     const [posts, setPosts] = useState([])
@@ -38,12 +38,6 @@ function ProfilePosts() {
         }
         getPosts()
     }, [])
-
-    let avatarImage = auth.avatar
-
-    if (!avatarImage) {
-        avatarImage = avatarFeed
-    }
 
     if (loading) {
         return <Loader />

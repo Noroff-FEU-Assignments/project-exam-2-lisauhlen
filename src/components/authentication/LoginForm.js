@@ -6,10 +6,17 @@ import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
 import { BASE_URL, login } from '../../constants/api/api'
-import FormError from '../common/FormError'
-import { userLoginError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import Loader from '../common/Loader'
+import FormError from '../common/FormError'
+import { userLoginError } from '../common/ErrorMessages'
+
+/**
+ * This is the Login form.
+ * The form inputs are validated with Yup.
+ * On submit, the data is sent to the API.
+ * On success, the response is saved in the auth variable, which saves the response in Local Storage through useContext.
+ */
 
 const schema = yup.object().shape({
     email: yup.string().required('Please enter your email'),

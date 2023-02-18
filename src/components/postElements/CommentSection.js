@@ -2,14 +2,21 @@ import React from 'react'
 import { useState } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import useAxios from '../../hooks/useAxios'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Card from 'react-bootstrap/Card'
+import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
+import AvatarImage from '../postElements/AvatarImage'
 import FormError from '../common/FormError'
 import { commentError } from '../common/ErrorMessages'
-import AvatarImage from '../postElements/AvatarImage'
-import Card from 'react-bootstrap/Card'
+
+/**
+ * This is the Comment Section component.
+ * It displays all the post's comments and allows the user to post a comment through the form.
+ * On submit, the form is validated with Yup.
+ * On success, the comment section is updated with useState, and the new comment is displayed.
+ */
 
 const schema = yup.object().shape({
     body: yup.string().required('Please write your comment.'),

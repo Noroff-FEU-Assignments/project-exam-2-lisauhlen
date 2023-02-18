@@ -7,7 +7,7 @@
 }
 
 .card-body {
-    padding: getSize(cardSpacer);
+    padding: getSize(mainSpacer);
 }
 
 .author-info {
@@ -15,7 +15,7 @@
     align-items: center;
 
     p {
-        margin: 0 0 0 getSize(cardSpacer);
+        margin: 0 0 0 getSize(mainSpacer);
     }
 }
 

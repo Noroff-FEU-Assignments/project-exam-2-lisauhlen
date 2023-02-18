@@ -1,6 +1,11 @@
 import React from 'react'
 import Card from 'react-bootstrap/Card'
 
+/**
+ * This is the Post Body component.
+ * It takes the post information as an argument and returns it as Card components.
+ */
+
 function PostBody(data) {
     const post = data.data
 

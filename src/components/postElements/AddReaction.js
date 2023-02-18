@@ -3,9 +3,15 @@ import { useState } from 'react'
 import { useParams } from 'react-router-dom'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
+import heartAnimation from './heartAnimation'
 import { addReactionError } from '../common/ErrorMessages'
 import ErrorComponent from '../common/ErrorComponent'
-import heartAnimation from './heartAnimation'
+
+/**
+ * This is the Add Reaction component.
+ * It lets the user react to the post with the heart emoji and displays the post's total number of reactions.
+ * It also calls the heartAnimation function that animates the heart emoji.
+ */
 
 function AddReaction(post) {
     const reactionSum = post.data.reactions.reduce(

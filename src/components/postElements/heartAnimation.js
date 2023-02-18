@@ -1,3 +1,8 @@
+/**
+ * This function animates the Heart emoji by adding and removing the 'reaction-animation' class.
+ * The function is executed in the AddReaction component.
+ */
+
 export default function heartAnimation() {
     const heart = document.querySelector('.heart')
 

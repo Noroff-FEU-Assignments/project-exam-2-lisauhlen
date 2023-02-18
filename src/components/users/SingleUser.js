@@ -5,13 +5,13 @@ import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, userFlags } from '../../constants/api/api'
-import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
-import ErrorComponent from '../common/ErrorComponent'
-import { singleUserError } from '../common/ErrorMessages'
+import Heading from '../layout/Heading'
 import BackButton from '../common/BackButton'
 import SingleUserPosts from './SingleUserPosts'
 import FollowUnfollowUser from './FollowUnfollowUser'
+import ErrorComponent from '../common/ErrorComponent'
+import { singleUserError } from '../common/ErrorMessages'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
 
@@ -78,9 +78,8 @@ function SingleUser() {
                     className="profile-avatar"
                 />
                 <p className="username">{user.name}</p>
-                
-                    <FollowUnfollowUser data={user} />
 
+                <FollowUnfollowUser data={user} />
             </Container>
             <Container>
                 <SingleUserPosts />

@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * This is the Post Icon component.
+ * It returns the Post icon svg.
+ */
+
 function PostIcon() {
     return (
         <svg

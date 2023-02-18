@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * This is the Feed Icon component.
+ * It returns the Feed icon svg.
+ */
+
 function FeedIcon() {
     return (
         <svg

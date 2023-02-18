@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * This is the Users Icon component.
+ * It returns the Users icon svg.
+ */
+
 function UsersIcon() {
     return (
         <svg

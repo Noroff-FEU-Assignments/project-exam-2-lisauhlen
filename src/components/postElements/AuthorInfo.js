@@ -1,6 +1,12 @@
 import React from 'react'
-import AvatarImage from './AvatarImage'
 import Card from 'react-bootstrap/Card'
+import AvatarImage from './AvatarImage'
+
+/**
+ * This is the Author Info component.
+ * It takes the post information as an argument, and renders the AvatarImage component, the author name and the post date.
+ * The post date is formatted using Day.js.
+ */
 
 function AuthorInfo(data) {
     const post = data.data

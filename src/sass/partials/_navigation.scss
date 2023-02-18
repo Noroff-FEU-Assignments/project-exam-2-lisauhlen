@@ -4,7 +4,7 @@
     left: 0;
     right: 0;
     max-width: 600px;
-    padding: getSize(cardSpacer) getSize(cardSpacer) 0 getSize(cardSpacer);
+    padding: getSize(mainSpacer) getSize(mainSpacer) 0 getSize(mainSpacer);
     z-index: 2;
     margin: 0 auto;
 }

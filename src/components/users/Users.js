@@ -2,15 +2,15 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, userFlags } from '../../constants/api/api'
-import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
+import Heading from '../layout/Heading'
 import ErrorComponent from '../common/ErrorComponent'
 import { userListError } from '../common/ErrorMessages'
 import avatarProfile from '../../images/avatarProfile.svg'
-import Card from 'react-bootstrap/Card'
-import Image from 'react-bootstrap/Image'
 
 function Users() {
     const [users, setUsers] = useState([])

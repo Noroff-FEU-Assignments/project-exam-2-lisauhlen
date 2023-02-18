@@ -1,12 +1,12 @@
 .update-images-container {
     h2:last-of-type {
-        padding-top: getSize(cardSpacer);
+        padding-top: getSize(mainSpacer);
     }
 }
 
 .image-container {
     text-align: center;
-    margin-bottom: getSize(cardSpacer);
+    margin-bottom: getSize(mainSpacer);
 }
 
 .avatar-image {
@@ -22,8 +22,8 @@
 }
 
 .update-images {
-    padding-bottom: getSize(cardSpacer);
-    margin-bottom: getSize(cardSpacer);
+    padding-bottom: getSize(mainSpacer);
+    margin-bottom: getSize(mainSpacer);
 
     &:first-of-type {
         border-bottom: 1px solid getColor(primary);

@@ -6,7 +6,7 @@
     border-radius: getSize(borderRadius);
     padding: 0.65rem;
     color: getColor(white);
-    margin-top: getSize(cardSpacer);
+    margin-top: getSize(mainSpacer);
 
     &:first-child {
         margin-top: 0;
@@ -34,7 +34,7 @@
     font-size: getFontSize(mediumFont);
     color: getColor(primary);
     font-style: italic;
-    margin-top: getSize(cardSpacer);
+    margin-top: getSize(mainSpacer);
 }
 
 ::-webkit-resizer {
@@ -47,18 +47,18 @@
     max-width: 380px;
 
     button {
-        margin: getSize(cardSpacer) auto;
+        margin: getSize(mainSpacer) auto;
     }
 }
 
 .change-form {
     p {
-        margin: getSize(cardSpacer) auto 0;
+        margin: getSize(mainSpacer) auto 0;
     }
 
     a {
         display: block;
-        padding: 0.3rem 0 getSize(cardSpacer);
+        padding: 0.3rem 0 getSize(mainSpacer);
         color: getColor(fontPrimary);
         font-weight: getFontSize(fontWeight);
     }

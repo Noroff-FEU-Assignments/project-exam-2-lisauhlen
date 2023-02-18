@@ -19,7 +19,7 @@
     min-width: 100px;
     height: 100px;
     object-fit: cover;
-    margin-right: getSize(cardSpacer);
+    margin-right: getSize(mainSpacer);
 }
 
 .bottom-align {
@@ -31,7 +31,7 @@
     flex-flow: row wrap;
 
     p:first-of-type {
-        margin-right: getSize(cardSpacer);
+        margin-right: getSize(mainSpacer);
     }
 }
 

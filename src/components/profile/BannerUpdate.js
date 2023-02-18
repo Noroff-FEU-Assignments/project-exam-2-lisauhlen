@@ -6,9 +6,9 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
+import { urlMessage } from '../common/FormMessages'
 import FormError from '../common/FormError'
 import { bannerError } from '../common/ErrorMessages'
-import { urlMessage } from '../common/FormMessages'
 
 const schema = yup.object().shape({
     banner: yup

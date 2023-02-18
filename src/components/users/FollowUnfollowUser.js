@@ -70,21 +70,23 @@ function FollowUnfollowUser(user) {
 
     return (
         <>
-        <div className="user-info">
-            {isFollowing ? (
-                <Button onClick={unfollowUser} className="follow">
-                    Unfollow
-                </Button>
-            ) : (
-                <Button onClick={followUser} className="follow">
-                    Follow
-                </Button>
+            <div className="user-info">
+                {isFollowing ? (
+                    <Button onClick={unfollowUser} className="follow">
+                        Unfollow
+                    </Button>
+                ) : (
+                    <Button onClick={followUser} className="follow">
+                        Follow
+                    </Button>
+                )}
+                <p>{followerNr.length} Followers</p>
+                <p>{user.data.following.length} Following</p>
+            </div>
+            {followError && <ErrorComponent>{followUserError}</ErrorComponent>}
+            {unfollowError && (
+                <ErrorComponent>{unfollowUserError}</ErrorComponent>
             )}
-            <p>{followerNr.length} Followers</p>
-            <p>{user.data.following.length} Following</p>
-        </div>
-        {followError && <ErrorComponent>{followUserError}</ErrorComponent>}
-        {unfollowError && <ErrorComponent>{unfollowUserError}</ErrorComponent>}
         </>
     )
 }

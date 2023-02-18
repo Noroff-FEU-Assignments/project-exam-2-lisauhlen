@@ -1,15 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
+import AuthorInfo from '../postElements/AuthorInfo'
+import PostBody from '../postElements/PostBody'
+import ReactionInfo from '../postElements/ReactionInfo'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
-import PostBody from '../postElements/PostBody'
-import AuthorInfo from '../postElements/AuthorInfo'
-import ReactionInfo from '../postElements/ReactionInfo'
-import Card from 'react-bootstrap/Card'
 
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])

@@ -2,20 +2,27 @@ import React from 'react'
 import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import Container from 'react-bootstrap/Container'
-import Image from 'react-bootstrap/Image'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import axios from 'axios'
+import Container from 'react-bootstrap/Container'
+import Image from 'react-bootstrap/Image'
 import { BASE_URL, registerUser } from '../../constants/api/api'
-import FormError from '../common/FormError'
-import { userRegisterError } from '../common/ErrorMessages'
+import Loader from '../common/Loader'
 import Logo from '../layout/Logo'
 import Heading from '../layout/Heading'
-import Loader from '../common/Loader'
 import { SaveToStorage } from '../common/LocalStorage'
+import FormError from '../common/FormError'
+import { userRegisterError } from '../common/ErrorMessages'
 import decorTop from '../../images/decorTop.svg'
 import decorBottom from '../../images/decorBottom.svg'
+
+/**
+ * This is the Registration form where new users can register (only 'stud.noroff.no' emails are accepted).
+ * The form inputs are validated with Yup.
+ * On submit, the API call is made to the server.
+ * On success, the response is saved in Local Storage, and the user is navigated to 'register/login' where they can log in for the first time.
+ */
 
 const schema = yup.object().shape({
     name: yup

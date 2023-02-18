@@ -4,6 +4,11 @@ import Image from 'react-bootstrap/Image'
 import backIcon from '../../images/backIcon.svg'
 import closeIcon from '../../images/closeIcon.svg'
 
+/**
+ * This is the Back button.
+ * On click, it navigates to the previous page.
+ */
+
 function BackButton(value) {
     const navigate = useNavigate()
 

@@ -9,15 +9,22 @@ import Container from 'react-bootstrap/Container'
 import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
-import AuthContext from '../../context/AuthContext'
 import { socialPosts } from '../../constants/api/api'
-import ErrorComponent from '../common/ErrorComponent'
+import AuthContext from '../../context/AuthContext'
 import BackButton from '../common/BackButton'
 import Heading from '../layout/Heading'
+import { urlMessage } from '../common/FormMessages'
+import ErrorComponent from '../common/ErrorComponent'
 import FormError from '../common/FormError'
 import { singlePostError, editPostError } from '../common/ErrorMessages'
-import { urlMessage } from '../common/FormMessages'
 import avatarFeed from '../../images/avatarFeed.svg'
+
+/**
+ * This is the Edit Post component where the user can edit their own post.
+ * The form is populated with the post's current values.
+ * On submit, the form data is sent to the API.
+ * On success, the user is navigated to '/home/detail/:id' to see their edited post.
+ */
 
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
@@ -103,7 +110,7 @@ function EditPost() {
         try {
             const response = await http.put(endpoint, data)
             console.log(response.data)
-            navigate('/home')
+            navigate('/home/detail/' + id)
         } catch (error) {
             console.log(error)
             setEditError(error.toString())

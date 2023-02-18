@@ -1,12 +1,18 @@
 import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Image from 'react-bootstrap/Image'
-import LoginForm from './LoginForm'
 import { RetrieveFromStorage } from '../common/LocalStorage'
 import Logo from '../layout/Logo'
 import Heading from '../layout/Heading'
+import LoginForm from './LoginForm'
 import decorTop from '../../images/decorTop.svg'
 import decorBottom from '../../images/decorBottom.svg'
+
+/**
+ * This is the Login page for new users.
+ * It welcomes the new user with the username saved in Local Storage.
+ * It renders the LoginForm.
+ */
 
 function NewUserLogin() {
     const userInfo = RetrieveFromStorage('userInfo')

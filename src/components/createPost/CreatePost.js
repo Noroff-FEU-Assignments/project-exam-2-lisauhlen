@@ -9,13 +9,20 @@ import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
-import { createPostError } from '../common/ErrorMessages'
-import { urlMessage } from '../common/FormMessages'
 import BackButton from '../common/BackButton'
 import Heading from '../layout/Heading'
-import FormError from '../common/FormError'
 import AuthContext from '../../context/AuthContext'
+import FormError from '../common/FormError'
+import { createPostError } from '../common/ErrorMessages'
+import { urlMessage } from '../common/FormMessages'
 import avatarFeed from '../../images/avatarFeed.svg'
+
+/**
+ * This is the Create Post component that lets the user create a post.
+ * The post form is validated with Yup.
+ * On submit, the post data is sent to the API.
+ * On success, the user is navigated to '/home' to see their new post in the feed.
+ */
 
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),

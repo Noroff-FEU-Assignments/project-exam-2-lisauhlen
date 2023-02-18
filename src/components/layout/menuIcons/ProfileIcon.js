@@ -1,5 +1,10 @@
 import React from 'react'
 
+/**
+ * This is the Profile Icon component.
+ * It returns the Profile icon svg.
+ */
+
 function ProfileIcon() {
     return (
         <svg
