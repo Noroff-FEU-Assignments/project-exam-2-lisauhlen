@@ -15,6 +15,13 @@ import { singleUserError } from '../common/ErrorMessages'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
 
+/**
+ * This is the Single User component, displaying a single user's information.
+ * It checks for avatar and banner images, and sets default images if they're missing.
+ * It renders the FollowUnfollowUser component to allow following/unfollowing, and display followers and following information.
+ * It renders the SingleUserPosts component to display the user's posts.
+ */
+
 function SingleUser() {
     const [user, setUser] = useState([])
     const [loading, setLoading] = useState(true)

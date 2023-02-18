@@ -12,6 +12,13 @@ import ErrorComponent from '../common/ErrorComponent'
 import { userListError } from '../common/ErrorMessages'
 import avatarProfile from '../../images/avatarProfile.svg'
 
+/**
+ * This is the Users component. It gets a list of users from the API and displays them in Cards.
+ * It checks for avatar images, and sets default images for the ones missing.
+ * If banner image exists, it is displayed.
+ * It displays Username, followers and following information.
+ */
+
 function Users() {
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
@@ -27,6 +34,7 @@ function Users() {
                 console.log(response.data)
                 setUsers(response.data)
             } catch (error) {
+                console.log(error)
                 setError(error.toString())
             } finally {
                 setLoading(false)

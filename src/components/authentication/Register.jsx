@@ -33,7 +33,8 @@ const schema = yup.object().shape({
         .string()
         .required('Please enter your email')
         .matches(
-            /^[\w!#$%&'*+\/=?^`{|}~.-]+@stud.noroff.no$/,
+            // /^[\w!#$%&'*+\/=?^`{|}~.-]+@stud.noroff.no$/,
+            /^[\w!#$%&'*+=?^`{|}~.-]+@stud.noroff.no$/,
             'The email must be a stud.noroff.no address'
         ),
     password: yup
@@ -64,9 +65,6 @@ function Register() {
     async function onSubmit(data) {
         setSubmitting(true)
         setRegisterError(null)
-
-        console.log(data)
-        console.log(url)
 
         try {
             const response = await axios.post(url, data)

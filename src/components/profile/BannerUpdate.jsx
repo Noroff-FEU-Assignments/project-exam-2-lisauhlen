@@ -8,24 +8,33 @@ import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
 import { urlMessage } from '../common/FormMessages'
 import FormError from '../common/FormError'
-import { avatarError } from '../common/ErrorMessages'
+import { bannerError } from '../common/ErrorMessages'
+
+/**
+ * This is the Banner Update component where the user can update their Banner image.
+ * The form input is validated with Yup.
+ * On submit, the image link is send to the API.
+ * On success, the response is saved in the auth variable, which saves the response in Local Storage through useContext.
+ */
 
 const schema = yup.object().shape({
-    avatar: yup
+    banner: yup
         .string()
-        .required('Please enter the URL to you new profile picture.')
+        .required('Please enter the URL to you new banner image.')
         .matches(
-            /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+            // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
+            /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)/,
             'Please enter a valid url.'
         ),
 })
 
-function AvatarUpdate() {
+function BannerUpdate() {
     const [submitting, setSubmitting] = useState(false)
     const [updateError, setUpdateError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
     const http = useAxios()
+    const endpoint = socialUsers + '/' + auth.name + '/media'
 
     const {
         register,
@@ -36,16 +45,14 @@ function AvatarUpdate() {
         resolver: yupResolver(schema),
     })
 
-    const endpoint = socialUsers + '/' + auth.name + '/media'
-
     async function onSubmit(data) {
         setSubmitting(true)
         setUpdateError(null)
 
         try {
             const response = await http.put(endpoint, data)
-            console.log(response.data)
-            setAuth({ ...auth, avatar: response.data.avatar })
+            console.log(response)
+            setAuth({ ...auth, banner: response.data.banner })
             reset()
         } catch (error) {
             console.log(error)
@@ -58,12 +65,12 @@ function AvatarUpdate() {
     return (
         <>
             <form onSubmit={handleSubmit(onSubmit)} className="update-images">
-                {updateError && <FormError>{avatarError}</FormError>}
+                {updateError && <FormError>{bannerError}</FormError>}
                 <fieldset disabled={submitting}>
                     <div className="flex-elements">
                         <input
-                            {...register('avatar')}
-                            placeholder="URL to your new profile picture"
+                            {...register('banner')}
+                            placeholder="URL to your new banner image"
                             className="form-input"
                         />
                         <button className="input-button">
@@ -71,8 +78,8 @@ function AvatarUpdate() {
                         </button>
                     </div>
                     <p className="url-message">{urlMessage}</p>
-                    {errors.avatar && (
-                        <FormError>{errors.avatar.message}</FormError>
+                    {errors.banner && (
+                        <FormError>{errors.banner.message}</FormError>
                     )}
                 </fieldset>
             </form>
@@ -80,4 +87,4 @@ function AvatarUpdate() {
     )
 }
 
-export default AvatarUpdate
+export default BannerUpdate

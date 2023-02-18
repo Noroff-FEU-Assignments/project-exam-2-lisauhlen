@@ -1,3 +1,10 @@
+/**
+ * This file contains:
+ * - The API Base Url.
+ * - The API endpoints used in this app.
+ * - The _flag query parameters used to filter the API calls.
+ */
+
 export const BASE_URL = 'https://api.noroff.dev/api/v1/'
 
 // Other endpoints used in this app:

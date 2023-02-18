@@ -10,4 +10,6 @@ export default function heartAnimation() {
     setTimeout(function () {
         heart.classList.remove('reaction-animation')
     }, 1000)
+
+    return <h1 class="class">Hello</h1>
 }

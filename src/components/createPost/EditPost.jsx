@@ -1,5 +1,6 @@
 import React from 'react'
-import { useState, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
 import * as yup from 'yup'
@@ -9,19 +10,20 @@ import Card from 'react-bootstrap/Card'
 import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
+import AuthContext from '../../context/AuthContext'
 import BackButton from '../common/BackButton'
 import Heading from '../layout/Heading'
-import AuthContext from '../../context/AuthContext'
-import FormError from '../common/FormError'
-import { createPostError } from '../common/ErrorMessages'
 import { urlMessage } from '../common/FormMessages'
+import ErrorComponent from '../common/ErrorComponent'
+import FormError from '../common/FormError'
+import { singlePostError, editPostError } from '../common/ErrorMessages'
 import avatarFeed from '../../images/avatarFeed.svg'
 
 /**
- * This is the Create Post component that lets the user create a post.
- * The post form is validated with Yup.
- * On submit, the post data is sent to the API.
- * On success, the user is navigated to '/home' to see their new post in the feed.
+ * This is the Edit Post component where the user can edit their own post.
+ * The form is populated with the post's current values.
+ * On submit, the form data is sent to the API.
+ * On success, the user is navigated to '/home/detail/:id' to see their edited post.
  */
 
 const schema = yup.object().shape({
@@ -30,33 +32,57 @@ const schema = yup.object().shape({
         .string()
         .max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    media: yup
-        .string()
-        .matches(
-            /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/,
-            'Please enter a valid url.'
-        ),
+    media: yup.string().matches(
+        // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/,
+        /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)|^$/,
+        'Please enter a valid url.'
+    ),
 })
 
-function CreatePost() {
+function EditPost() {
     const [submitting, setSubmitting] = useState(false)
-    const [postError, setPostError] = useState(null)
+    const [displayError, setDisplayError] = useState(null)
+    const [editError, setEditError] = useState(null)
+    const [value, setValue] = useState([])
     const [auth] = useContext(AuthContext)
 
     const http = useAxios()
     const navigate = useNavigate()
+    const { id } = useParams()
+    const endpoint = socialPosts + '/' + id
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm({
         resolver: yupResolver(schema),
     })
 
+    useEffect(function () {
+        async function defaultValues() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setValue(response.data)
+                reset()
+            } catch (error) {
+                console.log(error)
+                setDisplayError(error.toString())
+            }
+        }
+        defaultValues()
+    }, [])
+
+    let title = value.title
+    let body = value.body
+    let tags = value.tags
+    let media = value.media
+
     async function onSubmit(data) {
         setSubmitting(true)
-        setPostError(null)
+        setEditError(null)
 
         if (data.tags) {
             data.tags = data.tags
@@ -70,15 +96,19 @@ function CreatePost() {
         }
 
         try {
-            const response = await http.post(socialPosts, data)
+            const response = await http.put(endpoint, data)
             console.log(response.data)
-            navigate('/home')
+            navigate('/home/detail/' + id)
         } catch (error) {
-            console.log(error.response.data)
-            setPostError(error.toString())
+            console.log(error)
+            setEditError(error.toString())
         } finally {
             setSubmitting(false)
         }
+    }
+
+    if (displayError) {
+        return <ErrorComponent>{singlePostError}</ErrorComponent>
     }
 
     let avatarImage = auth.avatar
@@ -90,7 +120,7 @@ function CreatePost() {
     return (
         <Container className="position-relative">
             <BackButton data="close" />
-            <Heading headingLevel="h1">Create Post</Heading>
+            <Heading headingLevel="h1">Edit Post</Heading>
             <Card>
                 <Card.Body className="author-info">
                     <Image
@@ -103,10 +133,11 @@ function CreatePost() {
                 </Card.Body>
                 <Card.Body>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        {postError && <FormError>{createPostError}</FormError>}
+                        {editError && <FormError>{editPostError}</FormError>}
                         <fieldset disabled={submitting}>
                             <input
                                 {...register('title')}
+                                defaultValue={title}
                                 placeholder="Post Title"
                                 className="form-input title-input"
                             />
@@ -115,6 +146,7 @@ function CreatePost() {
                             )}
                             <textarea
                                 {...register('body')}
+                                defaultValue={body}
                                 placeholder="Post Text..."
                                 className="form-input"
                             />
@@ -123,11 +155,13 @@ function CreatePost() {
                             )}
                             <input
                                 {...register('tags')}
+                                defaultValue={tags}
                                 placeholder="Post tags"
                                 className="form-input"
                             />
                             <input
                                 {...register('media')}
+                                defaultValue={media}
                                 placeholder="Image URL"
                                 className="form-input"
                             />
@@ -146,4 +180,4 @@ function CreatePost() {
     )
 }
 
-export default CreatePost
+export default EditPost

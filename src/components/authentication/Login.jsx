@@ -17,7 +17,7 @@ import decorBottom from '../../images/decorBottom.svg'
  */
 
 function Login() {
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
 
     const navigate = useNavigate()
 

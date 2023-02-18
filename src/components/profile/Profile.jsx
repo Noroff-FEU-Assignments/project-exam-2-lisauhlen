@@ -16,11 +16,18 @@ import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
 import secondaryButton from '../../images/secondaryButton.svg'
 
+/**
+ * This is the Profile page. It displays the user's own info and posts, and allows the user to logout.
+ * It checks for avatar and banner images and sets default images if they're missing. Buttons link to the page where images can be changed.
+ * Number of followers and following are displayed.
+ * It also renders the ProfilePosts component, which displays the user's post's.
+ */
+
 function Profile() {
     const [profile, setProfile] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
 
     const http = useAxios()
     const endpoint = socialUsers + '/' + auth.name
@@ -72,7 +79,10 @@ function Profile() {
                     className="profile-banner"
                 />
                 <Link to={'/profile/update-images'}>
-                    <Image src={secondaryButton} />
+                    <Image
+                        src={secondaryButton}
+                        alt="Edit banner image button."
+                    />
                 </Link>
             </div>
             <Container className="user-profile">
@@ -84,7 +94,10 @@ function Profile() {
                         className="profile-avatar"
                     />
                     <Link to={'/profile/update-images'}>
-                        <Image src={secondaryButton} />
+                        <Image
+                            src={secondaryButton}
+                            alt="Edit profile picture button."
+                        />
                     </Link>
                 </div>
                 <p className="username">{profile.name}</p>
