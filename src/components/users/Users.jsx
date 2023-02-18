@@ -34,6 +34,7 @@ function Users() {
                 console.log(response.data)
                 setUsers(response.data)
             } catch (error) {
+                console.log(error)
                 setError(error.toString())
             } finally {
                 setLoading(false)

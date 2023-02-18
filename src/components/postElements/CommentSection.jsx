@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import Card from 'react-bootstrap/Card'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
-import AvatarImage from '../postElements/AvatarImage'
+import AvatarImage from './AvatarImage'
 import FormError from '../common/FormError'
 import { commentError } from '../common/ErrorMessages'
 

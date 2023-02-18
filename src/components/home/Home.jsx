@@ -37,6 +37,7 @@ function Home() {
                 console.log(response.data)
                 setPosts(response.data)
             } catch (error) {
+                console.log(error)
                 setError(error.toString())
             } finally {
                 setLoading(false)

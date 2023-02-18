@@ -96,17 +96,6 @@ function EditPost() {
             data.tags = ['']
         }
 
-        const newData = {
-            title: title,
-            body: data.body,
-            tags: tags,
-            media: media,
-        }
-
-        console.log(newData)
-
-        console.log(data)
-
         try {
             const response = await http.put(endpoint, data)
             console.log(response.data)

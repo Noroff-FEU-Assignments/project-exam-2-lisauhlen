@@ -79,7 +79,10 @@ function Profile() {
                     className="profile-banner"
                 />
                 <Link to={'/profile/update-images'}>
-                    <Image src={secondaryButton} />
+                    <Image
+                        src={secondaryButton}
+                        alt="Edit banner image button."
+                    />
                 </Link>
             </div>
             <Container className="user-profile">
@@ -91,7 +94,10 @@ function Profile() {
                         className="profile-avatar"
                     />
                     <Link to={'/profile/update-images'}>
-                        <Image src={secondaryButton} />
+                        <Image
+                            src={secondaryButton}
+                            alt="Edit profile picture button."
+                        />
                     </Link>
                 </div>
                 <p className="username">{profile.name}</p>

@@ -65,9 +65,6 @@ function Register() {
         setSubmitting(true)
         setRegisterError(null)
 
-        console.log(data)
-        console.log(url)
-
         try {
             const response = await axios.post(url, data)
             console.log(response.data)

@@ -20,7 +20,6 @@ function Logout() {
         const confirmLogout = window.confirm('Are you sure you wanna logout?')
 
         if (confirmLogout) {
-            console.log('Logging out!')
             setAuth(null)
             navigate('/')
         }
