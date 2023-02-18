@@ -8,10 +8,10 @@ import AuthContext from '../../context/AuthContext'
 import ErrorComponent from '../common/ErrorComponent'
 import { followUserError, unfollowUserError } from '../common/ErrorMessages'
 
-function FollowUnfollowUser(followers) {
+function FollowUnfollowUser(user) {
     const [auth, setAuth] = useContext(AuthContext)
     const [isFollowing, setIsFollowing] = useState(false)
-    const [followerNr, setFollowerNr] = useState(followers.data)
+    const [followerNr, setFollowerNr] = useState(user.data.followers)
     const [followError, setFollowError] = useState(null)
     const [unfollowError, setUnfollowError] = useState(null)
 
@@ -20,7 +20,7 @@ function FollowUnfollowUser(followers) {
     const endpoint = socialUsers + '/' + name
 
     useEffect(function () {
-        followers.data.map(function (follower) {
+        user.data.followers.map(function (follower) {
             if (follower.name === auth.name) {
                 setIsFollowing(true)
             }
@@ -70,6 +70,7 @@ function FollowUnfollowUser(followers) {
 
     return (
         <>
+        <div className="user-info">
             {isFollowing ? (
                 <Button onClick={unfollowUser} className="follow">
                     Unfollow
@@ -79,11 +80,11 @@ function FollowUnfollowUser(followers) {
                     Follow
                 </Button>
             )}
-            {followError && <ErrorComponent>{followUserError}</ErrorComponent>}
-            {unfollowError && (
-                <ErrorComponent>{unfollowUserError}</ErrorComponent>
-            )}
             <p>{followerNr.length} Followers</p>
+            <p>{user.data.following.length} Following</p>
+        </div>
+        {followError && <ErrorComponent>{followUserError}</ErrorComponent>}
+        {unfollowError && <ErrorComponent>{unfollowUserError}</ErrorComponent>}
         </>
     )
 }

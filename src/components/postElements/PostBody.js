@@ -1,5 +1,4 @@
 import React from 'react'
-import Heading from '../layout/Heading'
 import Card from 'react-bootstrap/Card'
 
 function PostBody(data) {

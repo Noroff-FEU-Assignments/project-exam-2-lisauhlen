@@ -10,7 +10,6 @@ import FormError from '../common/FormError'
 import { commentError } from '../common/ErrorMessages'
 import AvatarImage from '../postElements/AvatarImage'
 import Card from 'react-bootstrap/Card'
-import Button from 'react-bootstrap/Button'
 
 const schema = yup.object().shape({
     body: yup.string().required('Please write your comment.'),

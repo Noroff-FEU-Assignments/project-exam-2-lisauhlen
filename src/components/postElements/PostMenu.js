@@ -53,9 +53,7 @@ function PostMenu(postId) {
                 </Dropdown.Menu>
             </Dropdown>
             {deleteError && (
-                <ErrorComponent>
-                    <p>{deletePostError}</p>
-                </ErrorComponent>
+                <ErrorComponent>{deletePostError}</ErrorComponent>
             )}
         </>
     )

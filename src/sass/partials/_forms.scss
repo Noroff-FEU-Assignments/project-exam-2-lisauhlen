@@ -77,3 +77,9 @@
         font-size: getFontSize(largeFont);
     }
 }
+
+@media (min-width: getBreakpoint(xSmall)) {
+    .url-message {
+        font-size: 1rem;
+    }
+}

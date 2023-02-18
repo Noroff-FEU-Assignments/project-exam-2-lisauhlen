@@ -78,10 +78,9 @@ function SingleUser() {
                     className="profile-avatar"
                 />
                 <p className="username">{user.name}</p>
-                <div className="user-info">
-                    <FollowUnfollowUser data={user.followers} />
-                    <p>{user.following.length} Following</p>
-                </div>
+                
+                    <FollowUnfollowUser data={user} />
+
             </Container>
             <Container>
                 <SingleUserPosts />
