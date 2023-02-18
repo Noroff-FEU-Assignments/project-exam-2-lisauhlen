@@ -15,7 +15,7 @@ import { profilePostError } from '../common/ErrorMessages'
 
 /**
  * This is the Profile Posts component.
- * It gets the users own posts from the API and displays it in Cards components by rendering the following components:
+ * It gets the user's own posts from the API and displays them in Cards by rendering the following components:
  * - AuthorInfo, which displays the post's author details.
  * - PostMenu, which allows the post owner to edit or delete the post.
  * - PostBody, which displays the post content.

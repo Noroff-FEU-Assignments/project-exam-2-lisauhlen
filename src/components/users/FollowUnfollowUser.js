@@ -8,6 +8,13 @@ import AuthContext from '../../context/AuthContext'
 import ErrorComponent from '../common/ErrorComponent'
 import { followUserError, unfollowUserError } from '../common/ErrorMessages'
 
+/**
+ * This is the Follow Unfollow User component. It allows the user to follow/unfollow other users.
+ * It checks if the user is already a follower, and displays a follow/unfollow button accordingly.
+ * On click, the user starts or stops following the other user.
+ * It also displays the number of followers and following.
+ */
+
 function FollowUnfollowUser(user) {
     const [auth, setAuth] = useContext(AuthContext)
     const [isFollowing, setIsFollowing] = useState(false)

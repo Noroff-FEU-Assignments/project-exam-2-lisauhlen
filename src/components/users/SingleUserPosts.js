@@ -11,6 +11,14 @@ import ReactionInfo from '../postElements/ReactionInfo'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
 
+/**
+ * This is the Single User Posts component, which displays all posts made by the single user.
+ * It gets the user's posts from the API and displays them in Cards by rendering the following components:
+ * - AuthorInfo, which displays the post's author details.
+ * - PostBody, which displays the post content.
+ * - ReactionInfo, which displays the comment and reaction count.
+ */
+
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
