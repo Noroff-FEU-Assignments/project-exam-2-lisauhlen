@@ -13,16 +13,17 @@ import EditPost from './components/createPost/EditPost'
 import Profile from './components/profile/Profile'
 import SinglePost from './components/home/SinglePost'
 import SingleUser from './components/users/SingleUser'
-
-import './App.css'
 import AvatarBannerUpdate from './components/profile/AvatarBannerUpdate'
+import './sass/style.scss'
 
 function App() {
     return (
         <AuthProvider>
             <Router>
-                <Navigation />
-                <Container>
+                <Container fluid className="nav-container">
+                    <Navigation />
+                </Container>
+                <Container fluid className="app-container">
                     <Routes>
                         <Route path="/home" element={<Home />} />
                         <Route path="/users" element={<Users />} />{' '}

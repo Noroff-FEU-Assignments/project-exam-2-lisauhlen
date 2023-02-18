@@ -1,11 +1,17 @@
 import React from 'react'
 import { useState } from 'react'
 import { useParams } from 'react-router-dom'
-import Button from 'react-bootstrap/Button'
 import useAxios from '../../hooks/useAxios'
 import { socialPosts } from '../../constants/api/api'
+import heartAnimation from './heartAnimation'
 import { addReactionError } from '../common/ErrorMessages'
 import ErrorComponent from '../common/ErrorComponent'
+
+/**
+ * This is the Add Reaction component.
+ * It lets the user react to the post with the heart emoji and displays the post's total number of reactions.
+ * It also calls the heartAnimation function that animates the heart emoji.
+ */
 
 function AddReaction(post) {
     const reactionSum = post.data.reactions.reduce(
@@ -21,6 +27,10 @@ function AddReaction(post) {
     const endpoint = socialPosts + '/' + id + '/react/❤️'
 
     function HandleClick() {
+        setReactionError(null)
+
+        heartAnimation()
+
         async function addReaction() {
             try {
                 const response = await http.put(endpoint, {})
@@ -35,17 +45,17 @@ function AddReaction(post) {
     }
 
     return (
-        <div>
-            <Button onClick={HandleClick}>React with a ❤️</Button>
-            <span>{reactionCount}</span>
+        <>
+            <div onClick={HandleClick} className="add-reaction">
+                <span className="heart">❤️</span> <span>{reactionCount}</span>
+            </div>
+
             {reactionError ? (
-                <ErrorComponent>
-                    <p>{addReactionError}</p>
-                </ErrorComponent>
+                <ErrorComponent>{addReactionError}</ErrorComponent>
             ) : (
                 <></>
             )}
-        </div>
+        </>
     )
 }
 

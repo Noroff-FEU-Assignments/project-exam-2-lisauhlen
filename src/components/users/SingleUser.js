@@ -1,14 +1,17 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, userFlags } from '../../constants/api/api'
-import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
-import ErrorComponent from '../common/ErrorComponent'
-import { singleUserError } from '../common/ErrorMessages'
+import Heading from '../layout/Heading'
+import BackButton from '../common/BackButton'
 import SingleUserPosts from './SingleUserPosts'
 import FollowUnfollowUser from './FollowUnfollowUser'
+import ErrorComponent from '../common/ErrorComponent'
+import { singleUserError } from '../common/ErrorMessages'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
 
@@ -27,25 +30,21 @@ function SingleUser() {
 
     const endpoint = socialUsers + '/' + name + userFlags
 
-    useEffect(
-        function () {
-            async function getUser() {
-                try {
-                    const response = await http.get(endpoint)
-                    console.log(response.data)
-                    setUser(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getUser() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setUser(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getUser()
-        },
-        // [url]
-        []
-    )
+        }
+        getUser()
+    }, [])
 
     let bannerImage = user.banner
     let avatarImage = user.avatar
@@ -67,20 +66,24 @@ function SingleUser() {
     }
 
     return (
-        <div>
+        <div className="position-relative">
+            <BackButton data="back" />
             <Heading headingLevel="h1">{user.name}</Heading>
-            <div>
-                <img src={bannerImage} alt="" />
-                <img src={avatarImage} alt="" />
-                <p>{user.name}</p>
-                <div>
-                    <FollowUnfollowUser data={user.followers} />
-                    <p>{user.following.length} Following</p>
-                </div>
-            </div>
-            <div>
+            <Image fluid src={bannerImage} alt="" className="profile-banner" />
+            <Container className="user-profile">
+                <Image
+                    roundedCircle
+                    src={avatarImage}
+                    alt=""
+                    className="profile-avatar"
+                />
+                <p className="username">{user.name}</p>
+
+                <FollowUnfollowUser data={user} />
+            </Container>
+            <Container>
                 <SingleUserPosts />
-            </div>
+            </Container>
         </div>
     )
 }

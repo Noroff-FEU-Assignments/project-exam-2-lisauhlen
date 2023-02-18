@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
+import { urlMessage } from '../common/FormMessages'
 import FormError from '../common/FormError'
 import { bannerError } from '../common/ErrorMessages'
 
@@ -54,25 +55,27 @@ function BannerUpdate() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                {updateError && (
-                    <FormError>
-                        <p>{bannerError}</p>
-                    </FormError>
-                )}
+        <>
+            <form onSubmit={handleSubmit(onSubmit)} className="update-images">
+                {updateError && <FormError>{bannerError}</FormError>}
                 <fieldset disabled={submitting}>
-                    <input
-                        {...register('banner')}
-                        placeholder="URL to your new banner image"
-                    />
+                    <div className="flex-elements">
+                        <input
+                            {...register('banner')}
+                            placeholder="URL to your new banner image"
+                            className="form-input"
+                        />
+                        <button className="input-button">
+                            {submitting ? 'Saving...' : 'Save'}
+                        </button>
+                    </div>
+                    <p className="url-message">{urlMessage}</p>
                     {errors.banner && (
                         <FormError>{errors.banner.message}</FormError>
                     )}
-                    <button>{submitting ? 'Saving...' : 'Save'}</button>
                 </fieldset>
             </form>
-        </div>
+        </>
     )
 }
 

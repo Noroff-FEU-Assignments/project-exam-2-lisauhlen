@@ -6,6 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers } from '../../constants/api/api'
 import AuthContext from '../../context/AuthContext'
+import { urlMessage } from '../common/FormMessages'
 import FormError from '../common/FormError'
 import { avatarError } from '../common/ErrorMessages'
 
@@ -55,25 +56,27 @@ function AvatarUpdate() {
     }
 
     return (
-        <div>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <>
+            <form onSubmit={handleSubmit(onSubmit)} className="update-images">
+                {updateError && <FormError>{avatarError}</FormError>}
                 <fieldset disabled={submitting}>
-                    {updateError && (
-                        <FormError>
-                            <p>{avatarError}</p>
-                        </FormError>
-                    )}
-                    <input
-                        {...register('avatar')}
-                        placeholder="URL to your new profile picture"
-                    />
+                    <div className="flex-elements">
+                        <input
+                            {...register('avatar')}
+                            placeholder="URL to your new profile picture"
+                            className="form-input"
+                        />
+                        <button className="input-button">
+                            {submitting ? 'Saving...' : 'Save'}
+                        </button>
+                    </div>
+                    <p className="url-message">{urlMessage}</p>
                     {errors.avatar && (
                         <FormError>{errors.avatar.message}</FormError>
                     )}
-                    <button>{submitting ? 'Saving...' : 'Save'}</button>
                 </fieldset>
             </form>
-        </div>
+        </>
     )
 }
 

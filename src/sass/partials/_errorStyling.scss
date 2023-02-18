@@ -1,0 +1,12 @@
+.form-error {
+    padding: getSize(mainSpacer);
+    color: getColor(error);
+
+    p {
+        margin: 0;
+    }
+}
+
+.error-component {
+    @extend .form-error;
+}

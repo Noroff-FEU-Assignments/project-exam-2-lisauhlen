@@ -1,3 +1,8 @@
+/**
+ * This is all the error messages used throughout the app.
+ * Keeping them in the same file, makes it easier to ensure they all have a suitable tone of voice.
+ */
+
 // Error message for failed API call to display main feed
 export const userLoginError = 'Login failed. Please try again later.'
 

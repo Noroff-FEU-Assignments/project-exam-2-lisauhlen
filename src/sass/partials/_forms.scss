@@ -1,0 +1,85 @@
+.form-input {
+    display: block;
+    width: 100%;
+    background-color: getColor(cards);
+    border: 1px solid getColor(dark);
+    border-radius: getSize(borderRadius);
+    padding: 0.65rem;
+    color: getColor(white);
+    margin-top: getSize(mainSpacer);
+
+    &:first-child {
+        margin-top: 0;
+    }
+
+    &::placeholder {
+        color: getColor(white);
+    }
+
+    &:focus-visible {
+        outline: none;
+    }
+}
+
+.title-input {
+    color: getColor(fontPrimary);
+    font-weight: getFontSize(fontWeight);
+
+    &::placeholder {
+        @extend .title-input;
+    }
+}
+
+.url-message {
+    font-size: getFontSize(mediumFont);
+    color: getColor(primary);
+    font-style: italic;
+    margin-top: getSize(mainSpacer);
+}
+
+::-webkit-resizer {
+    display: none;
+}
+
+.login-form {
+    text-align: center;
+    width: 100%;
+    max-width: 380px;
+
+    button {
+        margin: getSize(mainSpacer) auto;
+    }
+}
+
+.change-form {
+    p {
+        margin: getSize(mainSpacer) auto 0;
+    }
+
+    a {
+        display: block;
+        padding: 0.3rem 0 getSize(mainSpacer);
+        color: getColor(fontPrimary);
+        font-weight: getFontSize(fontWeight);
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+}
+
+.welcome-message {
+    color: getColor(fontPrimary);
+    font-weight: getFontSize(fontWeight);
+    text-align: center;
+
+    h2 {
+        font-size: getFontSize(largeFont);
+    }
+}
+
+@media (min-width: getBreakpoint(xSmall)) {
+    .url-message {
+        font-size: 1rem;
+    }
+}

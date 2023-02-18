@@ -1,16 +1,15 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
+import AuthorInfo from '../postElements/AuthorInfo'
+import PostBody from '../postElements/PostBody'
+import ReactionInfo from '../postElements/ReactionInfo'
 import ErrorComponent from '../common/ErrorComponent'
 import { singleUserPostsError } from '../common/ErrorMessages'
-import AvatarImage from '../postElements/AvatarImage'
-import PostBody from '../postElements/PostBody'
-import CountReactions from '../postElements/CountReactions'
-import AuthorInfo from '../postElements/AuthorInfo'
-import ReactionInfo from '../postElements/ReactionInfo'
 
 function SingleUserPosts() {
     const [posts, setPosts] = useState([])
@@ -27,24 +26,21 @@ function SingleUserPosts() {
 
     const endpoint = socialUsers + '/' + name + '/posts/' + postFlags
 
-    useEffect(
-        function () {
-            async function getUserPosts() {
-                try {
-                    const response = await http.get(endpoint)
-                    console.log(response.data)
-                    setPosts(response.data)
-                } catch (error) {
-                    console.log(error)
-                    setError(error.toString())
-                } finally {
-                    setLoading(false)
-                }
+    useEffect(function () {
+        async function getUserPosts() {
+            try {
+                const response = await http.get(endpoint)
+                console.log(response.data)
+                setPosts(response.data)
+            } catch (error) {
+                console.log(error)
+                setError(error.toString())
+            } finally {
+                setLoading(false)
             }
-            getUserPosts()
-        },
-        []
-    )
+        }
+        getUserPosts()
+    }, [])
 
     if (loading) {
         return <Loader />
@@ -56,7 +52,7 @@ function SingleUserPosts() {
 
     if (posts.length === 0) {
         return (
-            <div>
+            <div className="no-posts">
                 <p>This user hasn't posted anything yet.</p>
             </div>
         )
@@ -66,22 +62,13 @@ function SingleUserPosts() {
         <div>
             {posts.map(function (post) {
                 return (
-                    <div key={post.id}>
-                        <div>
-                            {/* <AvatarImage data={post} />
-                            <p>{post.author.name}</p>
-                            <p>{post.updated}</p> */}
-                            <AuthorInfo data={post} />
-                        </div>
+                    <Card key={post.id}>
+                        <AuthorInfo data={post} />
                         <Link to={`../../home/detail/${post.id}`}>
                             <PostBody data={post} />
                             <ReactionInfo data={post} />
-                            {/* <div>
-                                <p>Comments: {post._count.comments}</p>
-                                <CountReactions data={post.reactions} />
-                            </div> */}
                         </Link>
-                    </div>
+                    </Card>
                 )
             })}
         </div>

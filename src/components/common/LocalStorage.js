@@ -1,3 +1,7 @@
+/**
+ * These are reusable functions that handle the Local Storage operations.
+ */
+
 // Saving to local storage
 export function SaveToStorage(key, valueToSave) {
     localStorage.setItem(key, JSON.stringify(valueToSave))

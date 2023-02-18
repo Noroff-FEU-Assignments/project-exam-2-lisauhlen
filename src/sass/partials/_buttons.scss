@@ -1,0 +1,75 @@
+.btn-primary {
+    background-color: getColor(primary);
+    color: getColor(dark);
+    font-weight: getFontSize(fontWeight);
+    border-radius: getSize(borderRadius);
+    border: none;
+    width: 100%;
+    min-width: 110px;
+    padding: getSize(mainSpacer);
+
+    &.follow {
+        padding: var(--bs-btn-padding-y) var(--bs-btn-padding-x);
+        width: 110px;
+    }
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus-visible {
+    background-color: getColor(fontPrimary) !important;
+    color: getColor(dark) !important;
+    outline: none;
+    box-shadow: none;
+}
+
+.btn.disabled,
+.btn:disabled,
+.fieldset:disabled .btn {
+    background-color: getColor(fontPrimary) !important;
+    color: getColor(dark) !important;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: getColor(fontPrimary);
+    border-radius: getSize(borderRadius);
+}
+
+.btn-group {
+    .btn:hover,
+    .btn:active,
+    .btn:focus-visible {
+        background-color: transparent !important;
+        outline: none;
+        box-shadow: none !important;
+    }
+}
+
+.logout-button {
+    display: inline-block;
+    text-align: center;
+    font-size: getFontSize(smallFont);
+    color: getColor(primary);
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0 getSize(mainSpacer);
+
+    p {
+        margin: 0.3rem 0 0 0;
+        color: getColor(fontPrimary);
+    }
+}
+
+.logout-button:hover {
+    cursor: pointer;
+}
+
+.back-button {
+    display: inline-block;
+    padding: 0.65rem;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+}

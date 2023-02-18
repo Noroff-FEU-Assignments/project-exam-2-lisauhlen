@@ -1,0 +1,47 @@
+.update-images-container {
+    h2:last-of-type {
+        padding-top: getSize(mainSpacer);
+    }
+}
+
+.image-container {
+    text-align: center;
+    margin-bottom: getSize(mainSpacer);
+}
+
+.avatar-image {
+    @extend .profile-avatar;
+    margin-top: 0;
+}
+
+.banner-image {
+    border-radius: getSize(borderRadius);
+    width: 100%;
+    max-height: getSize(profileAvatar);
+    object-fit: cover;
+}
+
+.update-images {
+    padding-bottom: getSize(mainSpacer);
+    margin-bottom: getSize(mainSpacer);
+
+    &:first-of-type {
+        border-bottom: 1px solid getColor(primary);
+    }
+
+    .form-input {
+        border-radius: getSize(borderRadius) 0 0 getSize(borderRadius);
+        border: none;
+    }
+
+    .input-button {
+        background-color: getColor(cards);
+    }
+
+    .input-button:hover,
+    .input-button:active,
+    .input-button:focus-visible {
+        background-color: getColor(cards) !important;
+        color: getColor(white);
+    }
+}

@@ -1,0 +1,25 @@
+body {
+    font-family: $font;
+}
+
+h1 {
+    color: getColor(fontPrimary);
+    text-align: center;
+    font-weight: getFontSize(fontWeight);
+    margin-bottom: getSize(mainSpacer);
+}
+
+h2 {
+    color: getColor(fontPrimary);
+    font-size: 1rem;
+    font-weight: getFontSize(fontWeight);
+}
+
+.logo {
+    font-family: $logoFont;
+    font-size: 4.5rem;
+    color: getColor(primary);
+    text-align: center;
+    font-weight: 400;
+    margin-bottom: getSize(mainSpacer);
+}

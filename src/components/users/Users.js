@@ -1,12 +1,16 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import Container from 'react-bootstrap/Container'
+import Card from 'react-bootstrap/Card'
+import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, userFlags } from '../../constants/api/api'
-import Heading from '../layout/Heading'
 import Loader from '../common/Loader'
+import Heading from '../layout/Heading'
 import ErrorComponent from '../common/ErrorComponent'
 import { userListError } from '../common/ErrorMessages'
+import avatarProfile from '../../images/avatarProfile.svg'
 
 function Users() {
     const [users, setUsers] = useState([])
@@ -40,20 +44,52 @@ function Users() {
     }
 
     return (
-        <div>
+        <Container>
             <Heading headingLevel="h1">Users</Heading>
             {users.map(function (user) {
+                let avatarImage = user.avatar
+
+                if (!avatarImage) {
+                    avatarImage = avatarProfile
+                }
+
                 return (
                     <Link to={`/users/${user.name}`} key={user.name}>
-                        <img src={user.banner} alt=""></img>
-                        <img src={user.avatar} alt=""></img>
-                        <p>{user.name}</p>
-                        <p>{user.followers.length} Followers</p>
-                        <p>{user.following.length} Following</p>
+                        <Card>
+                            {user.banner ? (
+                                <Card.Img
+                                    variant="top"
+                                    className="user-banner"
+                                    src={user.banner}
+                                    alt=""
+                                />
+                            ) : (
+                                <></>
+                            )}
+                            <Card.Body
+                                className={`user-card ${
+                                    user.banner ? 'bottom-align' : ''
+                                }`}
+                            >
+                                <Image
+                                    roundedCircle
+                                    className="user-avatar"
+                                    src={avatarImage}
+                                    alt=""
+                                />
+                                <div>
+                                    <p className="username">{user.name}</p>
+                                    <div className="follower-info">
+                                        <p>{user.followers.length} Followers</p>
+                                        <p>{user.following.length} Following</p>
+                                    </div>
+                                </div>
+                            </Card.Body>
+                        </Card>
                     </Link>
                 )
             })}
-        </div>
+        </Container>
     )
 }
 

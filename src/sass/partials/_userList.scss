@@ -1,0 +1,53 @@
+.user-card {
+    display: flex;
+    align-items: center;
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+}
+
+.user-banner {
+    max-height: 100px;
+    margin-bottom: 0;
+    object-fit: cover;
+    border-radius: getSize(borderRadius) getSize(borderRadius) 0 0;
+}
+
+.user-avatar {
+    width: 100px;
+    min-width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-right: getSize(mainSpacer);
+}
+
+.bottom-align {
+    align-items: center;
+}
+
+.follower-info {
+    display: flex;
+    flex-flow: row wrap;
+
+    p:first-of-type {
+        margin-right: getSize(mainSpacer);
+    }
+}
+
+@media (min-width: getBreakpoint(xxSmall)) {
+    .user-banner {
+        max-height: getSize(userAvatar);
+        margin-bottom: -70px;
+    }
+
+    .user-avatar {
+        width: getSize(userAvatar);
+        height: getSize(userAvatar);
+        min-width: getSize(userAvatar);
+    }
+
+    .bottom-align {
+        align-items: flex-end;
+    }
+}

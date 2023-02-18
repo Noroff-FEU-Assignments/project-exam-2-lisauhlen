@@ -1,17 +1,18 @@
 import React from 'react'
 import { useState, useEffect, useContext } from 'react'
 import { Link } from 'react-router-dom'
+import Card from 'react-bootstrap/Card'
 import useAxios from '../../hooks/useAxios'
 import { socialUsers, postFlags } from '../../constants/api/api'
 import Loader from '../common/Loader'
-import ErrorComponent from '../common/ErrorComponent'
-import { profilePostError } from '../common/ErrorMessages'
 import AuthContext from '../../context/AuthContext'
 import PostMenu from '../postElements/PostMenu'
-import avatarFeed from '../../images/avatarFeed.svg'
+import AuthorInfo from '../postElements/AuthorInfo'
 import PostBody from '../postElements/PostBody'
 import ReactionInfo from '../postElements/ReactionInfo'
-import AuthorInfo from '../postElements/AuthorInfo'
+
+import ErrorComponent from '../common/ErrorComponent'
+import { profilePostError } from '../common/ErrorMessages'
 
 function ProfilePosts() {
     const [posts, setPosts] = useState([])
@@ -38,12 +39,6 @@ function ProfilePosts() {
         getPosts()
     }, [])
 
-    let avatarImage = auth.avatar
-
-    if (!avatarImage) {
-        avatarImage = avatarFeed
-    }
-
     if (loading) {
         return <Loader />
     }
@@ -54,7 +49,7 @@ function ProfilePosts() {
 
     if (posts.length === 0) {
         return (
-            <div>
+            <div className="no-posts">
                 <p>You haven't posted anything yet.</p>
                 <Link to={`../post`}>Create your first post.</Link>
             </div>
@@ -65,18 +60,14 @@ function ProfilePosts() {
         <div>
             {posts.map(function (post) {
                 return (
-                    <div key={post.id}>
-                        <div>
-                            <AuthorInfo data={post} />
-                        </div>
-                        <div className="post-menu">
-                            <PostMenu postId={post.id} />
-                        </div>
+                    <Card key={post.id}>
+                        <AuthorInfo data={post} />
+                        <PostMenu postId={post.id} />
                         <Link to={`/home/detail/${post.id}`}>
                             <PostBody data={post} />
                             <ReactionInfo data={post} />
                         </Link>
-                    </div>
+                    </Card>
                 )
             })}
         </div>

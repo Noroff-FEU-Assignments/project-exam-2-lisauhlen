@@ -1,0 +1,58 @@
+.comment-section {
+    font-size: getFontSize(mediumFont);
+}
+.comment {
+    background-color: getColor(dark);
+    margin: var(--bs-card-spacer-y) 0;
+    border-radius: getSize(borderRadius);
+    padding: getSize(mainSpacer);
+}
+
+.comment:first-of-type {
+    margin-top: 0;
+}
+
+.add-reaction {
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+    max-width: 60px;
+
+    .heart {
+        font-size: getSize(addReaction);
+    }
+}
+
+.reply {
+    margin-left: calc(2 * getSize(mainSpacer));
+}
+
+// Animates heart icon on click:
+
+.reaction-animation {
+    opacity: 1;
+    animation-name: heartAnimation;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 0.2s;
+}
+
+@keyframes heartAnimation {
+    0% {
+        opacity: 1;
+    }
+
+    20% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@media (min-width: getBreakpoint(xSmall)) {
+    .comment-section {
+        font-size: 1rem;
+    }
+}
