@@ -10,6 +10,12 @@ import BannerUpdate from './BannerUpdate'
 import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
 
+/**
+ * This is the Avatar and Banner Update component that allows the user update their Avatar and Banner images.
+ * It displays the current images and renders the AvatarUpdate and BannerUpdate components (where the API calls are made).
+ * If the user doesn't have avatar or banner images, default images are set.
+ */
+
 function AvatarBannerUpdate() {
     const [auth, setAuth] = useContext(AuthContext)
 
