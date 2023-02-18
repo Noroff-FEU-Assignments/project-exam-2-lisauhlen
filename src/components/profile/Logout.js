@@ -8,6 +8,7 @@ import logoutIcon from '../../images/logoutIcon.svg'
 /**
  * This is the Logout component, which allows the user to logout from the App.
  * On click, it sets the auth variable to null, which nulls out the user info in Local Storage. 
+ * Then it navigates to the Login page, at '/'.
  */
 
 function Logout() {

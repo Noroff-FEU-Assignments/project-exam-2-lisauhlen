@@ -10,9 +10,17 @@ import PostMenu from '../postElements/PostMenu'
 import AuthorInfo from '../postElements/AuthorInfo'
 import PostBody from '../postElements/PostBody'
 import ReactionInfo from '../postElements/ReactionInfo'
-
 import ErrorComponent from '../common/ErrorComponent'
 import { profilePostError } from '../common/ErrorMessages'
+
+/**
+ * This is the Profile Posts component.
+ * It gets the users own posts from the API and displays it in Cards components by rendering the following components:
+ * - AuthorInfo, which displays the post's author details.
+ * - PostMenu, which allows the post owner to edit or delete the post.
+ * - PostBody, which displays the post content.
+ * - ReactionInfo, which displays the comment and reaction count.
+ */
 
 function ProfilePosts() {
     const [posts, setPosts] = useState([])

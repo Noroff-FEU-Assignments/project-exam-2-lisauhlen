@@ -16,6 +16,13 @@ import avatarProfile from '../../images/avatarProfile.svg'
 import bannerProfile from '../../images/bannerProfile.svg'
 import secondaryButton from '../../images/secondaryButton.svg'
 
+/**
+ * This is the Profile page. It displays the user's own info and posts, and allows the user to logout.
+ * It checks for avatar and banner images and sets default images if they're missing. Buttons link to the page where images can be changed. 
+ * Number of followers and following are displayed.
+ * It also renders the ProfilePosts component, which displays the user's post's. 
+ */
+
 function Profile() {
     const [profile, setProfile] = useState([])
     const [loading, setLoading] = useState(true)
