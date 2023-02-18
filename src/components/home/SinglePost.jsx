@@ -29,7 +29,7 @@ function SinglePost() {
     const [post, setPost] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
 
     const http = useAxios()
     let navigate = useNavigate()

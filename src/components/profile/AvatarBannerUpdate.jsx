@@ -17,7 +17,7 @@ import bannerProfile from '../../images/bannerProfile.svg'
  */
 
 function AvatarBannerUpdate() {
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
 
     let banner = auth.banner
     let avatar = auth.avatar

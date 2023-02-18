@@ -26,7 +26,7 @@ function ProfilePosts() {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
 
     const http = useAxios()
     const endpoint = socialUsers + '/' + auth.name + '/posts/' + postFlags

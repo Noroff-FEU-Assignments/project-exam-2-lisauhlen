@@ -16,7 +16,7 @@ import { followUserError, unfollowUserError } from '../common/ErrorMessages'
  */
 
 function FollowUnfollowUser(user) {
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
     const [isFollowing, setIsFollowing] = useState(false)
     const [followerNr, setFollowerNr] = useState(user.data.followers)
     const [followError, setFollowError] = useState(null)
@@ -26,8 +26,16 @@ function FollowUnfollowUser(user) {
     const { name } = useParams()
     const endpoint = socialUsers + '/' + name
 
+    // useEffect(function () {
+    //     user.data.followers.map(function (follower) {
+    //         if (follower.name === auth.name) {
+    //             setIsFollowing(true)
+    //         }
+    //     })
+    // }, [])
+
     useEffect(function () {
-        user.data.followers.map(function (follower) {
+        user.data.followers.forEach(function (follower) {
             if (follower.name === auth.name) {
                 setIsFollowing(true)
             }

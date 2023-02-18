@@ -14,7 +14,7 @@ import ProfileIcon from './menuIcons/ProfileIcon'
  */
 
 function Navigation() {
-    const [auth, setAuth] = useContext(AuthContext)
+    const [auth] = useContext(AuthContext)
 
     return (
         <>
