@@ -14,7 +14,7 @@ import { avatarError } from '../common/ErrorMessages'
  * This is the Avatar Update component where the user can update their Avatar image.
  * The form input is validated with Yup.
  * On submit, the image link is send to the API.
- * On success, the response is saved in the auth variable, which saves the response in Local Storage through useContext. 
+ * On success, the response is saved in the auth variable, which saves the response in Local Storage through useContext.
  */
 
 const schema = yup.object().shape({
