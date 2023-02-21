@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# Welcome to the Charlie App 👋
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This React App is the Project Exam 2 of [Lisa Uhlen Ryssevik](https://www.uhldev.com). 
 
-## Available Scripts
+## Contents
 
-In the project directory, you can run:
+In this ReadMe file you will find information on:
+- [What is Charlie - The app's brand personality.](#what-is-charlie) 
+- [App Functionality - The user stories included in the app.](#app-functionality)
+- [Technical Details - Frameworks used to build the app.](#technical-details)
+- [Get Started - Run the app locally.](#get-started)
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## What is Charlie?
+Charlie is your own space - a place where disturbance and distractions are locked out. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Charlie is warm and inviting. Its calm and welcoming atmosphere allows you to spend stress-free alone time, diving into your favorite content. 
 
-### `npm run build`
+It allows you to communicate with your friends, enjoying their short stories and images, without noisy notifications and screaming colors. 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+When life gets too fussy - Charlie is your escape!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+<div align="center">
+  <img alt="A phone displaying the Charlie app" src="https://res.cloudinary.com/lisaur/image/upload/v1676978252/PE2/Charlie-app.png" width="200px" />
+</div>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## App Functionality
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- Any user with a stud.noroff.no email can create a user in the Charlie app. 
+- A registered user can log in. 
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+When logged in, a user can: 
+- Upload a profile and banner image, which is displayed on the user's own profile. 
+- Change their profile and banner images from their profile page. 
+- Create and publish a post that will be displayed in the main feed. 
+- Edit their own post. 
+- Delete their own post. 
+- See a list of posts in the main feed. 
+- Open a single post to see reactions and comments. 
+- Post a comment to any post. 
+- React with the ❤️ emoji to any post. 
+- Display a list of other app users. 
+- Visit another user's profile and see their following numbers and posts. 
+- Follow and unfollow other users. 
+- Log out of the app. 
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Technical Details
 
-## Learn More
+🔹 The Charlie app was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+🔹 It uses [React](https://reactjs.org/) version 18.2.0.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+🔹 [Node modules](https://www.npmjs.com/package/node-modules) are version 1.0.1.
 
-### Code Splitting
+🔹 The app uses the routing library [React Router](https://reactrouter.com/en/main). 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+🔹 All forms are [React Hook Form](https://react-hook-form.com/). 
 
-### Analyzing the Bundle Size
+🔹 All forms are validated with [Yup](https://www.npmjs.com/package/yup).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+🔹 API calls are made with [Axios](https://axios-http.com/).
 
-### Making a Progressive Web App
+🔹 Dates are formatted with [Day.js](https://day.js.org/en/).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+🔹 The app is styled with [React Bootstrap](https://react-bootstrap.github.io/). 
 
-### Advanced Configuration
+🔹 Additional styling is made with [Sass](https://sass-lang.com/).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+## Get Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To run the Charlie app in development mode on your machine, you need to: 
 
-### `npm run build` fails to minify
+1. Clone this repository. 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+git clone https://github.com/Noroff-FEU-Assignments/project-exam-2-lisauhlen.git
+```
+
+2. Install node modules: 
+
+```bash
+npm i node-modules
+```
+
+3. You can now run the app on your localhost: 
+
+```bash
+npm start
+```
+
+This will run the app in development mode. 
+
+To view the app in your browser, go to [http://localhost:3000](http://localhost:3000).
