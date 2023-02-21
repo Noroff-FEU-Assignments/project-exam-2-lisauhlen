@@ -30,11 +30,12 @@ const schema = yup.object().shape({
         .string()
         .max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    media: yup.string().matches(
-        // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/,
-        /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)|^$/,
-        'Please enter a valid url.'
-    ),
+    media: yup
+        .string()
+        .matches(
+            /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)|^$/,
+            'Please enter a valid url.'
+        ),
 })
 
 function CreatePost() {
@@ -70,7 +71,6 @@ function CreatePost() {
 
         try {
             const response = await http.post(socialPosts, data)
-            console.log(response.data)
             navigate('/home')
         } catch (error) {
             console.log(error.response.data)

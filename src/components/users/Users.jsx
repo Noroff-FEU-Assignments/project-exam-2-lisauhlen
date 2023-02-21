@@ -31,7 +31,6 @@ function Users() {
         async function getUsers() {
             try {
                 const response = await http.get(endpoint)
-                console.log(response.data)
                 setUsers(response.data)
             } catch (error) {
                 console.log(error)

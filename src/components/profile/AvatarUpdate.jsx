@@ -22,7 +22,6 @@ const schema = yup.object().shape({
         .string()
         .required('Please enter the URL to you new profile picture.')
         .matches(
-            // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
             /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)/,
             'Please enter a valid url.'
         ),
@@ -52,7 +51,6 @@ function AvatarUpdate() {
 
         try {
             const response = await http.put(endpoint, data)
-            console.log(response.data)
             setAuth({ ...auth, avatar: response.data.avatar })
             reset()
         } catch (error) {

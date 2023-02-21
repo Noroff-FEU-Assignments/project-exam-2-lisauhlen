@@ -32,11 +32,12 @@ const schema = yup.object().shape({
         .string()
         .max(280, 'The post text can not be longer than 280 characters.'),
     tags: yup.string(),
-    media: yup.string().matches(
-        // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)|^$/,
-        /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)|^$/,
-        'Please enter a valid url.'
-    ),
+    media: yup
+        .string()
+        .matches(
+            /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)|^$/,
+            'Please enter a valid url.'
+        ),
 })
 
 function EditPost() {
@@ -64,7 +65,6 @@ function EditPost() {
         async function defaultValues() {
             try {
                 const response = await http.get(endpoint)
-                console.log(response.data)
                 setValue(response.data)
                 reset()
             } catch (error) {

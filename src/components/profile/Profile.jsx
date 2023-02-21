@@ -36,7 +36,6 @@ function Profile() {
         async function getProfile() {
             try {
                 const response = await http.get(endpoint)
-                console.log(response.data)
                 setProfile(response.data)
             } catch (error) {
                 console.log(error)

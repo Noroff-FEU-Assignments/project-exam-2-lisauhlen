@@ -47,7 +47,6 @@ function NewCommentSection(post) {
 
         try {
             const response = await http.post(endpoint, data)
-            console.log(response.data)
             const newComment = response.data
             setComments([...comments, newComment])
             reset()
