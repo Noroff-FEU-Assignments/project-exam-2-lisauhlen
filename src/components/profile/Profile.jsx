@@ -45,7 +45,7 @@ function Profile() {
             }
         }
         getProfile()
-    }, [])
+    }, []) // eslint-disable-line
 
     let bannerImage = profile.banner
     let avatarImage = profile.avatar

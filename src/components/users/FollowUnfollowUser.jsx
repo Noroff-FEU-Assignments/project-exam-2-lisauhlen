@@ -32,7 +32,7 @@ function FollowUnfollowUser(user) {
                 setIsFollowing(true)
             }
         })
-    }, [])
+    }, []) // eslint-disable-line
 
     function followUser() {
         setFollowError(null)

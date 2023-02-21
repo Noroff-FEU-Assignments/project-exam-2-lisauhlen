@@ -54,7 +54,7 @@ function SinglePost() {
             }
         }
         getPost()
-    }, [])
+    }, []) // eslint-disable-line
 
     if (loading) {
         return <Loader />

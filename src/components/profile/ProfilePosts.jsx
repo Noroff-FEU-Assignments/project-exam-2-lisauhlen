@@ -44,7 +44,7 @@ function ProfilePosts() {
             }
         }
         getPosts()
-    }, [])
+    }, []) // eslint-disable-line
 
     if (loading) {
         return <Loader />

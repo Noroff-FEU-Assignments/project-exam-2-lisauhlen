@@ -40,7 +40,7 @@ function Users() {
             }
         }
         getUsers()
-    }, [])
+    }, []) // eslint-disable-line
 
     if (loading) {
         return <Loader />

@@ -25,7 +25,7 @@ function Login() {
         if (auth) {
             navigate('/home')
         }
-    }, [])
+    }, []) // eslint-disable-line
 
     return (
         <div className="position-relative login-screens">

@@ -43,7 +43,7 @@ function Home() {
             }
         }
         getPosts()
-    }, [])
+    }, []) // eslint-disable-line
 
     if (loading) {
         return <Loader />
