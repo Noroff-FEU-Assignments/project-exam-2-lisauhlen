@@ -34,7 +34,6 @@ function PostMenu(postId) {
             async function deletePost() {
                 try {
                     const response = await http.delete(endpoint)
-                    console.log(response)
                     navigate('/home')
                 } catch (error) {
                     console.log(error)

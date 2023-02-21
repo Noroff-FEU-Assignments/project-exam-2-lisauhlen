@@ -26,14 +26,6 @@ function FollowUnfollowUser(user) {
     const { name } = useParams()
     const endpoint = socialUsers + '/' + name
 
-    // useEffect(function () {
-    //     user.data.followers.map(function (follower) {
-    //         if (follower.name === auth.name) {
-    //             setIsFollowing(true)
-    //         }
-    //     })
-    // }, [])
-
     useEffect(function () {
         user.data.followers.forEach(function (follower) {
             if (follower.name === auth.name) {
@@ -48,7 +40,6 @@ function FollowUnfollowUser(user) {
         async function followThisUser() {
             try {
                 const response = await http.put(endpoint + '/follow', {})
-                console.log(response.data)
                 setIsFollowing(true)
                 const newFollower = response.data
                 setFollowerNr([...followerNr, newFollower])
@@ -66,7 +57,6 @@ function FollowUnfollowUser(user) {
         async function unfollowThisUser() {
             try {
                 const response = await http.put(endpoint + '/unfollow', {})
-                console.log(response.data)
                 setIsFollowing(false)
                 const lostFollower = response.data
                 setFollowerNr(

@@ -41,7 +41,6 @@ function SingleUser() {
         async function getUser() {
             try {
                 const response = await http.get(endpoint)
-                console.log(response.data)
                 setUser(response.data)
             } catch (error) {
                 console.log(error)

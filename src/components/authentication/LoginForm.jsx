@@ -45,7 +45,6 @@ function Login() {
 
         try {
             const response = await axios.post(url, data)
-            console.log(response.data)
             setAuth(response.data)
             navigate('/home')
         } catch (error) {

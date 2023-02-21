@@ -45,7 +45,6 @@ function SinglePost() {
         async function getPost() {
             try {
                 const response = await http.get(endpoint)
-                console.log(response.data)
                 setPost(response.data)
             } catch (error) {
                 console.log(error)

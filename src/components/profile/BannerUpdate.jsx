@@ -22,7 +22,6 @@ const schema = yup.object().shape({
         .string()
         .required('Please enter the URL to you new banner image.')
         .matches(
-            // /[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/,
             /[(http(s)?):(www)?a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&=]*)/,
             'Please enter a valid url.'
         ),
@@ -51,7 +50,6 @@ function BannerUpdate() {
 
         try {
             const response = await http.put(endpoint, data)
-            console.log(response)
             setAuth({ ...auth, banner: response.data.banner })
             reset()
         } catch (error) {
