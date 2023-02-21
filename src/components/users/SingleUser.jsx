@@ -50,7 +50,7 @@ function SingleUser() {
             }
         }
         getUser()
-    }, [])
+    }, []) // eslint-disable-line
 
     let bannerImage = user.banner
     let avatarImage = user.avatar

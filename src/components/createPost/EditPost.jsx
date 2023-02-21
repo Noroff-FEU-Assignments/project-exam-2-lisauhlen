@@ -73,7 +73,7 @@ function EditPost() {
             }
         }
         defaultValues()
-    }, [])
+    }, []) // eslint-disable-line
 
     let title = value.title
     let body = value.body
