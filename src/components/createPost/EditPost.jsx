@@ -170,7 +170,7 @@ function EditPost() {
                             )}
                             <p className="url-message">{urlMessage}</p>
                             <button className="btn btn-primary">
-                                {submitting ? 'Publishing...' : 'Publish'}
+                                {submitting ? 'Updating...' : 'Update Post'}
                             </button>
                         </fieldset>
                     </form>
