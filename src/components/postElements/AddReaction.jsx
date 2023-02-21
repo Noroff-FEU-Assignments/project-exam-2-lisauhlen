@@ -33,7 +33,7 @@ function AddReaction(post) {
 
         async function addReaction() {
             try {
-                const response = await http.put(endpoint, {})
+                await http.put(endpoint, {})
                 setReactionCount(reactionCount + 1)
             } catch (error) {
                 console.log(error)

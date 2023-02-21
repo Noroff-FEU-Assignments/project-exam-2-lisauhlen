@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Dropdown from 'react-bootstrap/Dropdown'
 import Image from 'react-bootstrap/Image'
 import useAxios from '../../hooks/useAxios'
@@ -33,7 +33,7 @@ function PostMenu(postId) {
         if (confirmDeletion) {
             async function deletePost() {
                 try {
-                    const response = await http.delete(endpoint)
+                    await http.delete(endpoint)
                     navigate('/home')
                 } catch (error) {
                     console.log(error)
@@ -52,9 +52,12 @@ function PostMenu(postId) {
                 </Dropdown.Toggle>
 
                 <Dropdown.Menu>
-                    <Dropdown.Item href={'/post/' + postId.postId}>
-                        Edit Post
-                    </Dropdown.Item>
+                    <Link
+                        to={`/post/${postId.postId}`}
+                        className="dropdown-link"
+                    >
+                        Edit
+                    </Link>
                     <Dropdown.Item onClick={handleClick}>
                         Delete Post
                     </Dropdown.Item>

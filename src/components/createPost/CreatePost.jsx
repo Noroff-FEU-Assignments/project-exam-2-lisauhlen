@@ -70,7 +70,7 @@ function CreatePost() {
         }
 
         try {
-            const response = await http.post(socialPosts, data)
+            await http.post(socialPosts, data)
             navigate('/home')
         } catch (error) {
             console.log(error.response.data)
