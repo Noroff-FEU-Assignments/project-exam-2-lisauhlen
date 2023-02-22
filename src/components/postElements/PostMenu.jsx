@@ -19,19 +19,26 @@ import { deletePostError } from '../common/ErrorMessages'
  */
 
 function PostMenu(postId) {
+    // Setting up useState to handle any errors.
     const [deleteError, setDeleteError] = useState(null)
 
+    // Declaring the Axios instance, and the useNavigate hook.
     const http = useAxios()
     const navigate = useNavigate()
+
+    // Creating the URL for the API call.
     const endpoint = socialPosts + '/' + postId.postId
 
+    // This function runs on click.
     function handleClick() {
+        // Having the user confirm the deletion.
         const confirmDeletion = window.confirm(
             'Are you sure you wanna delete this post?'
         )
 
         if (confirmDeletion) {
             async function deletePost() {
+                // Making the delete request. On success, navigate to home. Setting error as the value of deleteError.
                 try {
                     await http.delete(endpoint)
                     navigate('/home')
@@ -44,6 +51,7 @@ function PostMenu(postId) {
         }
     }
 
+    // Rendering the post menu with the edit and delete options.
     return (
         <>
             <Dropdown className="post-menu">
@@ -56,7 +64,7 @@ function PostMenu(postId) {
                         to={`/post/${postId.postId}`}
                         className="dropdown-link"
                     >
-                        Edit
+                        Edit Post
                     </Link>
                     <Dropdown.Item onClick={handleClick}>
                         Delete Post

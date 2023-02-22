@@ -9,10 +9,14 @@ import AvatarImage from './AvatarImage'
  */
 
 function AuthorInfo(data) {
+    // Declaring the post data variable.
     const post = data.data
+
+    // Setting the date format with Day.js.
     const dayjs = require('dayjs')
     const date = dayjs(post.updated).format('D. MMM YYYY')
 
+    // Rendering the author info.
     return (
         <Card.Body className="author-info">
             <AvatarImage data={post} />

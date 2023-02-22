@@ -16,16 +16,22 @@ import { followUserError, unfollowUserError } from '../common/ErrorMessages'
  */
 
 function FollowUnfollowUser(user) {
+    // Setting up useStates to handle the follow info, result, and any errors.
+    // Using useContext to handle authentication.
     const [auth] = useContext(AuthContext)
     const [isFollowing, setIsFollowing] = useState(false)
     const [followerNr, setFollowerNr] = useState(user.data.followers)
     const [followError, setFollowError] = useState(null)
     const [unfollowError, setUnfollowError] = useState(null)
 
+    // Declaring the Axios instance.
     const http = useAxios()
+
+    // Getting name from the URL and creating the URL for the API call.
     const { name } = useParams()
     const endpoint = socialUsers + '/' + name
 
+    // Checking if we're already following the user.
     useEffect(function () {
         user.data.followers.forEach(function (follower) {
             if (follower.name === auth.name) {
@@ -34,9 +40,12 @@ function FollowUnfollowUser(user) {
         })
     }, []) // eslint-disable-line
 
+    // This function runs if the 'follow' button is clicked.
     function followUser() {
         setFollowError(null)
 
+        // The put request is made. On success, response is added to the followerNr array, and isFollowing is set to true.
+        // Setting error as the value of followError.
         async function followThisUser() {
             try {
                 const response = await http.put(endpoint + '/follow', {})
@@ -51,9 +60,12 @@ function FollowUnfollowUser(user) {
         followThisUser()
     }
 
+    // This function runs if the 'unfollow' button is clicked.
     function unfollowUser() {
         setUnfollowError(null)
 
+        // The put request is made. On success, response is removed from to the followerNr array, and isFollowing is set to false.
+        // Setting error as the value of unfollowError.
         async function unfollowThisUser() {
             try {
                 const response = await http.put(endpoint + '/unfollow', {})
@@ -66,13 +78,13 @@ function FollowUnfollowUser(user) {
                 )
             } catch (error) {
                 console.log(error)
-                const errorMessage = error.response.data.errors[0].message
-                setUnfollowError(errorMessage)
+                setUnfollowError(error.toString())
             }
         }
         unfollowThisUser()
     }
 
+    // Rendering the follow/unfollow button and followers and following information.
     return (
         <>
             <div className="user-info">

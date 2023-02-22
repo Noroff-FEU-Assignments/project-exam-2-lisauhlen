@@ -24,14 +24,18 @@ import secondaryButton from '../../images/secondaryButton.svg'
  */
 
 function Profile() {
+    // Setting up useStates to handle the result, loading, and any errors. Using useContext to handle authentication.
     const [profile, setProfile] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [auth] = useContext(AuthContext)
 
+    // Declaring the Axios instance and creating the URL.
     const http = useAxios()
     const endpoint = socialUsers + '/' + auth.name
 
+    // Making the get request. On success, result is set as the value of profile.
+    // Setting error as the value of error, and loading to false.
     useEffect(function () {
         async function getProfile() {
             try {
@@ -47,6 +51,7 @@ function Profile() {
         getProfile()
     }, []) // eslint-disable-line
 
+    // Checking for avatar and banner images. If no none, default images are set.
     let bannerImage = profile.banner
     let avatarImage = profile.avatar
 
@@ -58,14 +63,17 @@ function Profile() {
         avatarImage = avatarProfile
     }
 
+    // Rendering the loader on page load.
     if (loading) {
         return <Loader />
     }
 
+    // Rendering a custom error message if error.
     if (error) {
         return <ErrorComponent>{profileError}</ErrorComponent>
     }
 
+    // Rendering the user profile.
     return (
         <div className="position-relative">
             <Heading headingLevel="h1">{profile.name}</Heading>

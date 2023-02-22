@@ -23,14 +23,18 @@ import { profilePostError } from '../common/ErrorMessages'
  */
 
 function ProfilePosts() {
+    // Setting up useStates to handle the result, loading, and any errors. Using useContext to handle authentication.
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [auth] = useContext(AuthContext)
 
+    // Declaring the Axios instance and creating the URL.
     const http = useAxios()
     const endpoint = socialUsers + '/' + auth.name + '/posts/' + postFlags
 
+    // Making the get request. On success, result is set as the value of posts.
+    // Setting error as the value of error, and loading to false.
     useEffect(function () {
         async function getPosts() {
             try {
@@ -46,14 +50,17 @@ function ProfilePosts() {
         getPosts()
     }, []) // eslint-disable-line
 
+    // Rendering the loader if loading.
     if (loading) {
         return <Loader />
     }
 
+    // Rendering a custom error message if error.
     if (error) {
         return <ErrorComponent>{profilePostError}</ErrorComponent>
     }
 
+    // Displaying a message if no posts.
     if (posts.length === 0) {
         return (
             <div className="no-posts">
@@ -63,6 +70,7 @@ function ProfilePosts() {
         )
     }
 
+    // Rendering the user's posts.
     return (
         <div>
             {posts.map(function (post) {
