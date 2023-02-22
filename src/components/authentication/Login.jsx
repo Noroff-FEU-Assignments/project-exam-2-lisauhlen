@@ -17,16 +17,20 @@ import decorBottom from '../../images/decorBottom.svg'
  */
 
 function Login() {
+    // Setting up useContext to handle the authentication.
     const [auth] = useContext(AuthContext)
 
+    // Declaring the useNavigate hook.
     const navigate = useNavigate()
 
+    // Checking if user is already logged in. If so, navigate to home.
     useEffect(function () {
         if (auth) {
             navigate('/home')
         }
     }, []) // eslint-disable-line
 
+    // Rendering the login page.
     return (
         <div className="position-relative login-screens">
             <Image src={decorTop} alt="" className="decor-top" />

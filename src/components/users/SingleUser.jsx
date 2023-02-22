@@ -23,22 +23,30 @@ import bannerProfile from '../../images/bannerProfile.svg'
  */
 
 function SingleUser() {
+    // Setting up useStates to handle the result, loading, and any errors.
     const [user, setUser] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
+    // Declaring the Axios instance and the useNavigate hook.
     const http = useAxios()
     let navigate = useNavigate()
+
+    // Getting name from the URL. If no name, navigate to home.
     const { name } = useParams()
 
     if (!name) {
-        navigate('/')
+        navigate('/home')
     }
 
+    // Creating the URL for the API call.
     const endpoint = socialUsers + '/' + name + userFlags
 
     useEffect(function () {
         async function getUser() {
+            // Making the get request. On success, result is the value of user.
+            // Setting error as the value of error, and loading to false.
+
             try {
                 const response = await http.get(endpoint)
                 setUser(response.data)
@@ -52,6 +60,7 @@ function SingleUser() {
         getUser()
     }, []) // eslint-disable-line
 
+    // Checking for avatar and banner images. If no none, default images are set.
     let bannerImage = user.banner
     let avatarImage = user.avatar
 
@@ -63,14 +72,17 @@ function SingleUser() {
         avatarImage = avatarProfile
     }
 
+    // Rendering the loader on page load.
     if (loading) {
         return <Loader />
     }
 
+    // Rendering a custom error message if error.
     if (error) {
         return <ErrorComponent>{singleUserError}</ErrorComponent>
     }
 
+    // Rendering the user profile.
     return (
         <div className="position-relative">
             <BackButton data="back" />

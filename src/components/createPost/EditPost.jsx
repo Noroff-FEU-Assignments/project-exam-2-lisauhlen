@@ -26,6 +26,7 @@ import avatarFeed from '../../images/avatarFeed.svg'
  * On success, the user is navigated to '/home/detail/:id' to see their edited post.
  */
 
+// Validating all form inputs with Yup.
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
     body: yup
@@ -41,17 +42,23 @@ const schema = yup.object().shape({
 })
 
 function EditPost() {
+    // Setting up useStates to handle the form submit, any errors, and the get result.
+    // Using useContext to handle authentication.
     const [submitting, setSubmitting] = useState(false)
     const [displayError, setDisplayError] = useState(null)
     const [editError, setEditError] = useState(null)
     const [value, setValue] = useState([])
     const [auth] = useContext(AuthContext)
 
+    // Declaring the Axios instance, and the useNavigate hook.
     const http = useAxios()
     const navigate = useNavigate()
+
+    // Getting id from the URL, and setting up the URL endpoints.
     const { id } = useParams()
     const endpoint = socialPosts + '/' + id
 
+    // Declaring register, handleSubmit, reset, and errors for the post form.
     const {
         register,
         handleSubmit,
@@ -61,6 +68,8 @@ function EditPost() {
         resolver: yupResolver(schema),
     })
 
+    // Getting the contents of the post we want to update. Setting the result as the value of value, and resetting.
+    // Setting error as the value of displayError.
     useEffect(function () {
         async function defaultValues() {
             try {
@@ -75,15 +84,18 @@ function EditPost() {
         defaultValues()
     }, []) // eslint-disable-line
 
+    // Declaring variables holding the values of the post we're changing.
     let title = value.title
     let body = value.body
     let tags = value.tags
     let media = value.media
 
+    // This function runs on submit.
     async function onSubmit(data) {
         setSubmitting(true)
         setEditError(null)
 
+        // Checking for post tags and formatting them correctly.
         if (data.tags) {
             data.tags = data.tags
                 .split(' ')
@@ -95,6 +107,8 @@ function EditPost() {
             data.tags = ['']
         }
 
+        // Making the put request. On success, navigate to the updated post.
+        // Setting error as the value of editError, and submitting to false.
         try {
             const response = await http.put(endpoint, data)
             console.log(response.data)
@@ -107,16 +121,18 @@ function EditPost() {
         }
     }
 
+    // Rendering a custom error message if error.
     if (displayError) {
         return <ErrorComponent>{singlePostError}</ErrorComponent>
     }
 
+    // Checking for avatar image. If no avatar, a default image is set.
     let avatarImage = auth.avatar
-
     if (!avatarImage) {
         avatarImage = avatarFeed
     }
 
+    // Rendering the post form populated with the post's current values.
     return (
         <Container className="position-relative">
             <BackButton data="close" />

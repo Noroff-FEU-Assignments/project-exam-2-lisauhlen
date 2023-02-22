@@ -20,13 +20,17 @@ import avatarProfile from '../../images/avatarProfile.svg'
  */
 
 function Users() {
+    // Setting up useStates to handle the result, loading, and any errors.
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
+    // Declaring the Axios instance and creating the URL.
     const http = useAxios()
     const endpoint = socialUsers + userFlags
 
+    // Making the get request. On success, result is set as the value of users.
+    // Setting error as the value of error, and loading to false.
     useEffect(function () {
         async function getUsers() {
             try {
@@ -42,14 +46,17 @@ function Users() {
         getUsers()
     }, []) // eslint-disable-line
 
+    // Rendering the loader on page load.
     if (loading) {
         return <Loader />
     }
 
+    // Rendering a custom error message if error.
     if (error) {
         return <ErrorComponent>{userListError}</ErrorComponent>
     }
 
+    // Rendering the user list.
     return (
         <Container>
             <Heading headingLevel="h1">Users</Heading>

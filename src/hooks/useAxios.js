@@ -9,12 +9,15 @@ import { BASE_URL } from '../constants/api/api'
  */
 
 export default function useAxios() {
+    // Using useContext to handle authentication.
     const [auth] = useContext(AuthContext)
 
+    // Setting up the base url.
     const apiClient = axios.create({
         baseURL: BASE_URL,
     })
 
+    // Setting up the request headers.
     apiClient.interceptors.request.use(function (config) {
         const token = auth.accessToken
         config.headers.Authorization = token ? `Bearer ${token}` : ''

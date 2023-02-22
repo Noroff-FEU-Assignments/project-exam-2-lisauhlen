@@ -12,19 +12,24 @@ import logoutIcon from '../../images/logoutIcon.svg'
  */
 
 function Logout() {
+    // Using useContext to handle authentication.
     const [auth, setAuth] = useContext(AuthContext)
 
+    // Declaring the useNavigate hook.
     const navigate = useNavigate()
 
     function loggingOut() {
+        // Make user confirm the logout.
         const confirmLogout = window.confirm('Are you sure you wanna logout?')
 
+        // Auth is set to null, navigate to the login screen.
         if (confirmLogout) {
             setAuth(null)
             navigate('/')
         }
     }
 
+    // Rendering the logout icon.
     return (
         <div onClick={loggingOut} className="logout-button">
             <Image src={logoutIcon} alt="logout icon" />

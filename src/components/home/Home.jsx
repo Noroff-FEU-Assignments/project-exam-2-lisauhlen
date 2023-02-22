@@ -22,13 +22,16 @@ import { feedError } from '../common/ErrorMessages'
  */
 
 function Home() {
+    // Setting up useStates to handle the API result, the loading, and any errors.
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
 
+    // Using the Axios instance and setting up the URL endpoints.
     const http = useAxios()
     const endpoint = socialPosts + postFlags
 
+    // Making the get request, setting the result as the value of posts, and the error as the value of error. Setting loading to false.
     useEffect(function () {
         async function getPosts() {
             setError(null)
@@ -45,14 +48,17 @@ function Home() {
         getPosts()
     }, []) // eslint-disable-line
 
+    // Rendering the loader on page load.
     if (loading) {
         return <Loader />
     }
 
+    // Rendering a custom error message if error.
     if (error) {
         return <ErrorComponent>{feedError}</ErrorComponent>
     }
 
+    // Rendering the list of posts.
     return (
         <>
             <Logo headingLevel="h1">Charlie</Logo>

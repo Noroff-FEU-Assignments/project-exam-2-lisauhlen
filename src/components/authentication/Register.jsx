@@ -24,6 +24,7 @@ import decorBottom from '../../images/decorBottom.svg'
  * On success, the response is saved in Local Storage, and the user is navigated to 'register/login' where they can log in for the first time.
  */
 
+// Validating all form inputs with Yup.
 const schema = yup.object().shape({
     name: yup
         .string()
@@ -46,11 +47,14 @@ const schema = yup.object().shape({
 })
 
 function Register() {
+    // Setting up useStates to handle the form submit, and any errors.
     const [submitting, setSubmitting] = useState(false)
     const [registerError, setRegisterError] = useState(null)
 
+    // Declaring the useNavigate hook.
     const navigate = useNavigate()
 
+    // Declaring register, handleSubmit, and errors for the form.
     const {
         register,
         handleSubmit,
@@ -59,12 +63,16 @@ function Register() {
         resolver: yupResolver(schema),
     })
 
+    // Constructing the URL for the API call.
     const url = BASE_URL + registerUser
 
+    // This function runs on submit.
     async function onSubmit(data) {
         setSubmitting(true)
         setRegisterError(null)
 
+        // Making the post request to register new user. On success, user info is saved in Local Storage, and we navigate to the login for new users.
+        // Setting error as the value of registerError, and submitting to false.
         try {
             const response = await axios.post(url, data)
             SaveToStorage('userInfo', response.data)
@@ -77,10 +85,12 @@ function Register() {
         }
     }
 
+    // Rendering the loader while form is submitting.
     if (submitting) {
         return <Loader />
     }
 
+    // Rendering the registration form.
     return (
         <div className="position-relative login-screens">
             <Image src={decorTop} alt="" className="decor-top" />

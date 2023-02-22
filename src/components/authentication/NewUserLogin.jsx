@@ -15,6 +15,7 @@ import decorBottom from '../../images/decorBottom.svg'
  */
 
 function NewUserLogin() {
+    // Getting the user info from Local Storage, to welcome the user by username.
     const userInfo = RetrieveFromStorage('userInfo')
 
     return (

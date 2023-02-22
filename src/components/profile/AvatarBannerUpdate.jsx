@@ -17,8 +17,10 @@ import bannerProfile from '../../images/bannerProfile.svg'
  */
 
 function AvatarBannerUpdate() {
+    // Setting up useContext to handle authentication.
     const [auth] = useContext(AuthContext)
 
+    // Checking for avatar and banner images. If none, default images are set.
     let banner = auth.banner
     let avatar = auth.avatar
 
@@ -30,6 +32,7 @@ function AvatarBannerUpdate() {
         avatar = avatarProfile
     }
 
+    // Rendering the page for updating avatar and banner images. Displaying the current images.
     return (
         <Container className="update-images-container position-relative">
             <BackButton data="value" />

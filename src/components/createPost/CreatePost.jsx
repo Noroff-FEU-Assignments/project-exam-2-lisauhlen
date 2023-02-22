@@ -24,6 +24,7 @@ import avatarFeed from '../../images/avatarFeed.svg'
  * On success, the user is navigated to '/home' to see their new post in the feed.
  */
 
+// Validating all form inputs with Yup.
 const schema = yup.object().shape({
     title: yup.string().required('Please enter a post title.'),
     body: yup
@@ -39,13 +40,16 @@ const schema = yup.object().shape({
 })
 
 function CreatePost() {
+    // Setting up useStates to handle the form submit, and any errors. Using useContext to handle authentication.
     const [submitting, setSubmitting] = useState(false)
     const [postError, setPostError] = useState(null)
     const [auth] = useContext(AuthContext)
 
+    // Declaring the Axios instance, and the useNavigate hook.
     const http = useAxios()
     const navigate = useNavigate()
 
+    // Declaring register, handleSubmit, and errors for the post form.
     const {
         register,
         handleSubmit,
@@ -54,10 +58,12 @@ function CreatePost() {
         resolver: yupResolver(schema),
     })
 
+    // This function runs on submit.
     async function onSubmit(data) {
         setSubmitting(true)
         setPostError(null)
 
+        // Checking for post tags and formatting them correctly.
         if (data.tags) {
             data.tags = data.tags
                 .split(' ')
@@ -69,6 +75,8 @@ function CreatePost() {
             data.tags = ['']
         }
 
+        // Making the post request. On success, navigate home to see the new post.
+        // Setting error as the value of postError, and submitting to false.
         try {
             await http.post(socialPosts, data)
             navigate('/home')
@@ -80,12 +88,13 @@ function CreatePost() {
         }
     }
 
+    // Checking for avatar image. If no avatar, a default image is set.
     let avatarImage = auth.avatar
-
     if (!avatarImage) {
         avatarImage = avatarFeed
     }
 
+    // Rendering the post form.
     return (
         <Container className="position-relative">
             <BackButton data="close" />

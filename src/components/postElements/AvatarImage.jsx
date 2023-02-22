@@ -9,12 +9,15 @@ import avatarFeed from '../../images/avatarFeed.svg'
  */
 
 function AvatarImage(avatar) {
+    // Declaring the avatar image variable.
     let avatarImage = avatar.data.author.avatar
 
+    // Checking for avatar image. If none, a default image is set.
     if (!avatarImage) {
         avatarImage = avatarFeed
     }
 
+    // Rendering the avatar image.
     return (
         <Image
             src={avatarImage}

@@ -10,7 +10,10 @@ import useLocalStorage from '../hooks/useLocalStorage'
 const AuthContext = React.createContext([null, () => {}])
 
 export const AuthProvider = (props) => {
+    // Making AuthProvider save to/retrieve from local storage.
     const [auth, setAuth] = useLocalStorage('auth', null)
+
+    // Returning the AuthProvider.
     return (
         <AuthContext.Provider value={[auth, setAuth]}>
             {props.children}

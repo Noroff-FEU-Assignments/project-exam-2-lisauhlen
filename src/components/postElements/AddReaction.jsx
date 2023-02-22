@@ -14,23 +14,31 @@ import ErrorComponent from '../common/ErrorComponent'
  */
 
 function AddReaction(post) {
+    // Calculating the sum of all reactions.
     const reactionSum = post.data.reactions.reduce(
         (prev, current) => prev + current.count,
         0
     )
 
+    // Setting up useStates to handle errors, and the sum of reactions.
     const [reactionError, setReactionError] = useState(null)
     const [reactionCount, setReactionCount] = useState(reactionSum)
 
+    // Declaring the Axios instance.
     const http = useAxios()
+
+    // Getting id from the URL, and creating the URL for the API call.
     const { id } = useParams()
     const endpoint = socialPosts + '/' + id + '/react/❤️'
 
+    // This function runs on click.
     function HandleClick() {
         setReactionError(null)
 
+        // Running the animation.
         heartAnimation()
 
+        // Making the put request. On success, reaction count is updated. Setting error as the value of reactionError
         async function addReaction() {
             try {
                 await http.put(endpoint, {})
@@ -43,6 +51,7 @@ function AddReaction(post) {
         addReaction()
     }
 
+    // Rendering the heart emoji and the reaction count.
     return (
         <>
             <div onClick={HandleClick} className="add-reaction">
