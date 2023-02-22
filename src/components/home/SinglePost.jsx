@@ -26,21 +26,24 @@ import { singlePostError } from '../common/ErrorMessages'
  */
 
 function SinglePost() {
+    // Setting up useStates to handle the API result, loading, errors, and using the useContext.
     const [post, setPost] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(null)
     const [auth] = useContext(AuthContext)
 
+    // Using the Axios instance and setting up the URL endpoints.
     const http = useAxios()
+    const endpoint = socialPosts + '/' + id + postFlags
+
+    // Getting the id from the URL. If no id, use useNavigate to redirect to home.
     let navigate = useNavigate()
     const { id } = useParams()
-
     if (!id) {
         navigate('/home')
     }
 
-    const endpoint = socialPosts + '/' + id + postFlags
-
+    // Making the get request, setting the result as the value of post, and the error as the value of error. Setting loading to false.
     useEffect(function () {
         async function getPost() {
             try {
@@ -56,14 +59,17 @@ function SinglePost() {
         getPost()
     }, []) // eslint-disable-line
 
+    // Displaying the loader on page load.
     if (loading) {
         return <Loader />
     }
 
+    // Displaying a custom error message if error.
     if (error) {
         return <ErrorComponent>{singlePostError}</ErrorComponent>
     }
 
+    // Rendering the single post, with reactions and comments, and a link to the author's profile.
     return (
         <Container className="position-relative container-padding">
             <BackButton data="back" />

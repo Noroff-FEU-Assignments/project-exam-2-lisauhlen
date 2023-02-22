@@ -18,19 +18,25 @@ import { userLoginError } from '../common/ErrorMessages'
  * On success, the response is saved in the auth variable, which saves the response in Local Storage through useContext.
  */
 
+// Validating all form inputs with Yup.
 const schema = yup.object().shape({
     email: yup.string().required('Please enter your email'),
     password: yup.string().required('Please enter your password'),
 })
 
 function Login() {
+    // Setting up useStates to handle the form submit, and any errors. Using useContext to handle authentication.
     const [submitting, setSubmitting] = useState(false)
     const [loginError, setLoginError] = useState(null)
     const [auth, setAuth] = useContext(AuthContext)
 
+    // Declaring the useNavigate hook.
     const navigate = useNavigate()
+
+    // Constructing the URL for the API call.
     const url = BASE_URL + login
 
+    // Declaring register, handleSubmit, and errors for the form.
     const {
         register,
         handleSubmit,
@@ -39,10 +45,13 @@ function Login() {
         resolver: yupResolver(schema),
     })
 
+    // This function runs on submit.
     async function onSubmit(data) {
         setSubmitting(true)
         setLoginError(null)
 
+        // Making the post request to login. On success, result is set as the value of auth, and navigate home.
+        // Setting error as the value of postError, and submitting to false.
         try {
             const response = await axios.post(url, data)
             setAuth(response.data)
@@ -55,10 +64,12 @@ function Login() {
         }
     }
 
+    // Rendering the loader on form submit.
     if (submitting) {
         return <Loader />
     }
 
+    // Rendering the login form.
     return (
         <form onSubmit={handleSubmit(onSubmit)}>
             {loginError && <FormError>{userLoginError}</FormError>}
