@@ -32,9 +32,8 @@ function SinglePost() {
     const [error, setError] = useState(null)
     const [auth] = useContext(AuthContext)
 
-    // Using the Axios instance and setting up the URL endpoints.
+    // Using the Axios instance.
     const http = useAxios()
-    const endpoint = socialPosts + '/' + id + postFlags
 
     // Getting the id from the URL. If no id, use useNavigate to redirect to home.
     let navigate = useNavigate()
@@ -42,6 +41,9 @@ function SinglePost() {
     if (!id) {
         navigate('/home')
     }
+
+    // Creating the URL endpoints.
+    const endpoint = socialPosts + '/' + id + postFlags
 
     // Making the get request, setting the result as the value of post, and the error as the value of error. Setting loading to false.
     useEffect(function () {
