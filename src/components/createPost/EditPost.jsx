@@ -110,8 +110,7 @@ function EditPost() {
         // Making the put request. On success, navigate to the updated post.
         // Setting error as the value of editError, and submitting to false.
         try {
-            const response = await http.put(endpoint, data)
-            console.log(response.data)
+            await http.put(endpoint, data)
             navigate('/home/detail/' + id)
         } catch (error) {
             console.log(error)
