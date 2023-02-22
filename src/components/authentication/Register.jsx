@@ -29,7 +29,8 @@ const schema = yup.object().shape({
     name: yup
         .string()
         .required('Please enter a username')
-        .min(1, 'The username must contain at least one character.'),
+        .min(1, 'The username must contain at least one character.')
+        .matches(/^\S+$/, 'The username cannot contain spaces'),
     email: yup
         .string()
         .required('Please enter your email')
