@@ -52,7 +52,7 @@ When logged in, a user can:
 
 🔹 It uses [React](https://reactjs.org/) version 18.2.0.
 
-🔹 [Node modules](https://www.npmjs.com/package/node-modules) are version 1.0.1.
+🔹 [Node modules](https://www.npmjs.com/package/node-modules) are version 9.4.2.
 
 🔹 The app uses the routing library [React Router](https://reactrouter.com/en/main).
 
